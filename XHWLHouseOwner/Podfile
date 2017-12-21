@@ -1,0 +1,37 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '10.0'
+
+target 'XHWLHouseOwner' do
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for XHWLHouseOwner
+  pod 'Alamofire', '~>4.5.0'
+  pod 'SnapKit', '~>3.2.0'
+  pod 'Kingfisher', '~>3.10.4'
+#  pod 'AgoraAudio_iOS', '~>1.12.0'
+#  pod 'AgoraRtcEngine_iOS', '~>1.12.0'
+  pod 'IQKeyboardManagerSwift', '~>4.0.11'
+  pod 'swiftScan', '~>1.1.1'
+  pod 'MJExtension', '~>3.0.13'
+  pod 'SwipeableTabBarController', '~>1.0.5'
+  pod 'DropDown', '~>2'
+  pod 'ElasticTransition', '~>3.1.1'
+  pod 'TransitionTreasury', :path => "./"
+  pod 'TransitionAnimation', :path => "./"
+  pod 'SwiftCharts', '~> 0.6'
+  pod 'JSQWebViewController', '~> 5.0.0'
+  pod 'WechatOpenSDK', '~> 1.7.9'
+  
+
+  target 'XHWLHouseOwnerTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'XHWLHouseOwnerUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end

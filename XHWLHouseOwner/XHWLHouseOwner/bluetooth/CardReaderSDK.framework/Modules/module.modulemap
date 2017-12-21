@@ -1,0 +1,4 @@
+framework module CardReaderSDK {
+    header "CardReaderSDK-Swift.h"
+    requires objc
+}

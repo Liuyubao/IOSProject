@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "XHWLHouseOwner/goodness/SportsIndexVC.swift"
+            timestampString = "535258968.524763"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
+            landmarkName = "startPedometerUpdates()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__ObjC.CMPedometerData&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in XHWLHouseOwner.SportsIndexVC.startPedometerUpdates() -&gt; ()"
+                  moduleName = "XHWLHouseOwner"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/liuyubao/Desktop/%E5%B7%A5%E4%BD%9C/app%E5%BC%80%E5%8F%913%E7%89%88/XHWLHouseOwner/XHWLHouseOwner/goodness/SportsIndexVC.swift"
+                  timestampString = "535369432.721098"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "166"
+                  endingLineNumber = "166"
+                  offsetFromSymbolStart = "2956">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #1 (Swift.Optional&lt;__ObjC.CMPedometerData&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in XHWLHouseOwner.SportsIndexVC.startPedometerUpdates() -&gt; ()"
+                  moduleName = "XHWLHouseOwner"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/liuyubao/Desktop/%E5%B7%A5%E4%BD%9C/app%E5%BC%80%E5%8F%913%E7%89%88/XHWLHouseOwner/XHWLHouseOwner/goodness/SportsIndexVC.swift"
+                  timestampString = "535369432.722677"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "167"
+                  endingLineNumber = "167"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
