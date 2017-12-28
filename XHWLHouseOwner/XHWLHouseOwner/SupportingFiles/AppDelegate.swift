@@ -9,10 +9,16 @@
 import UIKit
 import CoreData
 import IQKeyboardManagerSwift
+import WilddogCore
+import WilddogAuth
+import WilddogSync
+import WilddogVideoBase
+import WilddogVideoCall
+//import WilddogWebRTC
 
 @available(iOS 10.0, *)
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate, WXApiDelegate{
+class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate, WXApiDelegate, XHWLNetworkDelegate{
 
     var window: UIWindow?
 //    var isFirstLogin = true
@@ -23,13 +29,67 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate, WX
         setupJPush(launchOptions)
         WXApi.registerApp(WX_APPID)
         TencentOAuth(appId: "1106505226", andDelegate: nil)
+        self.initWilddogAuth()
         
         //如果有user，即存在token，直接登录
         if UserDefaults.standard.object(forKey: "user") != nil{
             let tabBarVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarVC")
             self.window?.rootViewController = tabBarVC
+            
+            //从沙盒中获得curInfomodel，并且更新curProject
+            var curInfoData = UserDefaults.standard.object(forKey: "curInfo") as! NSData
+            var curInfoModel = XHWLCurrentInfoModel.mj_object(withKeyValues: curInfoData.mj_JSONObject())
+            //取出user的信息
+            let data = UserDefaults.standard.object(forKey: "user") as? NSData
+            let userModel = XHWLUserModel.mj_object(withKeyValues: data?.mj_JSONObject())
+            if #available(iOS 10.0, *) {
+                AppDelegate.shared().getWilddogToken(curInfoModel?.curProject.id as! String, userModel?.telephone as! String)
+            } else {
+                // Fallback on earlier versions
+            }
         }
         return true
+    }
+    
+    func initWilddogAuth(){
+        let appID: String = WilddogAuthAppID
+        let options = WDGOptions.init(syncURL: "https://\(appID).wilddogio.com")
+        WDGApp.configure(with: options)
+        do{
+            try WDGAuth.auth()?.signOut()
+        }catch{
+        }
+    }
+    
+    // 获取当前控制器
+    func getCurrentVC() -> UIViewController {
+        if self.window?.rootViewController is LoginViewController {
+            return self.window?.rootViewController as! LoginViewController
+        }
+        else if self.window?.rootViewController is XHWLTabBarViewController {
+            let tabbar:XHWLTabBarViewController = self.window?.rootViewController as! XHWLTabBarViewController
+
+            let selectNav = tabbar.viewControllers![tabbar.selectedIndex]
+            return selectNav
+////
+////            print("\(selectNav)")
+////
+////            if selectNav is XHWLNavigationController {
+////                let nav:XHWLNavigationController = selectNav as! XHWLNavigationController
+////                let vc:UIViewController = nav.topViewController as! UIViewController
+////
+////                print("\(vc)")
+////
+////                return vc
+////            }
+//            return UIViewController()
+        }
+        return (self.window?.rootViewController)!
+        
+        
+//        let rootVC = self.window?.rootViewController
+//        let vc = rootVC?.storyboard?.instantiateViewController(withIdentifier: "TabBarVC")
+//        return vc!
     }
     
     func setupJPush(_ launchOptions:[UIApplicationLaunchOptionsKey: Any]?) {
@@ -230,6 +290,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate, WX
         JPUSHService.resetBadge()
         self.saveContext()
     }
+    
+    func wilddogLogin(_ token:String) {
+        WDGAuth.auth()?.signIn(withCustomToken: token, completion: { (user, error) in
+            if error == nil {
+                // 获取 token
+                user?.getTokenWithCompletion({ (idToken, error) in
+                    // 配置 Video Initializer
+                    WDGVideoInitializer.sharedInstance().userLogLevel = WDGVideoLogLevel.error
+                    
+                    WDGVideoInitializer.sharedInstance().configure(withVideoAppId: VIDEO_APPID, token: idToken)
+                    
+                    XHWLWilddogVideoManager.shared.config()
+                    XHWLWilddogVideoManager.shared.saveUser(user!)
+                    
+                    print("uID: \(user?.uid)")
+                    //                    let usersReference:WDGSyncReference = WDGSync.sync().reference().child("users")
+                    //                    usersReference.child((user?.uid)!).setValue(true)
+                    //                    usersReference.child((user?.uid)!).onDisconnectRemoveValue()
+                })
+            }
+        })
+    }
+    
+    // 获取野狗云token
+    func getWilddogToken(_ projectID:String, _ telephone:String) {
+        
+        if !projectID.isEmpty && !telephone.isEmpty {
+            
+            //            let uid = projectID + "-staff-" + telephone
+            //            let uid = "123-user-18307478839"
+            let uid = "123-user-13123375305"
+            //            let uid = "123-user-13714939868"
+            
+            XHWLNetwork.shared.postWilddogTokenClick(["uid":uid], self)
+        }
+    }
 
     // MARK: - Core Data stack
     lazy var persistentContainer: NSPersistentContainer = {
@@ -295,5 +391,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate, WX
         window.rootViewController = loginVC
         loginVC?.dismiss(animated: true, completion: nil)
     }
+    
+    //network代理的方法
+    func requestSuccess(_ requestKey:NSInteger, _ response:[String : AnyObject]) {
+        switch requestKey {
+        case XHWLRequestKeyID.XHWL_WILDDOGTOKEN.rawValue:
+            let result:NSDictionary = response["result"] as! NSDictionary
+            let token:String = result["token"] as! String
+            wilddogLogin(token)
+            break
+        default:
+            break
+        }
+    }
+    
+    //network代理的方法
+    func requestFail(_ requestKey:NSInteger, _ error:NSError) {
+    }
+    
+    
 }
 

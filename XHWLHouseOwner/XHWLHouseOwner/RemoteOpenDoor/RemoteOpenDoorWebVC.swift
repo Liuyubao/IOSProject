@@ -10,7 +10,7 @@ import UIKit
 
 class RemoteOpenDoorWebVC: UIViewController {
     
-    fileprivate let loadURL = "http://10.51.39.117:3001/openDoor/"
+    fileprivate let loadURL = "http://202.105.96.131:3001/openDoor/"
     // webView
     fileprivate lazy var webView:UIWebView = {
         let webView = UIWebView()
@@ -19,7 +19,6 @@ class RemoteOpenDoorWebVC: UIViewController {
         webView.scalesPageToFit = true
         webView.backgroundColor = UIColor.clear
         self.view.addSubview(webView)
-        
         return webView
     }()
 

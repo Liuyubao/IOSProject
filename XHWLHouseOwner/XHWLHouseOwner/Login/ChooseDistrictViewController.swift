@@ -28,6 +28,15 @@ class ChooseDistrictViewController: UIViewController, UIPickerViewDelegate, UIPi
         //从沙盒中获得curInfomodel，并且更新curProject
         var curInfoData = UserDefaults.standard.object(forKey: "curInfo") as! NSData
         var curInfoModel = XHWLCurrentInfoModel.mj_object(withKeyValues: curInfoData.mj_JSONObject())
+        //取出user的信息
+        let data = UserDefaults.standard.object(forKey: "user") as? NSData
+        let userModel = XHWLUserModel.mj_object(withKeyValues: data?.mj_JSONObject())
+        if #available(iOS 10.0, *) {
+            AppDelegate.shared().getWilddogToken(curInfoModel?.curProject.id as! String, userModel?.telephone as! String)
+        } else {
+            // Fallback on earlier versions
+        }
+        
         
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "SpaceVC") as! SpaceViewController
         if (curInfoModel?.isFirstToSpace)! {

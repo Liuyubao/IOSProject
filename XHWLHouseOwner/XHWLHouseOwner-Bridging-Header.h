@@ -30,6 +30,14 @@
 #import <AgoraRtcCryptoLoader/AgoraRtcCryptoLoader.h>
 #import "AGVideoPreProcessing.h"
 
+////Wilddog sdk
+//#import <WilddogSync/WilddogSync.h>
+//#import <WilddogAuth/WilddogAuth.h>
+//#import <WilddogVideoBase/WilddogVideoBase.h>
+//#import <WilddogCore/WilddogCore.h>
+//#import <WilddogVideoCall/WilddogVideoCall.h>
+//#import <WilddogVideoBase/WilddogVideoBase.h>
+
 
 //Car plate
 #import "UIView_extra.h"

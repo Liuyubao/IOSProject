@@ -14,7 +14,6 @@ class XHWLTabBarViewController:  UITabBarController{
         super.viewDidLoad()
         self.selectedViewController = self.viewControllers?[0]
 //        setSwipeAnimation(type: SwipeAnimationType.sideBySide)
-        
         self.tabBar.backgroundImage = UIImage()
         self.tabBar.shadowImage = UIImage()
 

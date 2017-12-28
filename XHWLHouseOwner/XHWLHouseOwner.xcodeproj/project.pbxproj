@@ -286,6 +286,9 @@
 		658849081F7A370B009261D6 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658849071F7A370B009261D6 /* SwiftyJSON.swift */; };
 		6590A38E1F7A605800B2B900 /* CardReaderSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6580F9061F7A58FD00D59D25 /* CardReaderSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		659853931FE7C7B10071D607 /* RemoteOpenDoorWebVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659853921FE7C7B10071D607 /* RemoteOpenDoorWebVC.swift */; };
+		6598540C1FF0E2890071D607 /* XHWLWilddogVideoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6598540B1FF0E2890071D607 /* XHWLWilddogVideoManager.swift */; };
+		6598540E1FF0E2A90071D607 /* XHWLWiddogVideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6598540D1FF0E2A90071D607 /* XHWLWiddogVideoVC.swift */; };
+		6598541A1FF23D200071D607 /* WilddogDoorGuardRoomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659854191FF23D200071D607 /* WilddogDoorGuardRoomVC.swift */; };
 		65AFB1D61FA1B5AA005B3D0D /* DoorGuardRoomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFB1D51FA1B5AA005B3D0D /* DoorGuardRoomVC.swift */; };
 		65B5FCB51FC5606F001953DC /* MyAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B5FCB41FC5606F001953DC /* MyAccountVC.swift */; };
 		65B5FCB71FC56219001953DC /* MyAccountTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B5FCB61FC56219001953DC /* MyAccountTableVC.swift */; };
@@ -725,6 +728,9 @@
 		658349811FBAE27000988F08 /* BindSetPswVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindSetPswVC.swift; sourceTree = "<group>"; };
 		658849071F7A370B009261D6 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		659853921FE7C7B10071D607 /* RemoteOpenDoorWebVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteOpenDoorWebVC.swift; sourceTree = "<group>"; };
+		6598540B1FF0E2890071D607 /* XHWLWilddogVideoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XHWLWilddogVideoManager.swift; sourceTree = "<group>"; };
+		6598540D1FF0E2A90071D607 /* XHWLWiddogVideoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XHWLWiddogVideoVC.swift; sourceTree = "<group>"; };
+		659854191FF23D200071D607 /* WilddogDoorGuardRoomVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WilddogDoorGuardRoomVC.swift; sourceTree = "<group>"; };
 		65AFB1D51FA1B5AA005B3D0D /* DoorGuardRoomVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoorGuardRoomVC.swift; sourceTree = "<group>"; };
 		65B5FCB41FC5606F001953DC /* MyAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountVC.swift; sourceTree = "<group>"; };
 		65B5FCB61FC56219001953DC /* MyAccountTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountTableVC.swift; sourceTree = "<group>"; };
@@ -1364,6 +1370,9 @@
 		6531BDE51F628E6E00138397 /* cloudTalking */ = {
 			isa = PBXGroup;
 			children = (
+				6598540B1FF0E2890071D607 /* XHWLWilddogVideoManager.swift */,
+				6598540D1FF0E2A90071D607 /* XHWLWiddogVideoVC.swift */,
+				659854191FF23D200071D607 /* WilddogDoorGuardRoomVC.swift */,
 				6531BDE61F628E6E00138397 /* Controllers */,
 				6531BDEB1F628E6E00138397 /* Models */,
 				6531BDF51F628E6E00138397 /* Views */,
@@ -1981,12 +1990,14 @@
 				"${BUILT_PRODUCTS_DIR}/JSQWebViewController/JSQWebViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework",
+				"${BUILT_PRODUCTS_DIR}/MZTimerLabel/MZTimerLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/MotionAnimation/MotionAnimation.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftCharts/SwiftCharts.framework",
 				"${BUILT_PRODUCTS_DIR}/SwipeableTabBarController/SwipeableTabBarController.framework",
 				"${BUILT_PRODUCTS_DIR}/TransitionAnimation/TransitionAnimation.framework",
 				"${BUILT_PRODUCTS_DIR}/TransitionTreasury/TransitionTreasury.framework",
+				"${PODS_ROOT}/WilddogWebRTC/WebRTC.framework",
 				"${BUILT_PRODUCTS_DIR}/swiftScan/swiftScan.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -1998,12 +2009,14 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQWebViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJExtension.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MZTimerLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MotionAnimation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftCharts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeableTabBarController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TransitionAnimation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TransitionTreasury.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/swiftScan.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2245,6 +2258,7 @@
 				65F444D61F6916AB004F1155 /* XNTool.swift in Sources */,
 				651D05351F8DBC9B008D9BB1 /* ServiceCenterVC.swift in Sources */,
 				65C1E9B81F668D8800CE0429 /* SegueFromLeft.swift in Sources */,
+				6598541A1FF23D200071D607 /* WilddogDoorGuardRoomVC.swift in Sources */,
 				651E025D1F904D7800631AAD /* DKViewControllerExt.swift in Sources */,
 				6527D6161F5E3510009E4B9C /* STPopupNavigationBar.m in Sources */,
 				6527D6171F5E3510009E4B9C /* UIResponder+STPopup.m in Sources */,
@@ -2263,6 +2277,7 @@
 				6516B9C81F6ADAE600183354 /* PersonalInfoVC.swift in Sources */,
 				6527D6141F5E3510009E4B9C /* STPopupController.m in Sources */,
 				652069421F99D9B700BAF8E0 /* ServiceCell.swift in Sources */,
+				6598540C1FF0E2890071D607 /* XHWLWilddogVideoManager.swift in Sources */,
 				651E025B1F904D7200631AAD /* CGRectEx.swift in Sources */,
 				6575F1781F74FD76006163D3 /* XHWLProjectModel.swift in Sources */,
 				6527D6021F5E3510009E4B9C /* MASConstraintMaker.m in Sources */,
@@ -2291,6 +2306,7 @@
 				6527D6731F5E935B009E4B9C /* PickerView.m in Sources */,
 				6527D6151F5E3510009E4B9C /* STPopupLeftBarItem.m in Sources */,
 				655EEFF01F6AD2E8001D19E3 /* MonthPayInfoVC.swift in Sources */,
+				6598540E1FF0E2A90071D607 /* XHWLWiddogVideoVC.swift in Sources */,
 				6527D6251F5E3510009E4B9C /* UIScrollView+SYRefresh.swift in Sources */,
 				6527D6381F5E3523009E4B9C /* UIColor+Category.swift in Sources */,
 				65476C041F8C743900FF84D1 /* UnitDoorListTableVC.swift in Sources */,

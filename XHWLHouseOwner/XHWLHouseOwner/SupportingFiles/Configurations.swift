@@ -17,6 +17,12 @@ let WX_APPSecret:String = "57039eb96054557def20c354f21a709c"
 
 //"10092150" // 应用编号
 let WeatherKey:String = "3e6338eef8c947dd89f4ffebbf580778"
+//野狗云appId
+let WilddogAuthAppID = "wd5576019203pqpfqi"
+
+// 野狗云
+let VIDEO_APPID:String = "wd4554034089toorht"
+let SYNC_APPID:String = "wd5576019203pqpfqi"
 
 
 //from airong

@@ -9,16 +9,13 @@ import UIKit
 import Alamofire
 
 class RemoteOpenDoorVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, XHWLNetworkDelegate {
-    
     @IBOutlet weak var doorPickerView: UIPickerView!
     @IBOutlet weak var conformBtn: UIButton!
-    
     
     @IBAction func returnBtnClicked(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
     
-//    var isJY = false        //是否为锦阳公馆，默认为false
     var jyDoors = [[String:String]]()
 //        ["doorID": "test", "serverGuid": "XH0001", "name": "兴海物联正门"],
 

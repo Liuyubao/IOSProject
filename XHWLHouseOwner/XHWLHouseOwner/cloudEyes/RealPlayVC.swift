@@ -97,6 +97,13 @@ class RealPlayVC: UIViewController,RealPlayManagerDelegate, PlayViewDelegate {
         //需要传入三个参数.cameraSyscode是监控点的唯一标识.   g_currentQuality 是上面设置的视频清晰度  playView是用户自己指定一个用来播放视频的视图
         g_playManager?.startRealPlay(cameraSyscode, videoType: g_currentQuality!, play: playView?.playView , complete: { (finish, message) in
             //finish返回YES时,代表当前操作成功.finish返回NO时,message会返回预览过程中的失败信息
+            if message?.range(of: "fail") != nil{
+                "设备不在线".ext_debugPrintAndHint()
+                DispatchQueue.main.async {
+                    self.g_activity?.stopAnimating()
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
             if (finish) {
                 self.playView.isPausing = false
                 print("调用预览成功\(message)")

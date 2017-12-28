@@ -109,12 +109,14 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/JSQWebViewController/JSQWebViewController.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/MZTimerLabel/MZTimerLabel.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MotionAnimation/MotionAnimation.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftCharts/SwiftCharts.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwipeableTabBarController/SwipeableTabBarController.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TransitionAnimation/TransitionAnimation.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TransitionTreasury/TransitionTreasury.framework"
+  install_framework "${PODS_ROOT}/WilddogWebRTC/WebRTC.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/swiftScan/swiftScan.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -125,12 +127,14 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/JSQWebViewController/JSQWebViewController.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/MZTimerLabel/MZTimerLabel.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MotionAnimation/MotionAnimation.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftCharts/SwiftCharts.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwipeableTabBarController/SwipeableTabBarController.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TransitionAnimation/TransitionAnimation.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TransitionTreasury/TransitionTreasury.framework"
+  install_framework "${PODS_ROOT}/WilddogWebRTC/WebRTC.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/swiftScan/swiftScan.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then

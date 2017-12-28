@@ -4,7 +4,6 @@
 //
 //  Created by 周际航 on 2016/11/28.
 //  Copyright © 2016年 com.maramara. All rights reserved.
-//
 
 import UIKit
 
@@ -27,7 +26,6 @@ extension String {
     }
 }
 
-
 // MARK: - 扩展 常用常量扩展
 extension String {
     static let ext_documentDirectory: String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
@@ -43,6 +41,7 @@ extension String {
         return contentSize
     }
 }
+
 // MARK: - 扩展 文件读写删除
 extension String {
     func ext_readFileContent() -> String? {
@@ -85,6 +84,7 @@ extension String {
         return true
     }
 }
+
 // MARK: - 扩展 JSON
 extension String {
     func ext_jsonObject() -> Any? {
@@ -98,6 +98,7 @@ extension String {
         return jsonObj
     }
 }
+
 // MARK: - 扩展 文本替换
 extension String {
     // 当路径中出现 // 时，此方法会将其替换为 单个 ／ 如 http://www.baidu.com 会变为 http:/www.baidu.com 故此方法不可做网络url拼接

@@ -44,6 +44,9 @@ enum XHWLRequestKeyID : NSInteger {
     case XHWL_DELETEACCOUNT         //注销附属账号
     case XHWL_SETACCOUNTSTATE       //设置附属账号状态
     
+    case XHWL_WILDDOGTOKEN          // 获取野狗云token
+
+    
 }
 
 
@@ -67,34 +70,35 @@ class XHWLRequestKeyDefine: NSObject {
     func initWebServiceDomain() {
         self.trandIdDict = [
             XHWLRequestKeyID.XHWL_NONE: "",
-            XHWLRequestKeyID.XHWL_LOGIN:"appBase/login",                     // 登录
+            XHWLRequestKeyID.XHWL_LOGIN:"v1/appBase/login",                     // 登录
             
-            XHWLRequestKeyID.XHWL_REMOTEOPENDOOR:"appBusiness/iot/entrance/openDoor",    //远程开门
-            XHWLRequestKeyID.XHWL_SAVEENTRYLOG:"appBusiness/iot/entryLog",    //保存开门记录
-            XHWLRequestKeyID.XHWL_GETENTRYLOG:"appBusiness/iot/entryLog",  //获取开门记录
-            XHWLRequestKeyID.XHWL_SCAN:"appBusiness/qrcode/scan",           //根据二维码返回信息
-            XHWLRequestKeyID.XHWL_BLUETOOTHUPLOAD:"wyBusiness/bluetoothCard/bind",            //上传蓝牙设备记录
-            XHWLRequestKeyID.XHWL_GETBLUETOOTH:"wyBusiness/bluetoothCard",           //获取蓝牙设备记录
-            XHWLRequestKeyID.XHWL_DELETEBLUETOOTH:"wyBusiness/delBluetoothCard",           //删除蓝牙设备记录
-            XHWLRequestKeyID.XHWL_JPUSHMSG:"appBase/jgPush",                                 //推送
-            XHWLRequestKeyID.XHWL_LOGOUT:"appBase/appLogout",                                 //退出登录
-            XHWLRequestKeyID.XHWL_GETPUBLICDOORLIST:"appBusiness/iot/entrance/getPublicDoorList",     //获取公区门禁列表
-            XHWLRequestKeyID.XHWL_HEARTWEATHER:"appBusiness/weather",    //心情天气
-            XHWLRequestKeyID.XHWL_SERVICELIST:"appBusiness/customerService",     //获取客服列表
-            XHWLRequestKeyID.XHWL_VISITORREPLY:"wyBusiness/visitor/regist/jgPush",   //处理访客登记
-            XHWLRequestKeyID.XHWL_OPENJYDOOR:"/appBusiness/openDoorForCHJY",   //锦阳公馆开门
-            XHWLRequestKeyID.XHWL_WECHATLOGIN:"/appBase/loginByWeChat",   //通过微信授权登录
-            XHWLRequestKeyID.XHWL_WECHATGETVERICODE:"/appBase/weChat/getVerifyCode",   //绑定微信获取验证码
-            XHWLRequestKeyID.XHWL_TESTVERICODE:"/appBase/weChat/testVerifyCode",   //绑定微信验证验证码
-            XHWLRequestKeyID.XHWL_WECHATREGISTERUSER:"/appBase/register/wechat",   //微信登录时注册用户
-            XHWLRequestKeyID.XHWL_BINDWECHAT:"/appBase/bindWeChat",              //绑定微信or解绑
-            XHWLRequestKeyID.XHWL_GETVERICODE:"/appBase/register/getVerificatCode",              //获取验证码
-            XHWLRequestKeyID.XHWL_TESTPHONEVERICODE:"/appBase/register/testVerificatCode",        //验证验证码
-            XHWLRequestKeyID.XHWL_CHANGEPSW:"/appBase/modifyPassword/forgetOldPsw",              //验证码修改密
-            XHWLRequestKeyID.XHWL_ACCOUNTLIST:"/appBusiness/ownerRenter/getList",               //获取附属账号列表
-            XHWLRequestKeyID.XHWL_ADDACCOUNT:"/appBusiness/ownerRenter/add",                    //添加附属账号
-            XHWLRequestKeyID.XHWL_DELETEACCOUNT:"/appBusiness/ownerRenter/delete",              //注销附属账号
-            XHWLRequestKeyID.XHWL_SETACCOUNTSTATE:"/appBusiness/ownerRenter/updateStat"         //设置附属账号状态
+            XHWLRequestKeyID.XHWL_REMOTEOPENDOOR:"v1/appBusiness/iot/entrance/openDoor",    //远程开门
+            XHWLRequestKeyID.XHWL_SAVEENTRYLOG:"v1/appBusiness/iot/entryLog",    //保存开门记录
+            XHWLRequestKeyID.XHWL_GETENTRYLOG:"v1/appBusiness/iot/entryLog",  //获取开门记录
+            XHWLRequestKeyID.XHWL_SCAN:"v1/appBusiness/qrcode/scan",           //根据二维码返回信息
+            XHWLRequestKeyID.XHWL_BLUETOOTHUPLOAD:"v1/wyBusiness/bluetoothCard/bind",            //上传蓝牙设备记录
+            XHWLRequestKeyID.XHWL_GETBLUETOOTH:"v1/wyBusiness/bluetoothCard",           //获取蓝牙设备记录
+            XHWLRequestKeyID.XHWL_DELETEBLUETOOTH:"v1/wyBusiness/delBluetoothCard",           //删除蓝牙设备记录
+            XHWLRequestKeyID.XHWL_JPUSHMSG:"v1/appBase/jgPush",                                 //推送
+            XHWLRequestKeyID.XHWL_LOGOUT:"v1/appBase/appLogout",                                 //退出登录
+            XHWLRequestKeyID.XHWL_GETPUBLICDOORLIST:"v1/appBusiness/iot/entrance/getPublicDoorList",     //获取公区门禁列表
+            XHWLRequestKeyID.XHWL_HEARTWEATHER:"v1/appBusiness/weather",    //心情天气
+            XHWLRequestKeyID.XHWL_SERVICELIST:"v1/appBusiness/customerService",     //获取客服列表
+            XHWLRequestKeyID.XHWL_VISITORREPLY:"v1/wyBusiness/visitor/regist/jgPush",   //处理访客登记
+            XHWLRequestKeyID.XHWL_OPENJYDOOR:"v1/appBusiness/openDoorForCHJY",   //锦阳公馆开门
+            XHWLRequestKeyID.XHWL_WECHATLOGIN:"v1/appBase/loginByWeChat",   //通过微信授权登录
+            XHWLRequestKeyID.XHWL_WECHATGETVERICODE:"v1/appBase/weChat/getVerifyCode",   //绑定微信获取验证码
+            XHWLRequestKeyID.XHWL_TESTVERICODE:"v1/appBase/weChat/testVerifyCode",   //绑定微信验证验证码
+            XHWLRequestKeyID.XHWL_WECHATREGISTERUSER:"v1/appBase/register/wechat",   //微信登录时注册用户
+            XHWLRequestKeyID.XHWL_BINDWECHAT:"v1/appBase/bindWeChat",              //绑定微信or解绑
+            XHWLRequestKeyID.XHWL_GETVERICODE:"v1/appBase/register/getVerificatCode",              //获取验证码
+            XHWLRequestKeyID.XHWL_TESTPHONEVERICODE:"v1/appBase/register/testVerificatCode",        //验证验证码
+            XHWLRequestKeyID.XHWL_CHANGEPSW:"/v1/appBase/modifyPassword/forgetOldPsw",              //验证码修改密
+            XHWLRequestKeyID.XHWL_ACCOUNTLIST:"/v1/appBusiness/ownerRenter/getList",               //获取附属账号列表
+            XHWLRequestKeyID.XHWL_ADDACCOUNT:"/v1/appBusiness/ownerRenter/add",                    //添加附属账号
+            XHWLRequestKeyID.XHWL_DELETEACCOUNT:"/v1/appBusiness/ownerRenter/delete",              //注销附属账号
+            XHWLRequestKeyID.XHWL_SETACCOUNTSTATE:"/v1/appBusiness/ownerRenter/updateStat",         //设置附属账号状态
+            XHWLRequestKeyID.XHWL_WILDDOGTOKEN:"/wilddog/getToken"                          // 获取野狗云token
         ]
     }
 }

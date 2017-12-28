@@ -22,6 +22,9 @@ target 'XHWLHouseOwner' do
   pod 'SwiftCharts', '~> 0.6'
   pod 'JSQWebViewController', '~> 5.0.0'
   pod 'WechatOpenSDK', '~> 1.7.9'
+  pod 'WilddogVideoCall', '~> 2.4.1'
+  pod 'WilddogSync', '~> 2.3.12'
+  pod 'MZTimerLabel', '~>0.5.4'
   
 
   target 'XHWLHouseOwnerTests' do

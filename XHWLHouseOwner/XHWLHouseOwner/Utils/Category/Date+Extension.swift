@@ -20,6 +20,7 @@ extension Date {
         let date = Date()
         let dformatter = DateFormatter()
         dformatter.dateFormat = dateFormat
+        dformatter.timeZone = TimeZone.init(abbreviation: "UTC")
         let currentDateString = dformatter.string(from: date)
         
         return currentDateString

@@ -308,6 +308,13 @@ class XHWLNetwork: NSObject, XHWLHttpToolDelegate {
         superWithLoadData(parameters, .XHWL_SETACCOUNTSTATE, .post)
     }
     
+    // 获取野狗云token
+    func postWilddogTokenClick(_ parameters:NSDictionary, _ delegate:XHWLNetworkDelegate) {
+        
+        self.delegate = delegate;
+        superWithLoadData(parameters, .XHWL_WILDDOGTOKEN, .post)
+    }
+    
     
     // MARK: - XHWLHttpToolDelegate
     func requestSuccess(_ requestKey:NSInteger, result request:Any) {

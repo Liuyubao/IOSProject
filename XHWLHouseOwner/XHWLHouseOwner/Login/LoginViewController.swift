@@ -536,6 +536,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, XHWLNetworkDel
     //登录返回参数处理
     func onLoginBtnCLicked(_ response:[String : AnyObject]){
         if response["state"] as! Bool == true{
+            
             let result = response["result"] as! NSDictionary
             //获取user
             let yzUser = result["sysUser"] as? NSDictionary
@@ -578,6 +579,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate, XHWLNetworkDel
             let projectListArray = XHWLProjectModel.mj_objectArray(withKeyValuesArray: projectListData?.mj_JSONObject()) as? NSArray
             if projectListArray?.count != 0{
                 curInfoModel.curProject = projectListArray![0] as! XHWLProjectModel
+                if #available(iOS 10.0, *) {
+                    AppDelegate.shared().getWilddogToken(curInfoModel.curProject.id as! String, yzUser!["telephone"] as! String)
+                } else {
+                    // Fallback on earlier versions
+                }
             }else{
                 "您的账号未认证，无法登陆！".ext_debugPrintAndHint()
                 return

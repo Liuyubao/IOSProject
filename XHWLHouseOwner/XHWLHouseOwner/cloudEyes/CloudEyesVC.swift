@@ -16,25 +16,6 @@ class CloudEyesVC: UIViewController, UIScrollViewDelegate{
         print("********parentNode", parentNode)
         
         
-//        if parentNode != nil {
-//            //获取组织树节点的子节点资源
-//            self.parentNode = self.resourceArray[1] as! MCUResourceNode //深圳分公司
-//            print(self.parentNode?.nodeID)
-////            self.requestResource()
-////            self.parentNode = self.resourceArray[0] as! MCUResourceNode //深圳地区
-////            self.requestResource()
-////            self.parentNode = self.resourceArray[0] as! MCUResourceNode //深圳中海华庭节点
-////            self.requestResource()                                      //所有视频的节点集
-//
-//            for node in self.resourceArray{
-//                let mcuNode = node as! MCUResourceNode
-//                let monitor = ["name":mcuNode.nodeName, "pic":"Common_play  ", "cameraSyscode":mcuNode.sysCode]
-//            }
-//
-//        } else {
-//            //首先要请求获取组织树节点的第一级节点资源
-//            self.requestRootResource()
-//        }
     }
     
     var parentNode:MCUResourceNode? /**< 父节点*/
@@ -77,6 +58,7 @@ class CloudEyesVC: UIViewController, UIScrollViewDelegate{
     }
     
     func reloadData(){
+        self.monitorInfos.append(["name":"总部机房", "pic":"Common_play", "cameraSyscode":"92ac4c85a65243d58ef906c1bf75bab2"])
         //设置scrollView的内容总尺寸
         fourMonitorsScrollView.contentSize = CGSize(
             width: CGFloat(self.fourMonitorsView.frame.width) * CGFloat(self.monitorInfos.count/4),
@@ -237,6 +219,7 @@ class CloudEyesVC: UIViewController, UIScrollViewDelegate{
             let status:String = obj["status"] as! String
             if (status.compare("200").rawValue == 0) {
                 self.parentNode = obj["resourceNode"] as? MCUResourceNode
+                
                 self.requestResource()
                 
             } else {
@@ -247,27 +230,30 @@ class CloudEyesVC: UIViewController, UIScrollViewDelegate{
         }
     }
     
+//    func request
+    
     /**
      *  请求资源点列表数据
      */
     func requestResource() {
+//        self.requestRootResource()
         XHMLProgressHUD.shared.show()
         //        [SVProgressHUD showWithStatus:@"加载中..."];
         MCUVmsNetSDK.shareInstance().requestResource(withSysType: 1,
                                                      nodeType: 2,
-                                                     currentID: "118" ,
+                                                     currentID: "1" ,
+//                                                     currentID: "118" ,
                                                      numPerPage: 100, curPage: 1,
                                                      success: { (object) in
                                                         //            [self dismiss];
                                                         let obj:NSDictionary = object as! NSDictionary
                                                         let status:String = obj["status"] as! String
                                                         
-                                                        
                                                         if (status.compare("200").rawValue == 0) {
                                                             self.resourceArray = obj["resourceNodes"] as! NSArray
                                                             if self.resourceArray.count > 0 {
                                                                 for (index,node) in self.resourceArray.enumerated(){
-                                                                    if index<12 {
+                                                                    if index<11 {
                                                                         let mcuNode = node as! MCUResourceNode
                                                                         let monitor = ["name":mcuNode.nodeName, "pic":"Common_play", "cameraSyscode":mcuNode.sysCode]
                                                                         self.monitorInfos.append(monitor as! [String : String])
