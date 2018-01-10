@@ -15,7 +15,7 @@ enum XHWLRequestKeyID : NSInteger {
     case XHWL_NONE = 0
     case XHWL_LOGIN         // 登录
     
-    case XHWL_REMOTEOPENDOOR      //远程开门
+    
     case XHWL_SAVEENTRYLOG          //保存开门记录
     case XHWL_GETENTRYLOG           //获取开门记录
     case XHWL_SCAN                  //根据二维码返回信息
@@ -44,8 +44,9 @@ enum XHWLRequestKeyID : NSInteger {
     case XHWL_DELETEACCOUNT         //注销附属账号
     case XHWL_SETACCOUNTSTATE       //设置附属账号状态
     
-    case XHWL_WILDDOGTOKEN          // 获取野狗云token
-
+    case XHWL_WILDDOGTOKEN          //获取野狗云token
+    case XHWL_GETALLDOORS           //获取用户授权门禁列表
+    case XHWL_REMOTEOPENDOOR      //远程开门
     
 }
 
@@ -72,7 +73,7 @@ class XHWLRequestKeyDefine: NSObject {
             XHWLRequestKeyID.XHWL_NONE: "",
             XHWLRequestKeyID.XHWL_LOGIN:"v1/appBase/login",                     // 登录
             
-            XHWLRequestKeyID.XHWL_REMOTEOPENDOOR:"v1/appBusiness/iot/entrance/openDoor",    //远程开门
+            
             XHWLRequestKeyID.XHWL_SAVEENTRYLOG:"v1/appBusiness/iot/entryLog",    //保存开门记录
             XHWLRequestKeyID.XHWL_GETENTRYLOG:"v1/appBusiness/iot/entryLog",  //获取开门记录
             XHWLRequestKeyID.XHWL_SCAN:"v1/appBusiness/qrcode/scan",           //根据二维码返回信息
@@ -98,7 +99,10 @@ class XHWLRequestKeyDefine: NSObject {
             XHWLRequestKeyID.XHWL_ADDACCOUNT:"/v1/appBusiness/ownerRenter/add",                    //添加附属账号
             XHWLRequestKeyID.XHWL_DELETEACCOUNT:"/v1/appBusiness/ownerRenter/delete",              //注销附属账号
             XHWLRequestKeyID.XHWL_SETACCOUNTSTATE:"/v1/appBusiness/ownerRenter/updateStat",         //设置附属账号状态
-            XHWLRequestKeyID.XHWL_WILDDOGTOKEN:"/wilddog/getToken"                          // 获取野狗云token
+            
+            XHWLRequestKeyID.XHWL_WILDDOGTOKEN:"/wilddog/getToken",                          // 获取野狗云token
+            XHWLRequestKeyID.XHWL_GETALLDOORS:"/openDoor/getDoorByPhone",                          // 获取野狗云token
+            XHWLRequestKeyID.XHWL_REMOTEOPENDOOR:"/openDoor/openDoor"    //远程开门
         ]
     }
 }

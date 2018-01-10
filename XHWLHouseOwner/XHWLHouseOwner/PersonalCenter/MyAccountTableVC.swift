@@ -127,24 +127,24 @@ class MyAccountTableVC: UITableViewController, XHWLNetworkDelegate {
     }
         
     func doInitAccountList(_ response:[String : AnyObject]){
-        let result = response["result"] as! NSArray
-        self.accountArray = []
-        for account in result{
-            let name = (account as! NSDictionary)["name"] as! String
-            var type = (account as! NSDictionary)["type"] as! String
-            if type == "family"{
-                type = "家人"
-            }
-            if type == "renter"{
-                type = "租户"
-            }
-            let telephone = (account as! NSDictionary)["telephone"] as! String
-            let state = (account as! NSDictionary)["stat"] as! String
-            let createTime = (account as! NSDictionary)["createTime"] as! String
-            let tempAccount = ["name": name, "type": type, "telephone": telephone, "state": state,"createTime": createTime]
-            self.accountArray.append(tempAccount)
-            self.tableView.reloadData()
-        }
+//        let result = response["result"] as! NSArray
+//        self.accountArray = []
+//        for account in result{
+//            let name = (account as! NSDictionary)["name"] as! String
+//            var type = (account as! NSDictionary)["type"] as! String
+//            if type == "family"{
+//                type = "家人"
+//            }
+//            if type == "renter"{
+//                type = "租户"
+//            }
+//            let telephone = (account as! NSDictionary)["telephone"] as! String
+//            let state = (account as! NSDictionary)["stat"] as! String
+//            let createTime = (account as! NSDictionary)["createTime"] as! String
+//            let tempAccount = ["name": name, "type": type, "telephone": telephone, "state": state,"createTime": createTime]
+//            self.accountArray.append(tempAccount)
+//            self.tableView.reloadData()
+//        }
     }
     
     //network代理的方法

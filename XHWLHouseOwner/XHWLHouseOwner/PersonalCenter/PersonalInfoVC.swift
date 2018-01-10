@@ -39,6 +39,7 @@ class PersonalInfoVC: UIViewController,UITextFieldDelegate ,UIScrollViewDelegate
     //修改密码
     @IBOutlet weak var changePswBtn: UIButton!
     @IBOutlet weak var pswStateLabel: UILabel!
+    @IBOutlet weak var headIconIV: UIImageView!
     
     //修改密码事件
     @IBAction func changePswBtnClicked(_ sender: UIButton) {
@@ -79,7 +80,6 @@ class PersonalInfoVC: UIViewController,UITextFieldDelegate ,UIScrollViewDelegate
                 let params = ["id": userModel?.sysAccount.id]
                 XHWLNetwork.shared.postBindWechat(params as NSDictionary, self)
             }
-            
         }
     }
     
@@ -92,8 +92,10 @@ class PersonalInfoVC: UIViewController,UITextFieldDelegate ,UIScrollViewDelegate
             let data = try? Data.init(contentsOf: requestURL, options: Data.ReadingOptions())
             DispatchQueue.main.async {
                 let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String,Any>
+                print("#############jsonResult",jsonResult)
                 let openid: String = jsonResult["openid"] as! String
                 let access_token: String = jsonResult["access_token"] as! String
+                
                 //保存openID、access_token到沙盒
                 UserDefaults.standard.set(openid, forKey: "openId")
                 UserDefaults.standard.set(access_token, forKey: "access_token")
@@ -114,15 +116,17 @@ class PersonalInfoVC: UIViewController,UITextFieldDelegate ,UIScrollViewDelegate
             DispatchQueue.main.async {
                 let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String,Any>
                 //保存nickname到沙盒
-                UserDefaults.standard.set(jsonResult["nickname"] as! String, forKey: "nickName")
-                UserDefaults.standard.synchronize()
+                print(jsonResult)
+                if self.wechatNameLabel.text == "未绑定"{
+                    UserDefaults.standard.set(jsonResult["nickname"] as! String, forKey: "nickName")
+                    UserDefaults.standard.set(jsonResult["headimgurl"] as! String, forKey: "imageUrl")
+                    UserDefaults.standard.synchronize()
+                }
                 //绑定微信
                 let data = UserDefaults.standard.object(forKey:"user") as! NSData
                 let userModel = XHWLUserModel.mj_object(withKeyValues:data.mj_JSONObject())
-                let params = ["id": userModel?.sysAccount.id, "openId":openid]
+                let params = ["id": userModel?.sysAccount.id, "openId":openid, "nickName":jsonResult["nickname"] as! String, "imageUrl":jsonResult["headimgurl"] as! String]
                 XHWLNetwork.shared.postBindWechat(params as NSDictionary, self)
-                
-                print(jsonResult)
             }
         }
     }
@@ -146,6 +150,8 @@ class PersonalInfoVC: UIViewController,UITextFieldDelegate ,UIScrollViewDelegate
             UserDefaults.standard.removeObject(forKey: "user")
             UserDefaults.standard.removeObject(forKey: "projectList")
             UserDefaults.standard.removeObject(forKey: "roomList")
+            UserDefaults.standard.removeObject(forKey: "nickName")
+            UserDefaults.standard.removeObject(forKey: "imageUrl")
             UserDefaults.standard.synchronize()
             
             JPUSHService.deleteAlias(nil, seq: 0)
@@ -169,6 +175,7 @@ class PersonalInfoVC: UIViewController,UITextFieldDelegate ,UIScrollViewDelegate
                     UserDefaults.standard.removeObject(forKey: "openId")
                     UserDefaults.standard.removeObject(forKey: "access_token")
                     UserDefaults.standard.removeObject(forKey: "code")
+                    UserDefaults.standard.synchronize()
                     "解绑成功".ext_debugPrintAndHint()
                     self.viewDidLoad()
                 }
@@ -284,11 +291,43 @@ class PersonalInfoVC: UIViewController,UITextFieldDelegate ,UIScrollViewDelegate
         }
         userModel = XHWLUserModel.mj_object(withKeyValues: data?.mj_JSONObject())
         
+        // MARK: - 初始化界面变量
         //初始化个人信息
         nameTF.text = userModel?.name
-        sexTF.text = userModel?.sex
+        if userModel?.sex == "M"{
+            sexTF.text = "男"
+        }else{
+            sexTF.text = "女"
+        }
         phoneTF.text = userModel?.telephone
         
+        //绑定状态、密码状态更改
+        if let wechatNickName = UserDefaults.standard.object(forKey: "nickName") as? String{
+            self.wechatNameLabel.text = wechatNickName
+        }else{
+            self.wechatNameLabel.text = "未绑定"
+        }
+        self.pswStateLabel.text = "修改"
+        
+        //修改头像
+        if let headImgUrl = UserDefaults.standard.object(forKey: "imageUrl") as? String{
+            /**
+             *  初始化data。从URL中获取数据
+             */
+            var data = NSData(contentsOf: URL(string: headImgUrl)!)
+            /**
+             *  创建图片
+             */
+            var image = UIImage(data:data as! Data, scale: 1.0)
+            self.headIconIV.image = image
+            
+            self.headIconIV.contentMode = .scaleAspectFill
+            self.headIconIV.layer.masksToBounds = true
+            self.headIconIV.layer.cornerRadius = self.headIconIV.frame.width/2
+            
+        }else{
+            
+        }
         
         //姓名编辑
         editBtn.addTarget(self, action: #selector(editBtnClicked), for: .touchUpInside)
@@ -311,14 +350,12 @@ class PersonalInfoVC: UIViewController,UITextFieldDelegate ,UIScrollViewDelegate
         phoneTF.isEnabled = false
         phoneTF.textColor = UIColor.white
         
-        //绑定状态、密码状态更改
-        if let wechatNickName = UserDefaults.standard.object(forKey: "nickName") as? String{
-            self.wechatNameLabel.text = wechatNickName
-        }else{
-            self.wechatNameLabel.text = "未绑定"
-        }
-        self.pswStateLabel.text = "修改"
+        
     }
+    
+    
+
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

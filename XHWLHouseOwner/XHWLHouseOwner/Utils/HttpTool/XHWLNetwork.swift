@@ -72,16 +72,7 @@ class XHWLNetwork: NSObject, XHWLHttpToolDelegate {
 //    }
     
     
-    //远程开门post
-    func postRemoteOpenDoorBtnClicked(_ parameters:NSDictionary, _ delegate:XHWLNetworkDelegate){
-        //        reqId     string     是     请求代码(随意)
-        //        upid     string     是     项目唯一编号
-        //        bldgId     string     是     楼栋编号
-        //        unitId     string     是     单元编号
-        //        personType     string     是     人员类型
-        self.delegate = delegate;
-        superWithLoadData(parameters, .XHWL_REMOTEOPENDOOR, .post)
-    }
+    
     
     //保存开门记录post
     func postSaveEntryLogBtnClicked(_ parameters:NSDictionary, _ delegate:XHWLNetworkDelegate){
@@ -242,7 +233,9 @@ class XHWLNetwork: NSObject, XHWLHttpToolDelegate {
     // 绑定微信or解绑post
     func postBindWechat(_ parameters:NSDictionary, _ delegate:XHWLNetworkDelegate){
         //        id     string     是     登录账号id
-        //        openId     string     否    绑定时传，解绑时不传
+        //        openId     string     否    微信唯一标识，绑定时传，解绑时不传
+        //        nickName     string     否    微信昵称，绑定时传，解绑时不传
+        //        imageUrl     string     否    微信头像，绑定时传，解绑时不传
         self.delegate = delegate
         superWithLoadData(parameters, .XHWL_BINDWECHAT, .post)
     }
@@ -308,13 +301,33 @@ class XHWLNetwork: NSObject, XHWLHttpToolDelegate {
         superWithLoadData(parameters, .XHWL_SETACCOUNTSTATE, .post)
     }
     
-    // 获取野狗云token
+    // 获取野狗云token post
     func postWilddogTokenClick(_ parameters:NSDictionary, _ delegate:XHWLNetworkDelegate) {
         
         self.delegate = delegate;
         superWithLoadData(parameters, .XHWL_WILDDOGTOKEN, .post)
     }
     
+    // 获取用户授权门禁列表 post
+    func postGetAllDoors(_ parameters:NSDictionary, _ delegate:XHWLNetworkDelegate) {
+        //        projectCode     string     是     项目编号
+        //        token         string          是     token
+        //        userName     string     是     用户名
+        //        phone     string     是     用户手机
+        self.delegate = delegate;
+        superWithLoadData(parameters, .XHWL_GETALLDOORS, .post)
+    }
+    
+    //远程开门post
+    func postRemoteOpenDoorBtnClicked(_ parameters:NSDictionary, _ delegate:XHWLNetworkDelegate){
+        //        projectCode     string     是                 项目编号
+        //        token         string     是                 token
+        //        doorId         string     是                 门编号
+        //        type             string     是                 开门类别(当家6 ，专家5， 平台2，优你家1)
+        //        personId         string     是                 人员编号
+        self.delegate = delegate
+        superWithLoadData(parameters, .XHWL_REMOTEOPENDOOR, .post)
+    }
     
     // MARK: - XHWLHttpToolDelegate
     func requestSuccess(_ requestKey:NSInteger, result request:Any) {

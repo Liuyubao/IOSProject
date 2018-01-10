@@ -73,7 +73,7 @@ class XHWLHttpTool: NSObject {
         
         Alamofire.request(requestUrl, method: .get, parameters: [:], encoding: URLEncoding.default)
             .responseJSON { response in
-//                XHMLProgressHUD.shared.hide()
+//                ®
                 
                 switch response.result {
                 case .success(let value):

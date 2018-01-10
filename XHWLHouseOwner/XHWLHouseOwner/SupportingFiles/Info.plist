@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>App需要经过您的同意，才能访问相册</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -78,6 +80,8 @@
 	<string>App需要您的同意,才能访问健康更新 </string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>App需要您的同意,才能始终访问位置</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>总是使用用户位置</string>
 	<key>NSLocationUsageDescription</key>
 	<string>App需要您的同意,才能访问位置</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

@@ -8,9 +8,7 @@
 
 import UIKit
 
-
 class XHMLProgressHUD { // : UIView
-    
     private let restorationIdentifier = "NVActivityIndicatorViewContainer"
     private enum State {
         case waitingToShow

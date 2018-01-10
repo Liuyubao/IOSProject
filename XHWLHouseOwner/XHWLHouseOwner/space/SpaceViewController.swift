@@ -6,6 +6,7 @@
 //  Copyright © 2017年 xinghaiwulian. All rights reserved.
 //
 
+
 import UIKit
 import Alamofire
 import CoreLocation
@@ -13,6 +14,8 @@ import Kingfisher
 import CoreBluetooth
 import ElasticTransition
 import TransitionTreasury
+import CoreBluetooth
+import CardReaderSDK
 
 class SpaceViewController:UIViewController, XHWLScanTestVCDelegate ,CBCentralManagerDelegate, CLLocationManagerDelegate, XHWLNetworkDelegate{
     
@@ -27,9 +30,9 @@ class SpaceViewController:UIViewController, XHWLScanTestVCDelegate ,CBCentralMan
     func panDismiss(_ sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began :
-            guard sender.translation(in: view).y < 0 else {
-                break
-            }
+//            guard sender.translation(in: view).y < 0 else {
+//                break
+//            }
             modalDelegate?.modalViewControllerDismiss(true, callbackData: nil)
         default : break
         }
@@ -52,6 +55,7 @@ class SpaceViewController:UIViewController, XHWLScanTestVCDelegate ,CBCentralMan
     
     var locationManager = CLLocationManager()
     var currentLocation:CLLocation?
+    
     
     
     
@@ -263,34 +267,146 @@ class SpaceViewController:UIViewController, XHWLScanTestVCDelegate ,CBCentralMan
         }
     }
     
-    //暂时远程开门
-    @IBAction func fingerPrintBtnClicked(_ sender: UIButton) {
-        self.view.bringSubview(toFront: self.spaceBg)
+    
+    // MARK: 蓝牙一键开门模块
+    
+    class DeviceRecord {
+        init(_ name: String, key: String, randomKey: Data, rssi: Int) {
+            self.name = name
+            self.key = key
+            self.randomKey = randomKey
+            self.rssi = rssi
+        }
         
-        YLGIFImage.setPrefetchNum(5)
+        var name: String
+        var key: String
+        var randomKey: Data
+        var cardNo: Data?
+        var rssi: Int
+    }
+    var curDevice:DeviceRecord? = nil          //当前要开的门
+    
+    //将扫描到的设备添加到scanedDevices中
+    func scan(){
+        CardReaderAPI.StartScan({ (adv) in
+            print("*************adv",adv)
+            //如果curDevice为空，将第一个蓝牙设备设置为curDevice
+            if self.curDevice == nil{
+                let device = DeviceRecord(adv.name, key: adv.key, randomKey: adv.randomKey, rssi: Int(adv.rssi))
+                self.curDevice = device
+            }else if Int(adv.rssi) > (self.curDevice?.rssi)!{
+                //如果扫描到信号更强的设备，替换当前的设备
+                let device = DeviceRecord(adv.name, key: adv.key, randomKey: adv.randomKey, rssi: Int(adv.rssi))
+                self.curDevice = device
+            }
+        }, callback: {(err)->Void in
+            if err != nil {
+                self.noticeError(err!.description!)
+            }else{
+                print("扫描结束")
+            }
+        })
+    }
+    
+    
+    //一键开门
+    func openDoorOneStep(){
+        //1、从蓝牙扫描得到的所有门中取信号强度rssi最强的一个
+        scan()
         
-        // Do any additional setup after loading the view, typically from a nib.
-        let path = Bundle.main.url(forResource: "door4", withExtension: "gif")?.absoluteString as String!
-        self.spaceBg.image = YLGIFImage(contentsOfFile: path!)
-        self.spaceBg.startAnimating()
+        if self.curDevice == nil{
+            return
+        }
         
-        Alamofire.request("http://192.168.2.101:9002/test/openDoor").responseJSON { response in
-            print(response.request)  // original URL request
-            print(response.response) // HTTP URL response
-            print(response.data)     // server data
-            print(response.result)   // result of response serialization
-            
-            if let JSON = response.result.value {
-                print("JSON: \(JSON)")
+        let key = self.curDevice?.key
+        let randomKey = self.curDevice?.randomKey
+        let openData = UserDefaults.standard.object(forKey: "openData") as! String
+        
+        //2、通过keyID到门的权限列表中进行匹配，得到该门的privateKey(也是connectionKey)，cardNo（也是openData）。
+        //从沙盒中加载数据
+        let projectListData = UserDefaults.standard.object(forKey: "allDoorList") as? NSData
+        let projectListArray = XHWLDoorInfoModel.mj_objectArray(withKeyValuesArray: projectListData?.mj_JSONObject()) as? NSArray
+        
+        for proj in projectListArray!{
+            let curProj = proj as! XHWLDoorInfoModel
+            print("选中的门id：",self.curDevice?.key)
+            print("现在的门id：",curProj.keyID)
+            if self.curDevice?.key as! String == curProj.keyID.lowercased(){
+                //从沙盒中获得curInfomodel
+                var curInfoData = UserDefaults.standard.object(forKey: "curInfo") as! NSData
+                var curInfoModel = XHWLCurrentInfoModel.mj_object(withKeyValues: curInfoData.mj_JSONObject())
+                let cardNO = self.hexStringToData(openData)
+                let privateKey = self.hexStringToData(curProj.connectionKey as! String)
+                // autoDisconnect: false，不自动断开连接，可以手动屌用Stop方法断开连接
+                CardReaderAPI.OpenDoor(key!, randomKey: randomKey!, priviateKey: privateKey!, cardNO: cardNO!, timeOut: 10, autoDisconnect: true, callback: {(err) -> Void in
+                    if err == nil {
+                        self.noticeSuccess("开门成功")
+                    }else{
+                        self.noticeError(err!.description!)
+                    }
+                })
             }
         }
-        
-        //睡眠1.9s，
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + TimeInterval(1.1)){
-            self.spaceBg.stopAnimating()
-            self.view.sendSubview(toBack: self.spaceBg)
-            self.spaceBg.image = UIImage(named: "Space_SpaceBg")
+        //3、调用开门接口
+    }
+    
+    func hexStringToData(_ hex:String?) -> Data?{
+        if hex != nil {
+            let hexUp = hex!.uppercased()
+            let len = hex!.lengthOfBytes(using: String.Encoding.utf8)
+            if (len % 2) != 0{
+                return Data()
+            }
+            
+            let buff = UnsafeMutablePointer<UInt8>.allocate(capacity: len)
+            var tmp:UInt32 = 0
+            var offset = 0
+            var idx = 0
+            for _ in 0..<(len/2){
+                let sub = (hexUp as NSString).substring(with: NSMakeRange(offset, 2))
+                Scanner(string: sub).scanHexInt32(&tmp)
+                buff[idx] = UInt8(tmp)
+                idx += 1
+                offset += 2
+            }
+            return Data(bytes: UnsafePointer<UInt8>(buff),count:len/2)
+        }else{
+            return nil
         }
+    }
+    
+    
+    //暂时远程开门
+    @IBAction func fingerPrintBtnClicked(_ sender: UIButton) {
+        openDoorOneStep()
+//        self.view.bringSubview(toFront: self.spaceBg)
+//
+//        YLGIFImage.setPrefetchNum(5)
+//
+//        // Do any additional setup after loading the view, typically from a nib.
+//        let path = Bundle.main.url(forResource: "door4", withExtension: "gif")?.absoluteString as String!
+//        self.spaceBg.image = YLGIFImage(contentsOfFile: path!)
+//        self.spaceBg.startAnimating()
+//
+////        Alamofire.request("http://192.168.2.101:9002/test/openDoor").responseJSON { response in
+////            print(response.request)  // original URL request
+////            print(response.response) // HTTP URL response
+////            print(response.data)     // server data
+////            print(response.result)   // result of response serialization
+////
+////            if let JSON = response.result.value {
+////                print("JSON: \(JSON)")
+////            }
+////        }
+//
+//
+//
+//        //睡眠1.9s，
+//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + TimeInterval(1.1)){
+//            self.spaceBg.stopAnimating()
+//            self.view.sendSubview(toBack: self.spaceBg)
+//            self.spaceBg.image = UIImage(named: "Space_SpaceBg")
+//        }
         
     }
     

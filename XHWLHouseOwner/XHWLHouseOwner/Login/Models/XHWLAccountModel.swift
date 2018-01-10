@@ -15,5 +15,9 @@ class XHWLAccountModel: NSObject {
     var token:String = ""
     var weChat:String = ""
     var loginTime:String = ""
+    var isLogin: String = ""
+    var createTime: String = ""
+    var weChatNickName:String = ""
+    var imageUrl:String = ""
     
 }

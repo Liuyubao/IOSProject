@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate, WX
             let data = UserDefaults.standard.object(forKey: "user") as? NSData
             let userModel = XHWLUserModel.mj_object(withKeyValues: data?.mj_JSONObject())
             if #available(iOS 10.0, *) {
-                AppDelegate.shared().getWilddogToken(curInfoModel?.curProject.id as! String, userModel?.telephone as! String)
+                AppDelegate.shared().getWilddogToken(curInfoModel?.curProject.projectCode as! String, userModel?.telephone as! String)
             } else {
                 // Fallback on earlier versions
             }
@@ -63,27 +63,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate, WX
     
     // 获取当前控制器
     func getCurrentVC() -> UIViewController {
-        if self.window?.rootViewController is LoginViewController {
-            return self.window?.rootViewController as! LoginViewController
-        }
-        else if self.window?.rootViewController is XHWLTabBarViewController {
-            let tabbar:XHWLTabBarViewController = self.window?.rootViewController as! XHWLTabBarViewController
-
-            let selectNav = tabbar.viewControllers![tabbar.selectedIndex]
-            return selectNav
-////
-////            print("\(selectNav)")
-////
-////            if selectNav is XHWLNavigationController {
-////                let nav:XHWLNavigationController = selectNav as! XHWLNavigationController
-////                let vc:UIViewController = nav.topViewController as! UIViewController
-////
-////                print("\(vc)")
-////
-////                return vc
-////            }
-//            return UIViewController()
-        }
+//        if self.window?.rootViewController is LoginViewController {
+//            return self.window?.rootViewController as! LoginViewController
+//        }
+//        else if self.window?.rootViewController is XHWLTabBarViewController {
+//            let tabbar:XHWLTabBarViewController = self.window?.rootViewController as! XHWLTabBarViewController
+//
+//            let selectNav = tabbar.viewControllers![tabbar.selectedIndex]
+//            return selectNav
+//////
+//////            print("\(selectNav)")
+//////
+//////            if selectNav is XHWLNavigationController {
+//////                let nav:XHWLNavigationController = selectNav as! XHWLNavigationController
+//////                let vc:UIViewController = nav.topViewController as! UIViewController
+//////
+//////                print("\(vc)")
+//////
+//////                return vc
+//////            }
+////            return UIViewController()
+//        }
+        
         return (self.window?.rootViewController)!
         
         
@@ -298,13 +299,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate, WX
                 user?.getTokenWithCompletion({ (idToken, error) in
                     // 配置 Video Initializer
                     WDGVideoInitializer.sharedInstance().userLogLevel = WDGVideoLogLevel.error
-                    
                     WDGVideoInitializer.sharedInstance().configure(withVideoAppId: VIDEO_APPID, token: idToken)
-                    
                     XHWLWilddogVideoManager.shared.config()
                     XHWLWilddogVideoManager.shared.saveUser(user!)
                     
-                    print("uID: \(user?.uid)")
+                    print("************uID: \(user?.uid)")
                     //                    let usersReference:WDGSyncReference = WDGSync.sync().reference().child("users")
                     //                    usersReference.child((user?.uid)!).setValue(true)
                     //                    usersReference.child((user?.uid)!).onDisconnectRemoveValue()
@@ -315,14 +314,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate, WX
     
     // 获取野狗云token
     func getWilddogToken(_ projectID:String, _ telephone:String) {
-        
         if !projectID.isEmpty && !telephone.isEmpty {
             
-            //            let uid = projectID + "-staff-" + telephone
+            let uid = projectID + "-user-" + telephone
+//            uid.ext_debugPrintAndHint()
             //            let uid = "123-user-18307478839"
-            let uid = "123-user-13123375305"
+//            let uid = "123-user-13123375305"
             //            let uid = "123-user-13714939868"
-            
             XHWLNetwork.shared.postWilddogTokenClick(["uid":uid], self)
         }
     }
@@ -396,8 +394,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate, WX
     func requestSuccess(_ requestKey:NSInteger, _ response:[String : AnyObject]) {
         switch requestKey {
         case XHWLRequestKeyID.XHWL_WILDDOGTOKEN.rawValue:
+            print("********************response:*********",response)
             let result:NSDictionary = response["result"] as! NSDictionary
             let token:String = result["token"] as! String
+            UserDefaults.standard.set(token, forKey: "wilddogToken")
             wilddogLogin(token)
             break
         default:

@@ -190,29 +190,29 @@ class BluetoothVC:UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     //开门
     func open(device: DeviceRecord){
-        // autoDisconnect: false，不自动断开连接，可以手动屌用Stop方法断开连接
-        CardReaderAPI.OpenDoor(device.mac, cardNO: device.cardNo, timeOut: 10, autoDisconnect: true, callback: {(err) -> Void in
-            XHMLProgressHUD.shared.hide()
-            if err == nil {
-                //取出user的信息
-                let data = UserDefaults.standard.object(forKey: "user") as? NSData
-                let userModel = XHWLUserModel.mj_object(withKeyValues: data?.mj_JSONObject())
-                
-                let curDate = Date()
-                let timeFormatter = DateFormatter()
-                timeFormatter.dateFormat = "yyy-MM-dd HH:mm:ss"
-                let timeStr = timeFormatter.string(from: curDate as Date) as String
-                
-                //上传蓝牙开门记录
-                let params = ["blueToothOrginName": device.mac, "blueToothCustomName": device.name, "yzId": userModel?.sysAccount.id,"doorId": device.mac, "openTime": timeStr, "type": "业主"]
-                XHWLNetwork.shared.postSaveEntryLogBtnClicked(params as NSDictionary, self)
-                
-                self.noticeSuccess("开门成功")
-//                "开门成功".ext_debugPrintAndHint()
-            }else{
-                self.noticeError(err!.description!)
-            }
-        })
+//        // autoDisconnect: false，不自动断开连接，可以手动屌用Stop方法断开连接
+//        CardReaderAPI.OpenDoor(device.mac, cardNO: device.cardNo, timeOut: 10, autoDisconnect: true, callback: {(err) -> Void in
+//            XHMLProgressHUD.shared.hide()
+//            if err == nil {
+//                //取出user的信息
+//                let data = UserDefaults.standard.object(forKey: "user") as? NSData
+//                let userModel = XHWLUserModel.mj_object(withKeyValues: data?.mj_JSONObject())
+//
+//                let curDate = Date()
+//                let timeFormatter = DateFormatter()
+//                timeFormatter.dateFormat = "yyy-MM-dd HH:mm:ss"
+//                let timeStr = timeFormatter.string(from: curDate as Date) as String
+//
+//                //上传蓝牙开门记录
+//                let params = ["blueToothOrginName": device.mac, "blueToothCustomName": device.name, "yzId": userModel?.sysAccount.id,"doorId": device.mac, "openTime": timeStr, "type": "业主"]
+//                XHWLNetwork.shared.postSaveEntryLogBtnClicked(params as NSDictionary, self)
+//
+//                self.noticeSuccess("开门成功")
+////                "开门成功".ext_debugPrintAndHint()
+//            }else{
+//                self.noticeError(err!.description!)
+//            }
+//        })
     }
     
     //network代理的方法

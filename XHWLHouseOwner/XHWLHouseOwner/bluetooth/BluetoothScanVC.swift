@@ -52,9 +52,6 @@ class BluetoothScanVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
         }
     }
-    
-
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,8 +69,6 @@ class BluetoothScanVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         super.viewDidLayoutSubviews()
         self.scrollView.contentSize = CGSize(width: 0, height: self.bluetoothView.height)
     }
-    
-    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -199,31 +194,31 @@ class BluetoothScanVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.retryBtn.isEnabled = false
         self.retryBtn.alpha = 0
         
-        CardReaderAPI.StartScan({ (adv) in
-            var isFound = false
-            for item in self.devices {
-                if(item.mac == adv.mac){
-                    isFound = true
-                }
-            }
-            
-            if !isFound {
-                print("name: \(adv.name)")
-                let device = XHWLDeviceRecordModel(adv.name, adv.mac)
-                self.devices.append(device)
-                if self.curDevice == nil {
-                    self.curDevice = device
-                }
-                
-                self.bluetoothTableView.reloadData()
-            }
-        }, callback: {(err)->Void in
-            if err != nil {
-                self.noticeError(err!.description!)
-            }else{
-                print("扫描结束")
-            }
-        })
+//        CardReaderAPI.StartScan({ (adv) in
+//            var isFound = false
+//            for item in self.devices {
+//                if(item.mac == adv.mac){
+//                    isFound = true
+//                }
+//            }
+//
+//            if !isFound {
+//                print("name: \(adv.name)")
+//                let device = XHWLDeviceRecordModel(adv.name, adv.mac)
+//                self.devices.append(device)
+//                if self.curDevice == nil {
+//                    self.curDevice = device
+//                }
+//
+//                self.bluetoothTableView.reloadData()
+//            }
+//        }, callback: {(err)->Void in
+//            if err != nil {
+//                self.noticeError(err!.description!)
+//            }else{
+//                print("扫描结束")
+//            }
+//        })
     }
     
     //绑卡
@@ -231,44 +226,44 @@ class BluetoothScanVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         let record = self.curDevice!
         let mac = record.mac
         //超时时间不应大于60s
-        CardReaderAPI.Bind(mac, timeOut: 60, process: { (code) -> Void in
-            switch code {
-            case 1:
-//                self.showMessage("请刷卡")
-                self.showCardTimeMessage(remainTime: 60)
-                break
-            case 2:
-//                self.showMessage("已刷卡,请再次刷此卡")
-                self.showCardTimeMessage(remainTime: 10)
-                break
-            case 3:
-                self.showMessage("两次刷卡不一致,请重试")
-                break
-            default:
-                self.showMessage("未知错误")
-                break
-            }
-        }, callback: {(err, cardNO) -> Void in
-            self.clearMessage()
-            if err == nil {
-                record.cardNo = cardNO!//16进制数据
-                print("card str:\(cardNO)")
-                print("mac no:\(record.mac)")
-                //取出user的信息
-                let data = UserDefaults.standard.object(forKey: "user") as? NSData
-                let userModel = XHWLUserModel.mj_object(withKeyValues: data?.mj_JSONObject())
-                
-                
-                self.curDevice = record
-                let params = ["accountId": userModel?.sysAccount.id,"identity": "yz","systemType": "ios", "currentCardStr": self.curDevice?.cardNo, "name":self.curDevice?.name, "address":self.curDevice?.mac]
-                XHWLNetwork.shared.postBluetoothUpload(params as NSDictionary, self)
-                
-                
-                self.dismiss(animated: true, completion: nil)
-            }else{
-                self.noticeError(err!.description!)
-            }
-        })
+//        CardReaderAPI.Bind(mac, timeOut: 60, process: { (code) -> Void in
+//            switch code {
+//            case 1:
+////                self.showMessage("请刷卡")
+//                self.showCardTimeMessage(remainTime: 60)
+//                break
+//            case 2:
+////                self.showMessage("已刷卡,请再次刷此卡")
+//                self.showCardTimeMessage(remainTime: 10)
+//                break
+//            case 3:
+//                self.showMessage("两次刷卡不一致,请重试")
+//                break
+//            default:
+//                self.showMessage("未知错误")
+//                break
+//            }
+//        }, callback: {(err, cardNO) -> Void in
+//            self.clearMessage()
+//            if err == nil {
+//                record.cardNo = cardNO!//16进制数据
+//                print("card str:\(cardNO)")
+//                print("mac no:\(record.mac)")
+//                //取出user的信息
+//                let data = UserDefaults.standard.object(forKey: "user") as? NSData
+//                let userModel = XHWLUserModel.mj_object(withKeyValues: data?.mj_JSONObject())
+//
+//
+//                self.curDevice = record
+//                let params = ["accountId": userModel?.sysAccount.id,"identity": "yz","systemType": "ios", "currentCardStr": self.curDevice?.cardNo, "name":self.curDevice?.name, "address":self.curDevice?.mac]
+//                XHWLNetwork.shared.postBluetoothUpload(params as NSDictionary, self)
+//
+//
+//                self.dismiss(animated: true, completion: nil)
+//            }else{
+//                self.noticeError(err!.description!)
+//            }
+//        })
     }
     
     func isInRecords(name: String, records: [XHWLDeviceRecordModel]) -> Bool{
@@ -285,15 +280,15 @@ class BluetoothScanVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         let record = self.curDevice!
         let mac = self.curDevice?.mac
         // autoDisconnect: false，不自动断开连接，可以手动屌用Stop方法断开连接
-        CardReaderAPI.OpenDoor(mac!, cardNO: record.cardNo, timeOut: 10, autoDisconnect: true, callback: {(err) -> Void in
-            if err == nil {
-                self.noticeSuccess("开门成功")
-                print("************\(mac!)")
-                print("************\(record.cardNo)")
-            }else{
-                self.noticeError(err!.description!)
-            }
-        })
+//        CardReaderAPI.OpenDoor(mac!, cardNO: record.cardNo, timeOut: 10, autoDisconnect: true, callback: {(err) -> Void in
+//            if err == nil {
+//                self.noticeSuccess("开门成功")
+//                print("************\(mac!)")
+//                print("************\(record.cardNo)")
+//            }else{
+//                self.noticeError(err!.description!)
+//            }
+//        })
     }
 
     //断开链接，停止扫描

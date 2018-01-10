@@ -2556,7 +2556,7 @@
                                     <action selector="returnBtnClicked:" destination="NNe-Om-zlV" eventType="touchUpInside" id="E35-da-pnh"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cWW-uu-HhP">
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cWW-uu-HhP">
                                 <rect key="frame" x="32" y="220" width="311.5" height="177.5"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PersonPath_shareBg" translatesAutoresizingMaskIntoConstraints="NO" id="ggb-Iq-xWJ">
@@ -4201,7 +4201,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="13S-1f-Cnw">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13S-1f-Cnw">
                                 <rect key="frame" x="47" y="115" width="280" height="457"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Ka-O9-Vcc">
@@ -4675,6 +4675,7 @@
                         <outlet property="editBtn" destination="FrL-Ov-FJ7" id="aPk-OT-XvN"/>
                         <outlet property="editPhoneBtn" destination="amF-8G-9pb" id="voi-gf-kbe"/>
                         <outlet property="editSexBtn" destination="A1D-3f-sEt" id="GhQ-VO-OZU"/>
+                        <outlet property="headIconIV" destination="cF5-Pp-3mC" id="Szm-Kc-HqY"/>
                         <outlet property="nameTF" destination="Ohv-EW-k5F" id="Sys-1n-GgY"/>
                         <outlet property="personalInfoView" destination="Iir-fe-tU0" id="1es-gm-mjz"/>
                         <outlet property="phoneTF" destination="9kI-KE-oLf" id="Wqk-Fa-v7N"/>
@@ -4825,6 +4826,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="kn3-Bu-Qre"/>
                     <connections>
+                        <outlet property="headIconIV" destination="lQj-Xq-wev" id="aiZ-sk-Kal"/>
                         <outlet property="projectName" destination="0TC-du-wtz" id="HCU-Ga-dl9"/>
                         <outlet property="yzName" destination="CRj-AI-0b3" id="Ged-PH-xkh"/>
                     </connections>
@@ -8131,7 +8133,7 @@
         <image name="scan_showDevice" width="225" height="366"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Cfh-Gb-PPp"/>
+        <segue reference="MMA-fa-Sck"/>
         <segue reference="xfs-bJ-oi0"/>
         <segue reference="W15-7q-Ea8"/>
         <segue reference="d1j-3v-cl7"/>

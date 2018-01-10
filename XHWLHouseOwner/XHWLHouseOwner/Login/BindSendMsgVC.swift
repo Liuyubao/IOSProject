@@ -128,7 +128,7 @@ class BindSendMsgVC: UIViewController, XHWLNetworkDelegate, UITextFieldDelegate{
             //将别名上传
             JPUSHService.setAlias(yzUser!["sysAccountName"] as! String, completion: { (iResCode, iAlias, seq) in
                 if seq == 0 {
-                    "上传别名成功".ext_debugPrintAndHint()
+//                    "上传别名成功".ext_debugPrintAndHint()
                 }
             }, seq: 0)
             

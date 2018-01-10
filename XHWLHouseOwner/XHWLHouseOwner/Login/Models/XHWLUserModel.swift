@@ -16,8 +16,9 @@ class XHWLUserModel: NSObject {
     var telephone:String = ""
     var identity:String = ""
     var sex:String = ""
-    var isOwner:String = ""
+    var type:String = ""
     var sysAccountName:String = ""
+    
     
     func mj_objectClassInArray() -> [AnyHashable : Any]! {
         return ["sysAccount":XHWLAccountModel.self] // [JZMJewelryCategoryModel class]

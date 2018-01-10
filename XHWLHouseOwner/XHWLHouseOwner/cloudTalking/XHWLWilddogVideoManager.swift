@@ -207,6 +207,22 @@ class XHWLWilddogVideoManager:NSObject  {
         }
     }
     
+    func openDoor(projectCode: String){
+        
+        self.usersReference = WDGSync.sync().reference().child("\(projectCode)/openDoor")
+        self.usersReference?.child((self.conversation?.remoteUid)!).setValue(true)
+        self.usersReference.child((self.conversation?.remoteUid)!).onDisconnectRemoveValue()
+        var ref = WDGSync.sync().reference(withPath: "\(projectCode)/openDoor/\(self.conversation?.remoteUid)")
+        ref.observe(.value, with: { (snapshot) in
+            if snapshot.value == nil {
+                "已为您开门".ext_debugPrintAndHint()
+                ref.removeAllObservers()
+            }
+        }) { (error) in
+        }
+        
+    }
+    
 //    NotificationCenter.default.addOb
 //    
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForegroundNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
@@ -350,16 +366,16 @@ extension XHWLWilddogVideoManager: WDGVideoCallDelegate {
      */
     func wilddogVideoCall(_ videoCall: WDGVideoCall, didReceiveCallWith conversation: WDGConversation, data: String?) {
         
-        print("\(data)")
+        print("**************************\(data)")
         self.conversation = conversation
         self.conversation?.delegate = self  // WDGConversationDelegate
         
         if #available(iOS 10.0, *) {
             let vc:UIViewController = AppDelegate.shared().getCurrentVC()
-            let jumpVC:XHWLWiddogVideoVC = XHWLWiddogVideoVC()
-            jumpVC.wilddogVideoEnum = .called
-            jumpVC.name = data!
-            vc.present(jumpVC, animated: true, completion: nil)
+            let doorVC = DoorVideoVC()
+            doorVC.wilddogVideoEnum = .called
+            doorVC.name = data!
+            vc.present(doorVC, animated: true, completion: nil)
         } else {
             // Fallback on earlier versions
         }

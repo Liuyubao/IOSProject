@@ -134,6 +134,8 @@
 		652FFE041F7CA4C20029B026 /* CLNewFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652FFE031F7CA4C10029B026 /* CLNewFeatureView.swift */; };
 		652FFE151F7CE1AA0029B026 /* door4.gif in Resources */ = {isa = PBXBuildFile; fileRef = 652FFE141F7CE1A70029B026 /* door4.gif */; };
 		652FFE271F7CF4920029B026 /* XHWLScanResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652FFE261F7CF4920029B026 /* XHWLScanResultVC.swift */; };
+		65306F071FFF17B400C1304C /* DoorVideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65306F061FFF17B400C1304C /* DoorVideoVC.swift */; };
+		65306F092004A99600C1304C /* XHWLDoorInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65306F082004A99600C1304C /* XHWLDoorInfoModel.swift */; };
 		6531BDA51F62363D00138397 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6531BDA41F62363D00138397 /* CoreTelephony.framework */; };
 		6531BDA71F62365B00138397 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6531BDA61F62365B00138397 /* CoreMotion.framework */; };
 		6531BDA91F62369A00138397 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6531BDA81F62369A00138397 /* AVFoundation.framework */; };
@@ -571,6 +573,8 @@
 		652FFE031F7CA4C10029B026 /* CLNewFeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLNewFeatureView.swift; sourceTree = "<group>"; };
 		652FFE141F7CE1A70029B026 /* door4.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = door4.gif; sourceTree = "<group>"; };
 		652FFE261F7CF4920029B026 /* XHWLScanResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XHWLScanResultVC.swift; sourceTree = "<group>"; };
+		65306F061FFF17B400C1304C /* DoorVideoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoorVideoVC.swift; sourceTree = "<group>"; };
+		65306F082004A99600C1304C /* XHWLDoorInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XHWLDoorInfoModel.swift; sourceTree = "<group>"; };
 		6531BDA41F62363D00138397 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		6531BDA61F62365B00138397 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		6531BDA81F62369A00138397 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -1373,6 +1377,7 @@
 				6598540B1FF0E2890071D607 /* XHWLWilddogVideoManager.swift */,
 				6598540D1FF0E2A90071D607 /* XHWLWiddogVideoVC.swift */,
 				659854191FF23D200071D607 /* WilddogDoorGuardRoomVC.swift */,
+				65306F061FFF17B400C1304C /* DoorVideoVC.swift */,
 				6531BDE61F628E6E00138397 /* Controllers */,
 				6531BDEB1F628E6E00138397 /* Models */,
 				6531BDF51F628E6E00138397 /* Views */,
@@ -1490,6 +1495,7 @@
 				656713D81F886DE500495F6D /* XHWLCurrentInfoModel.swift */,
 				65BCF14E1F89B8A3000216C6 /* XHWLDeviceRecordModel.swift */,
 				655B7C381F8BBDDC004F07BF /* XHWLRoomModel.swift */,
+				65306F082004A99600C1304C /* XHWLDoorInfoModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2264,6 +2270,7 @@
 				6527D6171F5E3510009E4B9C /* UIResponder+STPopup.m in Sources */,
 				659853931FE7C7B10071D607 /* RemoteOpenDoorWebVC.swift in Sources */,
 				6527D67A1F5E935B009E4B9C /* QualityPanelView.m in Sources */,
+				65306F092004A99600C1304C /* XHWLDoorInfoModel.swift in Sources */,
 				6531BE061F628E6E00138397 /* Message.swift in Sources */,
 				6527D6001F5E3510009E4B9C /* MASCompositeConstraint.m in Sources */,
 				6527D5511F5E3436009E4B9C /* ConformPswView.swift in Sources */,
@@ -2318,6 +2325,7 @@
 				6527D61F1F5E3510009E4B9C /* GIFAnimatedImageView.swift in Sources */,
 				6575F1761F74FD45006163D3 /* XHWLAccountModel.swift in Sources */,
 				65C1E9B91F668D8800CE0429 /* SegueFromRight.swift in Sources */,
+				65306F071FFF17B400C1304C /* DoorVideoVC.swift in Sources */,
 				6527D5541F5E3436009E4B9C /* SuccessView.swift in Sources */,
 				65B5FCB51FC5606F001953DC /* MyAccountVC.swift in Sources */,
 				655EEFEC1F6AD2E8001D19E3 /* CarPathVC.swift in Sources */,

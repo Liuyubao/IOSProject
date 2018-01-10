@@ -12,6 +12,8 @@ class XHWLCurrentInfoModel: NSObject {
     var curProject: XHWLProjectModel = XHWLProjectModel()
     var isFirstToSpace: Bool = true //是否第一次进入SpaceVC
     var isFirstToFourFuncs: Bool = true //是否第一次进入TabBar
+    var personID:String  = ""   //人员编号
+    var openData: String = ""   //每个项目的openData
     
     func mj_objectClassInArray() -> [AnyHashable : Any]! {
         return ["curProject":XHWLProjectModel.self]

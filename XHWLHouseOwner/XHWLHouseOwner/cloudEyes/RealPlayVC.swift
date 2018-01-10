@@ -83,9 +83,6 @@ class RealPlayVC: UIViewController,RealPlayManagerDelegate, PlayViewDelegate {
         
 //        //开始预览操作
 //        realPlay(cameraSyscode: "426b767f78744939a5d8ea02d8e880dc")
-        
-        
-
     }
     
     func realPlay(cameraSyscode:String) {
@@ -276,11 +273,12 @@ class RealPlayVC: UIViewController,RealPlayManagerDelegate, PlayViewDelegate {
 
     }
     
-    
     //抓图操作
     @IBAction func captureBtnClicked(_ sender: UIButton) {
+        XHMLProgressHUD.shared.show()
         //如果此时暂停状态，不允许截图
         if playView.isPausing{
+            XHMLProgressHUD.shared.hide()
             return
         }
         //1.创建一个抓图信息VPCaptureInfo对象
@@ -295,22 +293,17 @@ class RealPlayVC: UIViewController,RealPlayManagerDelegate, PlayViewDelegate {
         
         // 3.设置抓图质量 1-100 越高质量越高
         captureInfo.nPicQuality = 80
-        //4.开始抓图
+        //5.开始抓图
         let result = g_playManager.capture(captureInfo)
+        
         if result{
-            NSLog("截图成功，图片路径:%@",captureInfo.strCapturePath)
+            "截图成功保存到您的相册".ext_debugPrintAndHint()
+            let savedImg = UIImage.init(contentsOfFile: captureInfo.strCapturePath)
+            UIImageWriteToSavedPhotosAlbum(savedImg!, nil, nil, nil)
         }else{
-            NSLog("截图失败");
+            "截图失败".ext_debugPrintAndHint()
         }
-        
-        let savedImg = UIImage.init(contentsOfFile: captureInfo.strCapturePath)
-
-//        g_audioBtn.setBackgroundImage(savedImg, for: .normal)
-        UIImageWriteToSavedPhotosAlbum(savedImg!, nil, nil, nil)
-//        self.backClosure!(savedImg!)
-        
-        
-
+        XHMLProgressHUD.shared.hide()
     }
     
     //#pragma mark --声音控制

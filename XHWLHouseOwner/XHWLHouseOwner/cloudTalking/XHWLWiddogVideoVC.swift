@@ -23,7 +23,6 @@ enum WilddogVideoEnum:Int {
 }
 
 class XHWLWiddogVideoVC: UIViewController {
-
     var localVideoView:WDGVideoView?
     var remoteVideoView:WDGVideoView?
     var manager:XHWLWilddogVideoManager!
@@ -103,8 +102,7 @@ class XHWLWiddogVideoVC: UIViewController {
     var wilddogVideoEnum:WilddogVideoEnum = .called { // 默认被叫
         willSet {
             switch newValue {
-            case .calling: // 取消
-                
+            case .calling: // 呼叫方，只有取消按钮
                 self.localVideoView?.isHidden = false
                 self.remoteVideoView?.isHidden = true
                 self.localVideoView?.frame = self.view.bounds
@@ -118,7 +116,7 @@ class XHWLWiddogVideoVC: UIViewController {
                 self.agreeBtn.isHidden = true
                 self.rejectBtn.isHidden = true
                 break
-            case .called: // 拒接／接听
+            case .called: // 被呼方， 拒接／接听按钮
                 self.localVideoView?.isHidden = false
                 self.remoteVideoView?.isHidden = true
                 self.localVideoView?.frame = self.view.bounds

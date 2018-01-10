@@ -10,7 +10,7 @@ import UIKit
 
 class XHWLUnitModel: NSObject {
     var id:String = ""
-    var building:XHWLBuildingModel = XHWLBuildingModel()
+    var sysBuilding:XHWLBuildingModel = XHWLBuildingModel()
     var name:String = ""
     var code:String = ""
     var address:String = ""
