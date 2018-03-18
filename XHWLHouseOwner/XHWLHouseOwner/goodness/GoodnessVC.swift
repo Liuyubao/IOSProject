@@ -126,7 +126,7 @@ class GoodnessVC: UIViewController, UIScrollViewDelegate, ModalTransitionDelegat
     }
 
 }
-extension CarPathVC: UIGestureRecognizerDelegate {
+extension GoodnessVC: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if let ges = gestureRecognizer as? UIPanGestureRecognizer {
             return ges.translation(in: ges.view).y != 0

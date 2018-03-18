@@ -26,14 +26,11 @@
 		6516B9E01F6FCC0400183354 /* XHWLScanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6516B9DD1F6FCC0400183354 /* XHWLScanVC.swift */; };
 		6516B9E31F6FCFB400183354 /* AlertMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6516B9E21F6FCFB400183354 /* AlertMessage.swift */; };
 		6516B9E51F6FD4D300183354 /* JSONAndDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6516B9E41F6FD4D300183354 /* JSONAndDictionary.swift */; };
-		651CD4651F8A1E3A004641C7 /* MyCarInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651CD4641F8A1E3A004641C7 /* MyCarInfoVC.swift */; };
 		651D05291F8D8734008D9BB1 /* car_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 651D05261F8D871F008D9BB1 /* car_1.jpg */; };
 		651D052A1F8D874D008D9BB1 /* car_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 651D05271F8D8724008D9BB1 /* car_2.jpg */; };
 		651D052B1F8D876B008D9BB1 /* car_3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 651D05281F8D8728008D9BB1 /* car_3.jpg */; };
-		651D052D1F8D8900008D9BB1 /* MonthPayHouseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651D052C1F8D8900008D9BB1 /* MonthPayHouseCell.swift */; };
 		651D05301F8D89F5008D9BB1 /* car_4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 651D052E1F8D89E7008D9BB1 /* car_4.jpg */; };
 		651D05311F8D8A00008D9BB1 /* car_5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 651D052F1F8D89EC008D9BB1 /* car_5.jpg */; };
-		651D05331F8D99F6008D9BB1 /* PayHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651D05321F8D99F6008D9BB1 /* PayHistoryCell.swift */; };
 		651D05351F8DBC9B008D9BB1 /* ServiceCenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651D05341F8DBC9B008D9BB1 /* ServiceCenterVC.swift */; };
 		651E025B1F904D7200631AAD /* CGRectEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651E02561F904D6400631AAD /* CGRectEx.swift */; };
 		651E025C1F904D7500631AAD /* DKTransitionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651E02571F904D6400631AAD /* DKTransitionButton.swift */; };
@@ -169,21 +166,14 @@
 		655B7C2F1F8B7443004F07BF /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B7C2E1F8B7443004F07BF /* NotificationService.swift */; };
 		655B7C331F8B7443004F07BF /* jPush.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 655B7C2C1F8B7443004F07BF /* jPush.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		655B7C391F8BBDDC004F07BF /* XHWLRoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B7C381F8BBDDC004F07BF /* XHWLRoomModel.swift */; };
-		655EEFEB1F6AD2E8001D19E3 /* CarApplyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655EEFE11F6AD2E8001D19E3 /* CarApplyVC.swift */; };
-		655EEFEC1F6AD2E8001D19E3 /* CarPathVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655EEFE21F6AD2E8001D19E3 /* CarPathVC.swift */; };
-		655EEFED1F6AD2E8001D19E3 /* MonthHouseTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655EEFE31F6AD2E8001D19E3 /* MonthHouseTableVC.swift */; };
-		655EEFEE1F6AD2E8001D19E3 /* MonthPayHistoryTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655EEFE41F6AD2E8001D19E3 /* MonthPayHistoryTableVC.swift */; };
-		655EEFEF1F6AD2E8001D19E3 /* MonthPayHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655EEFE51F6AD2E8001D19E3 /* MonthPayHistoryVC.swift */; };
-		655EEFF01F6AD2E8001D19E3 /* MonthPayInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655EEFE61F6AD2E8001D19E3 /* MonthPayInfoVC.swift */; };
-		655EEFF11F6AD2E8001D19E3 /* MonthPayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655EEFE71F6AD2E8001D19E3 /* MonthPayVC.swift */; };
-		655EEFF21F6AD2E8001D19E3 /* MyCarTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655EEFE81F6AD2E8001D19E3 /* MyCarTableVC.swift */; };
-		655EEFF31F6AD2E8001D19E3 /* MyCarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655EEFE91F6AD2E8001D19E3 /* MyCarVC.swift */; };
-		655EEFF41F6AD2E8001D19E3 /* TemporaryPayPlateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655EEFEA1F6AD2E8001D19E3 /* TemporaryPayPlateVC.swift */; };
 		655EEFF71F6AD331001D19E3 /* GoodnessVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655EEFF61F6AD331001D19E3 /* GoodnessVC.swift */; };
+		65632CD4205F084F00614E0E /* UITableView+SDAutoTableViewCellHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 65632CCB205F084E00614E0E /* UITableView+SDAutoTableViewCellHeight.m */; };
+		65632CD5205F084F00614E0E /* UIView+SDAutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 65632CCD205F084E00614E0E /* UIView+SDAutoLayout.m */; };
+		65632CD6205F084F00614E0E /* NSString+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = 65632CD0205F084E00614E0E /* NSString+Extra.m */; };
+		65632CD7205F084F00614E0E /* UIView_extra.m in Sources */ = {isa = PBXBuildFile; fileRef = 65632CD3205F084E00614E0E /* UIView_extra.m */; };
 		656713D31F876A5800495F6D /* car1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 656713D11F876A5100495F6D /* car1.jpeg */; };
 		656713D41F876A5B00495F6D /* car2.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 656713D21F876A5200495F6D /* car2.jpeg */; };
 		656713D51F876A5F00495F6D /* car3.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 656713D01F876A5100495F6D /* car3.jpeg */; };
-		656713D71F87712200495F6D /* MyCarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656713D61F87712200495F6D /* MyCarCell.swift */; };
 		656713D91F886DE500495F6D /* XHWLCurrentInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656713D81F886DE500495F6D /* XHWLCurrentInfoModel.swift */; };
 		65710DED20240CB200AED865 /* VisitorCallVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65710DEC20240CB200AED865 /* VisitorCallVC.swift */; };
 		65710DF12024459100AED865 /* AudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65710DF02024459100AED865 /* AudioManager.m */; };
@@ -319,21 +309,11 @@
 		65D2C21B2021B98100A7C086 /* DoorCardManageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2C21A2021B98100A7C086 /* DoorCardManageVC.swift */; };
 		65EACE351F9623610000366F /* CloudTalkingCallVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EACE341F9623610000366F /* CloudTalkingCallVC.swift */; };
 		65ED92031F9F1E570090DEAA /* OProgressView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ED92021F9F1E560090DEAA /* OProgressView2.swift */; };
-		65F444AC1F6915AA004F1155 /* MonthPayPlateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F444A71F6915AA004F1155 /* MonthPayPlateVC.swift */; };
-		65F444B91F6915B7004F1155 /* InviteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F444B21F6915B7004F1155 /* InviteVC.swift */; };
 		65F444BA1F6915B7004F1155 /* PassRecordTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F444B31F6915B7004F1155 /* PassRecordTableVC.swift */; };
 		65F444BB1F6915B7004F1155 /* PassRecordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F444B41F6915B7004F1155 /* PassRecordVC.swift */; };
 		65F444BC1F6915B7004F1155 /* PersonPassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F444B51F6915B7004F1155 /* PersonPassVC.swift */; };
 		65F444BD1F6915B7004F1155 /* PersonPathViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F444B61F6915B7004F1155 /* PersonPathViewController.swift */; };
 		65F444BE1F6915B7004F1155 /* ProduceQRCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F444B71F6915B7004F1155 /* ProduceQRCodeVC.swift */; };
-		65F444CF1F6916AB004F1155 /* NSString+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F444C21F6916AB004F1155 /* NSString+Extra.m */; };
-		65F444D01F6916AB004F1155 /* UITableView+SDAutoTableViewCellHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F444C51F6916AB004F1155 /* UITableView+SDAutoTableViewCellHeight.m */; };
-		65F444D11F6916AB004F1155 /* UIView+SDAutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F444C71F6916AB004F1155 /* UIView+SDAutoLayout.m */; };
-		65F444D21F6916AB004F1155 /* UIView_extra.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F444CA1F6916AB004F1155 /* UIView_extra.m */; };
-		65F444D31F6916AB004F1155 /* XNButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F444CB1F6916AB004F1155 /* XNButton.swift */; };
-		65F444D41F6916AB004F1155 /* XNInputCarNumebrButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F444CC1F6916AB004F1155 /* XNInputCarNumebrButton.swift */; };
-		65F444D51F6916AB004F1155 /* XNKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F444CD1F6916AB004F1155 /* XNKeyboardView.swift */; };
-		65F444D61F6916AB004F1155 /* XNTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F444CE1F6916AB004F1155 /* XNTool.swift */; };
 		65F81F571F7B80AF00A0A83B /* MyDoorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F81F561F7B80AF00A0A83B /* MyDoorVC.swift */; };
 		876498D9A6167E1175EF488F /* Pods_XHWLHouseOwner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F1A45C2D729D7CB2D77F70 /* Pods_XHWLHouseOwner.framework */; };
 		929ECCBFBAC4D891A3F58EEC /* Pods_XHWLHouseOwnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A8871EA719B43C3D7016E6A /* Pods_XHWLHouseOwnerTests.framework */; };
@@ -417,14 +397,11 @@
 		6516B9DD1F6FCC0400183354 /* XHWLScanVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XHWLScanVC.swift; sourceTree = "<group>"; };
 		6516B9E21F6FCFB400183354 /* AlertMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertMessage.swift; sourceTree = "<group>"; };
 		6516B9E41F6FD4D300183354 /* JSONAndDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONAndDictionary.swift; sourceTree = "<group>"; };
-		651CD4641F8A1E3A004641C7 /* MyCarInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCarInfoVC.swift; sourceTree = "<group>"; };
 		651D05261F8D871F008D9BB1 /* car_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = car_1.jpg; sourceTree = "<group>"; };
 		651D05271F8D8724008D9BB1 /* car_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = car_2.jpg; sourceTree = "<group>"; };
 		651D05281F8D8728008D9BB1 /* car_3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = car_3.jpg; sourceTree = "<group>"; };
-		651D052C1F8D8900008D9BB1 /* MonthPayHouseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthPayHouseCell.swift; sourceTree = "<group>"; };
 		651D052E1F8D89E7008D9BB1 /* car_4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = car_4.jpg; sourceTree = "<group>"; };
 		651D052F1F8D89EC008D9BB1 /* car_5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = car_5.jpg; sourceTree = "<group>"; };
-		651D05321F8D99F6008D9BB1 /* PayHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayHistoryCell.swift; sourceTree = "<group>"; };
 		651D05341F8DBC9B008D9BB1 /* ServiceCenterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCenterVC.swift; sourceTree = "<group>"; };
 		651E02561F904D6400631AAD /* CGRectEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRectEx.swift; sourceTree = "<group>"; };
 		651E02571F904D6400631AAD /* DKTransitionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKTransitionButton.swift; sourceTree = "<group>"; };
@@ -618,21 +595,18 @@
 		655B7C301F8B7443004F07BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		655B7C371F8B744C004F07BF /* jPush.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = jPush.entitlements; sourceTree = "<group>"; };
 		655B7C381F8BBDDC004F07BF /* XHWLRoomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XHWLRoomModel.swift; sourceTree = "<group>"; };
-		655EEFE11F6AD2E8001D19E3 /* CarApplyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CarApplyVC.swift; path = CarPath/CarApplyVC.swift; sourceTree = "<group>"; };
-		655EEFE21F6AD2E8001D19E3 /* CarPathVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CarPathVC.swift; path = CarPath/CarPathVC.swift; sourceTree = "<group>"; };
-		655EEFE31F6AD2E8001D19E3 /* MonthHouseTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MonthHouseTableVC.swift; path = CarPath/MonthHouseTableVC.swift; sourceTree = "<group>"; };
-		655EEFE41F6AD2E8001D19E3 /* MonthPayHistoryTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MonthPayHistoryTableVC.swift; path = CarPath/MonthPayHistoryTableVC.swift; sourceTree = "<group>"; };
-		655EEFE51F6AD2E8001D19E3 /* MonthPayHistoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MonthPayHistoryVC.swift; path = CarPath/MonthPayHistoryVC.swift; sourceTree = "<group>"; };
-		655EEFE61F6AD2E8001D19E3 /* MonthPayInfoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MonthPayInfoVC.swift; path = CarPath/MonthPayInfoVC.swift; sourceTree = "<group>"; };
-		655EEFE71F6AD2E8001D19E3 /* MonthPayVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MonthPayVC.swift; path = CarPath/MonthPayVC.swift; sourceTree = "<group>"; };
-		655EEFE81F6AD2E8001D19E3 /* MyCarTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyCarTableVC.swift; path = CarPath/MyCarTableVC.swift; sourceTree = "<group>"; };
-		655EEFE91F6AD2E8001D19E3 /* MyCarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyCarVC.swift; path = CarPath/MyCarVC.swift; sourceTree = "<group>"; };
-		655EEFEA1F6AD2E8001D19E3 /* TemporaryPayPlateVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TemporaryPayPlateVC.swift; path = CarPath/TemporaryPayPlateVC.swift; sourceTree = "<group>"; };
 		655EEFF61F6AD331001D19E3 /* GoodnessVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodnessVC.swift; sourceTree = "<group>"; };
+		65632CCA205F084E00614E0E /* UITableView+SDAutoTableViewCellHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+SDAutoTableViewCellHeight.h"; sourceTree = "<group>"; };
+		65632CCB205F084E00614E0E /* UITableView+SDAutoTableViewCellHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+SDAutoTableViewCellHeight.m"; sourceTree = "<group>"; };
+		65632CCC205F084E00614E0E /* UIView+SDAutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDAutoLayout.h"; sourceTree = "<group>"; };
+		65632CCD205F084E00614E0E /* UIView+SDAutoLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDAutoLayout.m"; sourceTree = "<group>"; };
+		65632CCF205F084E00614E0E /* NSString+Extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extra.h"; sourceTree = "<group>"; };
+		65632CD0205F084E00614E0E /* NSString+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extra.m"; sourceTree = "<group>"; };
+		65632CD2205F084E00614E0E /* UIView_extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIView_extra.h; sourceTree = "<group>"; };
+		65632CD3205F084E00614E0E /* UIView_extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIView_extra.m; sourceTree = "<group>"; };
 		656713D01F876A5100495F6D /* car3.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = car3.jpeg; sourceTree = "<group>"; };
 		656713D11F876A5100495F6D /* car1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = car1.jpeg; sourceTree = "<group>"; };
 		656713D21F876A5200495F6D /* car2.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = car2.jpeg; sourceTree = "<group>"; };
-		656713D61F87712200495F6D /* MyCarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCarCell.swift; sourceTree = "<group>"; };
 		656713D81F886DE500495F6D /* XHWLCurrentInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XHWLCurrentInfoModel.swift; sourceTree = "<group>"; };
 		65710DEC20240CB200AED865 /* VisitorCallVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitorCallVC.swift; sourceTree = "<group>"; };
 		65710DEF2024459100AED865 /* AudioManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioManager.h; sourceTree = "<group>"; };
@@ -768,25 +742,11 @@
 		65D2C21A2021B98100A7C086 /* DoorCardManageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DoorCardManageVC.swift; path = PersonPath/DoorCardManageVC.swift; sourceTree = "<group>"; };
 		65EACE341F9623610000366F /* CloudTalkingCallVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudTalkingCallVC.swift; sourceTree = "<group>"; };
 		65ED92021F9F1E560090DEAA /* OProgressView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OProgressView2.swift; sourceTree = "<group>"; };
-		65F444A71F6915AA004F1155 /* MonthPayPlateVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MonthPayPlateVC.swift; path = CarPath/MonthPayPlateVC.swift; sourceTree = "<group>"; };
-		65F444B21F6915B7004F1155 /* InviteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InviteVC.swift; path = PersonPath/InviteVC.swift; sourceTree = "<group>"; };
 		65F444B31F6915B7004F1155 /* PassRecordTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PassRecordTableVC.swift; path = PersonPath/PassRecordTableVC.swift; sourceTree = "<group>"; };
 		65F444B41F6915B7004F1155 /* PassRecordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PassRecordVC.swift; path = PersonPath/PassRecordVC.swift; sourceTree = "<group>"; };
 		65F444B51F6915B7004F1155 /* PersonPassVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersonPassVC.swift; path = PersonPath/PersonPassVC.swift; sourceTree = "<group>"; };
 		65F444B61F6915B7004F1155 /* PersonPathViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersonPathViewController.swift; path = PersonPath/PersonPathViewController.swift; sourceTree = "<group>"; };
 		65F444B71F6915B7004F1155 /* ProduceQRCodeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProduceQRCodeVC.swift; path = PersonPath/ProduceQRCodeVC.swift; sourceTree = "<group>"; };
-		65F444C11F6916AB004F1155 /* NSString+Extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extra.h"; sourceTree = "<group>"; };
-		65F444C21F6916AB004F1155 /* NSString+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extra.m"; sourceTree = "<group>"; };
-		65F444C41F6916AB004F1155 /* UITableView+SDAutoTableViewCellHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+SDAutoTableViewCellHeight.h"; sourceTree = "<group>"; };
-		65F444C51F6916AB004F1155 /* UITableView+SDAutoTableViewCellHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+SDAutoTableViewCellHeight.m"; sourceTree = "<group>"; };
-		65F444C61F6916AB004F1155 /* UIView+SDAutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDAutoLayout.h"; sourceTree = "<group>"; };
-		65F444C71F6916AB004F1155 /* UIView+SDAutoLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDAutoLayout.m"; sourceTree = "<group>"; };
-		65F444C91F6916AB004F1155 /* UIView_extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIView_extra.h; sourceTree = "<group>"; };
-		65F444CA1F6916AB004F1155 /* UIView_extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIView_extra.m; sourceTree = "<group>"; };
-		65F444CB1F6916AB004F1155 /* XNButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XNButton.swift; sourceTree = "<group>"; };
-		65F444CC1F6916AB004F1155 /* XNInputCarNumebrButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XNInputCarNumebrButton.swift; sourceTree = "<group>"; };
-		65F444CD1F6916AB004F1155 /* XNKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XNKeyboardView.swift; sourceTree = "<group>"; };
-		65F444CE1F6916AB004F1155 /* XNTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XNTool.swift; sourceTree = "<group>"; };
 		65F81F561F7B80AF00A0A83B /* MyDoorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDoorVC.swift; sourceTree = "<group>"; };
 		69935EAADC69B8C31CF1C5B4 /* Pods-XHWLHouseOwnerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XHWLHouseOwnerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XHWLHouseOwnerUITests/Pods-XHWLHouseOwnerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7050D21204B7A2BC04A67A19 /* Pods-XHWLHouseOwnerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XHWLHouseOwnerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XHWLHouseOwnerTests/Pods-XHWLHouseOwnerTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -929,7 +889,6 @@
 				6516B9C41F6AD7D900183354 /* PersonalCenter */,
 				6516B9C01F6AD46200183354 /* Cozy */,
 				655EEFF51F6AD31E001D19E3 /* goodness */,
-				65F4449C1F691116004F1155 /* CarPath */,
 				65C1E9BA1F6690FA00CE0429 /* PersonPath */,
 				6527D5A71F5E3506009E4B9C /* space */,
 				65C1E9AF1F66630700CE0429 /* otherVCs */,
@@ -1250,6 +1209,9 @@
 		6527D6291F5E3523009E4B9C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				65632CCE205F084E00614E0E /* NSString+Extra */,
+				65632CC9205F084E00614E0E /* SDAutoLayout */,
+				65632CD1205F084E00614E0E /* UIView_extra */,
 				651E02551F904D6400631AAD /* DKButton */,
 				655B7C0E1F8B2E17004F07BF /* DatePickerDialog.swift */,
 				652FFE031F7CA4C10029B026 /* CLNewFeatureView.swift */,
@@ -1465,6 +1427,35 @@
 			path = goodness;
 			sourceTree = "<group>";
 		};
+		65632CC9205F084E00614E0E /* SDAutoLayout */ = {
+			isa = PBXGroup;
+			children = (
+				65632CCA205F084E00614E0E /* UITableView+SDAutoTableViewCellHeight.h */,
+				65632CCB205F084E00614E0E /* UITableView+SDAutoTableViewCellHeight.m */,
+				65632CCC205F084E00614E0E /* UIView+SDAutoLayout.h */,
+				65632CCD205F084E00614E0E /* UIView+SDAutoLayout.m */,
+			);
+			path = SDAutoLayout;
+			sourceTree = "<group>";
+		};
+		65632CCE205F084E00614E0E /* NSString+Extra */ = {
+			isa = PBXGroup;
+			children = (
+				65632CCF205F084E00614E0E /* NSString+Extra.h */,
+				65632CD0205F084E00614E0E /* NSString+Extra.m */,
+			);
+			path = "NSString+Extra";
+			sourceTree = "<group>";
+		};
+		65632CD1205F084E00614E0E /* UIView_extra */ = {
+			isa = PBXGroup;
+			children = (
+				65632CD2205F084E00614E0E /* UIView_extra.h */,
+				65632CD3205F084E00614E0E /* UIView_extra.m */,
+			);
+			path = UIView_extra;
+			sourceTree = "<group>";
+		};
 		656713CF1F876A3E00495F6D /* cars */ = {
 			isa = PBXGroup;
 			children = (
@@ -1606,7 +1597,6 @@
 			isa = PBXGroup;
 			children = (
 				65F444B61F6915B7004F1155 /* PersonPathViewController.swift */,
-				65F444B21F6915B7004F1155 /* InviteVC.swift */,
 				65F444B31F6915B7004F1155 /* PassRecordTableVC.swift */,
 				65F444B41F6915B7004F1155 /* PassRecordVC.swift */,
 				65F444B51F6915B7004F1155 /* PersonPassVC.swift */,
@@ -1618,73 +1608,6 @@
 				6585C7D7202D3D9700ABD55F /* ShareView.xib */,
 			);
 			name = PersonPath;
-			sourceTree = "<group>";
-		};
-		65F4449C1F691116004F1155 /* CarPath */ = {
-			isa = PBXGroup;
-			children = (
-				655EEFE11F6AD2E8001D19E3 /* CarApplyVC.swift */,
-				655EEFE21F6AD2E8001D19E3 /* CarPathVC.swift */,
-				655EEFE41F6AD2E8001D19E3 /* MonthPayHistoryTableVC.swift */,
-				651D05321F8D99F6008D9BB1 /* PayHistoryCell.swift */,
-				655EEFE51F6AD2E8001D19E3 /* MonthPayHistoryVC.swift */,
-				655EEFE61F6AD2E8001D19E3 /* MonthPayInfoVC.swift */,
-				655EEFE71F6AD2E8001D19E3 /* MonthPayVC.swift */,
-				655EEFE81F6AD2E8001D19E3 /* MyCarTableVC.swift */,
-				655EEFE91F6AD2E8001D19E3 /* MyCarVC.swift */,
-				656713D61F87712200495F6D /* MyCarCell.swift */,
-				655EEFEA1F6AD2E8001D19E3 /* TemporaryPayPlateVC.swift */,
-				65F444A71F6915AA004F1155 /* MonthPayPlateVC.swift */,
-				651CD4641F8A1E3A004641C7 /* MyCarInfoVC.swift */,
-				655EEFE31F6AD2E8001D19E3 /* MonthHouseTableVC.swift */,
-				651D052C1F8D8900008D9BB1 /* MonthPayHouseCell.swift */,
-				65F444BF1F6916AB004F1155 /* CarPlate */,
-			);
-			name = CarPath;
-			sourceTree = "<group>";
-		};
-		65F444BF1F6916AB004F1155 /* CarPlate */ = {
-			isa = PBXGroup;
-			children = (
-				65F444C01F6916AB004F1155 /* NSString+Extra */,
-				65F444C31F6916AB004F1155 /* SDAutoLayout */,
-				65F444C81F6916AB004F1155 /* UIView_extra */,
-				65F444CB1F6916AB004F1155 /* XNButton.swift */,
-				65F444CC1F6916AB004F1155 /* XNInputCarNumebrButton.swift */,
-				65F444CD1F6916AB004F1155 /* XNKeyboardView.swift */,
-				65F444CE1F6916AB004F1155 /* XNTool.swift */,
-			);
-			name = CarPlate;
-			path = CarPath/CarPlate;
-			sourceTree = "<group>";
-		};
-		65F444C01F6916AB004F1155 /* NSString+Extra */ = {
-			isa = PBXGroup;
-			children = (
-				65F444C11F6916AB004F1155 /* NSString+Extra.h */,
-				65F444C21F6916AB004F1155 /* NSString+Extra.m */,
-			);
-			path = "NSString+Extra";
-			sourceTree = "<group>";
-		};
-		65F444C31F6916AB004F1155 /* SDAutoLayout */ = {
-			isa = PBXGroup;
-			children = (
-				65F444C41F6916AB004F1155 /* UITableView+SDAutoTableViewCellHeight.h */,
-				65F444C51F6916AB004F1155 /* UITableView+SDAutoTableViewCellHeight.m */,
-				65F444C61F6916AB004F1155 /* UIView+SDAutoLayout.h */,
-				65F444C71F6916AB004F1155 /* UIView+SDAutoLayout.m */,
-			);
-			path = SDAutoLayout;
-			sourceTree = "<group>";
-		};
-		65F444C81F6916AB004F1155 /* UIView_extra */ = {
-			isa = PBXGroup;
-			children = (
-				65F444C91F6916AB004F1155 /* UIView_extra.h */,
-				65F444CA1F6916AB004F1155 /* UIView_extra.m */,
-			);
-			path = UIView_extra;
 			sourceTree = "<group>";
 		};
 		B5D7662652F41930CB4B17F7 /* Frameworks */ = {
@@ -2188,7 +2111,6 @@
 				6575F16E1F714776006163D3 /* YHAlertView.swift in Sources */,
 				6527D6231F5E3510009E4B9C /* RefreshView.swift in Sources */,
 				657B43781F7A25C8003B68DD /* Date+Extension.swift in Sources */,
-				651D052D1F8D8900008D9BB1 /* MonthPayHouseCell.swift in Sources */,
 				6516B9C21F6AD47500183354 /* CozyVC.swift in Sources */,
 				6527D6391F5E3523009E4B9C /* HintTool.swift in Sources */,
 				65F444BB1F6915B7004F1155 /* PassRecordVC.swift in Sources */,
@@ -2199,9 +2121,8 @@
 				6527D61D1F5E3510009E4B9C /* AccessoryView.swift in Sources */,
 				6527D60F1F5E3510009E4B9C /* NSObject+MJClass.m in Sources */,
 				65B646F71F5F65060099A5C5 /* RealPlayVC.swift in Sources */,
-				65F444D41F6916AB004F1155 /* XNInputCarNumebrButton.swift in Sources */,
 				6527D6191F5E3510009E4B9C /* SVIndefiniteAnimatedView.m in Sources */,
-				655EEFEB1F6AD2E8001D19E3 /* CarApplyVC.swift in Sources */,
+				65632CD4205F084F00614E0E /* UITableView+SDAutoTableViewCellHeight.m in Sources */,
 				6531BDFE1F628E6E00138397 /* SettingsViewController.swift in Sources */,
 				6516B9E31F6FCFB400183354 /* AlertMessage.swift in Sources */,
 				65476C061F8C782800FF84D1 /* PublicDoorLIstTableVC.swift in Sources */,
@@ -2223,10 +2144,8 @@
 				6531BE071F628E6E00138397 /* ChatMessageCell.swift in Sources */,
 				65AFB1D61FA1B5AA005B3D0D /* DoorGuardRoomVC.swift in Sources */,
 				6527D5A61F5E3489009E4B9C /* XHWLHouseOwner.xcdatamodeld in Sources */,
-				656713D71F87712200495F6D /* MyCarCell.swift in Sources */,
 				6527D6111F5E3510009E4B9C /* NSObject+MJKeyValue.m in Sources */,
 				654BFC901F9DCDA600D633B8 /* Env.swift in Sources */,
-				655EEFF21F6AD2E8001D19E3 /* MyCarTableVC.swift in Sources */,
 				6527D6721F5E935B009E4B9C /* CTimeBarPanel.m in Sources */,
 				6527D6741F5E935B009E4B9C /* PlayView.m in Sources */,
 				6527D6131F5E3510009E4B9C /* NSString+MJExtension.m in Sources */,
@@ -2240,15 +2159,10 @@
 				6575F17E1F751376006163D3 /* XHMLProgressHUD.swift in Sources */,
 				6527D60A1F5E3510009E4B9C /* MJExtensionConst.m in Sources */,
 				655EEFF71F6AD331001D19E3 /* GoodnessVC.swift in Sources */,
-				65F444D51F6916AB004F1155 /* XNKeyboardView.swift in Sources */,
 				6527D5521F5E3436009E4B9C /* LoginView.swift in Sources */,
-				655EEFEF1F6AD2E8001D19E3 /* MonthPayHistoryVC.swift in Sources */,
 				65B5FCBB1FC5AF8B001953DC /* EditAccountVC.swift in Sources */,
-				65F444D01F6916AB004F1155 /* UITableView+SDAutoTableViewCellHeight.m in Sources */,
-				655EEFEE1F6AD2E8001D19E3 /* MonthPayHistoryTableVC.swift in Sources */,
 				65B5FCB71FC56219001953DC /* MyAccountTableVC.swift in Sources */,
 				654BFC8E1F9DCD4E00D633B8 /* ExamplesDefaults.swift in Sources */,
-				65F444B91F6915B7004F1155 /* InviteVC.swift in Sources */,
 				65F81F571F7B80AF00A0A83B /* MyDoorVC.swift in Sources */,
 				6527D6211F5E3510009E4B9C /* GifImagesHeaderFooter.swift in Sources */,
 				6527D6361F5E3523009E4B9C /* DateStringExtension.swift in Sources */,
@@ -2259,6 +2173,7 @@
 				6575F1741F74FC2E006163D3 /* XHWLUserModel.swift in Sources */,
 				65F444BC1F6915B7004F1155 /* PersonPassVC.swift in Sources */,
 				651E025F1F904D7F00631AAD /* SpinerLayer.swift in Sources */,
+				65632CD5205F084F00614E0E /* UIView+SDAutoLayout.m in Sources */,
 				65D2C21320215AE900A7C086 /* CallerInviteVC.swift in Sources */,
 				6527D63C1F5E3523009E4B9C /* Validation.swift in Sources */,
 				650111051F7E33BA00BB1D35 /* XHWLLocationVC.swift in Sources */,
@@ -2268,7 +2183,6 @@
 				6516B9E01F6FCC0400183354 /* XHWLScanVC.swift in Sources */,
 				6527D6041F5E3510009E4B9C /* MASViewAttribute.m in Sources */,
 				6531BDFC1F628E6E00138397 /* MainViewController.swift in Sources */,
-				65F444AC1F6915AA004F1155 /* MonthPayPlateVC.swift in Sources */,
 				6527D60E1F5E3510009E4B9C /* MJPropertyType.m in Sources */,
 				6527D6701F5E935B009E4B9C /* PlayBackViewController.m in Sources */,
 				6527D6031F5E3510009E4B9C /* MASLayoutConstraint.m in Sources */,
@@ -2276,30 +2190,26 @@
 				6527D67B1F5E935B009E4B9C /* TalkChannelView.m in Sources */,
 				651E02611F9097C700631AAD /* FadeTransition.swift in Sources */,
 				658349821FBAE27000988F08 /* BindSetPswVC.swift in Sources */,
-				655EEFF31F6AD2E8001D19E3 /* MyCarVC.swift in Sources */,
 				65B646F91F60344D0099A5C5 /* SingleMonitorView.swift in Sources */,
 				6527D6711F5E935B009E4B9C /* RealPlayViewController.m in Sources */,
 				6531BDFB1F628E6E00138397 /* ChatMessageViewController.swift in Sources */,
-				65F444D21F6916AB004F1155 /* UIView_extra.m in Sources */,
 				6531BE081F628E6E00138397 /* ProfileCell.swift in Sources */,
 				652FFE271F7CF4920029B026 /* XHWLScanResultVC.swift in Sources */,
 				6585C7D6202D3D7600ABD55F /* ShareView.swift in Sources */,
+				65632CD7205F084F00614E0E /* UIView_extra.m in Sources */,
 				654BFC8C1F9DC2E700D633B8 /* SportsIndexVC.swift in Sources */,
 				650142C91FD4F0C0000E9EBF /* ForgetPhoneVeriVC.swift in Sources */,
-				65F444CF1F6916AB004F1155 /* NSString+Extra.m in Sources */,
 				6531BDFF1F628E6E00138397 /* AGVideoPreProcessing.mm in Sources */,
 				65F444BD1F6915B7004F1155 /* PersonPathViewController.swift in Sources */,
 				6527D67D1F5E935B009E4B9C /* ToolBarButton.m in Sources */,
 				658849081F7A370B009261D6 /* SwiftyJSON.swift in Sources */,
 				6516B9C61F6AD7EA00183354 /* PersonalCenterVC.swift in Sources */,
 				6527D60D1F5E3510009E4B9C /* MJPropertyKey.m in Sources */,
+				65632CD6205F084F00614E0E /* NSString+Extra.m in Sources */,
 				6527D6371F5E3523009E4B9C /* StringExtension.swift in Sources */,
-				651D05331F8D99F6008D9BB1 /* PayHistoryCell.swift in Sources */,
 				6516B9DF1F6FCC0400183354 /* XHWLScanTestVC.swift in Sources */,
 				6527D6261F5E3510009E4B9C /* XMLReader.m in Sources */,
 				6531BDFD1F628E6E00138397 /* RoomViewController.swift in Sources */,
-				655EEFF11F6AD2E8001D19E3 /* MonthPayVC.swift in Sources */,
-				65F444D61F6916AB004F1155 /* XNTool.swift in Sources */,
 				651D05351F8DBC9B008D9BB1 /* ServiceCenterVC.swift in Sources */,
 				65C1E9B81F668D8800CE0429 /* SegueFromLeft.swift in Sources */,
 				651E025D1F904D7800631AAD /* DKViewControllerExt.swift in Sources */,
@@ -2331,7 +2241,6 @@
 				65D2C21920216D3C00A7C086 /* InviteRecordWebVC.swift in Sources */,
 				6575F1681F70C1DC006163D3 /* SwiftNotice.swift in Sources */,
 				6527D6241F5E3510009E4B9C /* TextHeaderFooter.swift in Sources */,
-				655EEFF41F6AD2E8001D19E3 /* TemporaryPayPlateVC.swift in Sources */,
 				6531BE011F628E6E00138397 /* CommonExtensions.swift in Sources */,
 				65C1E9B11F66635A00CE0429 /* XHWLTabBarViewController.swift in Sources */,
 				6575F1FD1F755E63006163D3 /* MyHouseTableVC.swift in Sources */,
@@ -2340,7 +2249,6 @@
 				65F444BE1F6915B7004F1155 /* ProduceQRCodeVC.swift in Sources */,
 				6531BE0B1F628E6E00138397 /* VideoViewLayouter.swift in Sources */,
 				65D2C21B2021B98100A7C086 /* DoorCardManageVC.swift in Sources */,
-				65F444D11F6916AB004F1155 /* UIView+SDAutoLayout.m in Sources */,
 				6527D60B1F5E3510009E4B9C /* MJFoundation.m in Sources */,
 				6531BE001F628E6E00138397 /* CollectionIndexModel.swift in Sources */,
 				6531BE041F628E6E00138397 /* MediaCharacter.swift in Sources */,
@@ -2351,14 +2259,12 @@
 				6527D5951F5E3489009E4B9C /* AppDelegate.swift in Sources */,
 				6527D6731F5E935B009E4B9C /* PickerView.m in Sources */,
 				6527D6151F5E3510009E4B9C /* STPopupLeftBarItem.m in Sources */,
-				655EEFF01F6AD2E8001D19E3 /* MonthPayInfoVC.swift in Sources */,
 				6598540E1FF0E2A90071D607 /* XHWLWiddogVideoVC.swift in Sources */,
 				6527D6251F5E3510009E4B9C /* UIScrollView+SYRefresh.swift in Sources */,
 				6527D6381F5E3523009E4B9C /* UIColor+Category.swift in Sources */,
 				65476C041F8C743900FF84D1 /* UnitDoorListTableVC.swift in Sources */,
 				6527D6121F5E3510009E4B9C /* NSObject+MJProperty.m in Sources */,
 				6527D6781F5E935B009E4B9C /* PtzPresetPositionMultiDialView.m in Sources */,
-				651CD4651F8A1E3A004641C7 /* MyCarInfoVC.swift in Sources */,
 				651E025C1F904D7500631AAD /* DKTransitionButton.swift in Sources */,
 				6531BE031F628E6E00138397 /* KeyCenter.swift in Sources */,
 				6527D61F1F5E3510009E4B9C /* GIFAnimatedImageView.swift in Sources */,
@@ -2367,10 +2273,8 @@
 				65306F071FFF17B400C1304C /* DoorVideoVC.swift in Sources */,
 				6527D5541F5E3436009E4B9C /* SuccessView.swift in Sources */,
 				65B5FCB51FC5606F001953DC /* MyAccountVC.swift in Sources */,
-				655EEFEC1F6AD2E8001D19E3 /* CarPathVC.swift in Sources */,
 				6527D54F1F5E3436009E4B9C /* LoginViewController.swift in Sources */,
 				6527D54E1F5E3436009E4B9C /* LoginSuccessfullyViewController.swift in Sources */,
-				655EEFED1F6AD2E8001D19E3 /* MonthHouseTableVC.swift in Sources */,
 				6575F17C1F74FE34006163D3 /* XHWLUnitModel.swift in Sources */,
 				658349801FBADB2000988F08 /* BindSendMsgVC.swift in Sources */,
 				6527D6791F5E935B009E4B9C /* PtzPresetPositionPopView.m in Sources */,
@@ -2380,7 +2284,6 @@
 				651E025E1F904D7C00631AAD /* NSTimerEx.swift in Sources */,
 				6527D6761F5E935B009E4B9C /* PtzPopView.m in Sources */,
 				6527D5A91F5E3506009E4B9C /* SpaceViewController.swift in Sources */,
-				65F444D31F6916AB004F1155 /* XNButton.swift in Sources */,
 				6527D60C1F5E3510009E4B9C /* MJProperty.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
