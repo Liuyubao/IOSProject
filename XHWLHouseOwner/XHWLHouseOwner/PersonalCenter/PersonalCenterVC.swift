@@ -14,20 +14,6 @@ class PersonalCenterVC: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func serviceBtnClicked(_ sender: UIButton) {
-//        let alert = UIAlertController(title: "客服", message: "请联系13123375305", preferredStyle: .alert)
-//        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-//        let conformAction = UIAlertAction(title: "确定", style: .default, handler: {
-//            action in
-//                UIApplication.shared.openURL(NSURL.init(string: "tel://13123375305")! as URL)
-//        })
-//        alert.addAction(cancelAction)
-//        alert.addAction(conformAction)
-//        self.present(alert, animated: true, completion: nil)
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ServiceCenterVC")
-        vc?.modalTransitionStyle = .crossDissolve
-        self.present(vc!, animated: true)
-    }
     
     
     

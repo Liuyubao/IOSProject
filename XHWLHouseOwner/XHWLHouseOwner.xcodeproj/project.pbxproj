@@ -17,7 +17,6 @@
 		6516B9C21F6AD47500183354 /* CozyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6516B9C11F6AD47500183354 /* CozyVC.swift */; };
 		6516B9C61F6AD7EA00183354 /* PersonalCenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6516B9C51F6AD7EA00183354 /* PersonalCenterVC.swift */; };
 		6516B9C81F6ADAE600183354 /* PersonalInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6516B9C71F6ADAE600183354 /* PersonalInfoVC.swift */; };
-		6516B9CA1F6B743600183354 /* PersonalQRCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6516B9C91F6B743600183354 /* PersonalQRCodeVC.swift */; };
 		6516B9CD1F6BCA1A00183354 /* GoodnessScrollVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6516B9CC1F6BCA1A00183354 /* GoodnessScrollVC.swift */; };
 		6516B9D61F6FC31F00183354 /* XHWLRequestKeyDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6516B9D41F6FC31F00183354 /* XHWLRequestKeyDefine.swift */; };
 		6516B9D81F6FC3D900183354 /* XHWLNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6516B9D71F6FC3D900183354 /* XHWLNetwork.swift */; };
@@ -31,14 +30,12 @@
 		651D052B1F8D876B008D9BB1 /* car_3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 651D05281F8D8728008D9BB1 /* car_3.jpg */; };
 		651D05301F8D89F5008D9BB1 /* car_4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 651D052E1F8D89E7008D9BB1 /* car_4.jpg */; };
 		651D05311F8D8A00008D9BB1 /* car_5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 651D052F1F8D89EC008D9BB1 /* car_5.jpg */; };
-		651D05351F8DBC9B008D9BB1 /* ServiceCenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651D05341F8DBC9B008D9BB1 /* ServiceCenterVC.swift */; };
 		651E025B1F904D7200631AAD /* CGRectEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651E02561F904D6400631AAD /* CGRectEx.swift */; };
 		651E025C1F904D7500631AAD /* DKTransitionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651E02571F904D6400631AAD /* DKTransitionButton.swift */; };
 		651E025D1F904D7800631AAD /* DKViewControllerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651E02581F904D6400631AAD /* DKViewControllerExt.swift */; };
 		651E025E1F904D7C00631AAD /* NSTimerEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651E02591F904D6400631AAD /* NSTimerEx.swift */; };
 		651E025F1F904D7F00631AAD /* SpinerLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651E025A1F904D6400631AAD /* SpinerLayer.swift */; };
 		651E02611F9097C700631AAD /* FadeTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651E02601F9097C700631AAD /* FadeTransition.swift */; };
-		652069421F99D9B700BAF8E0 /* ServiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652069411F99D9B700BAF8E0 /* ServiceCell.swift */; };
 		6527D54D1F5E3436009E4B9C /* ChooseDistrictViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6527D5441F5E3436009E4B9C /* ChooseDistrictViewController.swift */; };
 		6527D54E1F5E3436009E4B9C /* LoginSuccessfullyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6527D5451F5E3436009E4B9C /* LoginSuccessfullyViewController.swift */; };
 		6527D54F1F5E3436009E4B9C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6527D5461F5E3436009E4B9C /* LoginViewController.swift */; };
@@ -171,6 +168,9 @@
 		65632CD5205F084F00614E0E /* UIView+SDAutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 65632CCD205F084E00614E0E /* UIView+SDAutoLayout.m */; };
 		65632CD6205F084F00614E0E /* NSString+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = 65632CD0205F084E00614E0E /* NSString+Extra.m */; };
 		65632CD7205F084F00614E0E /* UIView_extra.m in Sources */ = {isa = PBXBuildFile; fileRef = 65632CD3205F084E00614E0E /* UIView_extra.m */; };
+		65632CDB205F133C00614E0E /* PassRecordTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65632CD8205F133B00614E0E /* PassRecordTableVC.swift */; };
+		65632CDC205F133C00614E0E /* PersonPassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65632CD9205F133B00614E0E /* PersonPassVC.swift */; };
+		65632CDD205F133C00614E0E /* PassRecordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65632CDA205F133B00614E0E /* PassRecordVC.swift */; };
 		656713D31F876A5800495F6D /* car1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 656713D11F876A5100495F6D /* car1.jpeg */; };
 		656713D41F876A5B00495F6D /* car2.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 656713D21F876A5200495F6D /* car2.jpeg */; };
 		656713D51F876A5F00495F6D /* car3.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 656713D01F876A5100495F6D /* car3.jpeg */; };
@@ -284,10 +284,6 @@
 		6598540C1FF0E2890071D607 /* XHWLWilddogVideoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6598540B1FF0E2890071D607 /* XHWLWilddogVideoManager.swift */; };
 		6598540E1FF0E2A90071D607 /* XHWLWiddogVideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6598540D1FF0E2A90071D607 /* XHWLWiddogVideoVC.swift */; };
 		65AFB1D61FA1B5AA005B3D0D /* DoorGuardRoomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFB1D51FA1B5AA005B3D0D /* DoorGuardRoomVC.swift */; };
-		65B5FCB51FC5606F001953DC /* MyAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B5FCB41FC5606F001953DC /* MyAccountVC.swift */; };
-		65B5FCB71FC56219001953DC /* MyAccountTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B5FCB61FC56219001953DC /* MyAccountTableVC.swift */; };
-		65B5FCB91FC56266001953DC /* MyAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B5FCB81FC56266001953DC /* MyAccountCell.swift */; };
-		65B5FCBB1FC5AF8B001953DC /* EditAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B5FCBA1FC5AF8B001953DC /* EditAccountVC.swift */; };
 		65B646F71F5F65060099A5C5 /* RealPlayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B646F61F5F65060099A5C5 /* RealPlayVC.swift */; };
 		65B646F91F60344D0099A5C5 /* SingleMonitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B646F81F60344D0099A5C5 /* SingleMonitorView.swift */; };
 		65B85B9D1FAC60B60098D1B0 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B85B9C1FAC5FE90098D1B0 /* TencentOpenAPI.framework */; };
@@ -309,11 +305,7 @@
 		65D2C21B2021B98100A7C086 /* DoorCardManageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2C21A2021B98100A7C086 /* DoorCardManageVC.swift */; };
 		65EACE351F9623610000366F /* CloudTalkingCallVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EACE341F9623610000366F /* CloudTalkingCallVC.swift */; };
 		65ED92031F9F1E570090DEAA /* OProgressView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ED92021F9F1E560090DEAA /* OProgressView2.swift */; };
-		65F444BA1F6915B7004F1155 /* PassRecordTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F444B31F6915B7004F1155 /* PassRecordTableVC.swift */; };
-		65F444BB1F6915B7004F1155 /* PassRecordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F444B41F6915B7004F1155 /* PassRecordVC.swift */; };
-		65F444BC1F6915B7004F1155 /* PersonPassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F444B51F6915B7004F1155 /* PersonPassVC.swift */; };
 		65F444BD1F6915B7004F1155 /* PersonPathViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F444B61F6915B7004F1155 /* PersonPathViewController.swift */; };
-		65F444BE1F6915B7004F1155 /* ProduceQRCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F444B71F6915B7004F1155 /* ProduceQRCodeVC.swift */; };
 		65F81F571F7B80AF00A0A83B /* MyDoorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F81F561F7B80AF00A0A83B /* MyDoorVC.swift */; };
 		876498D9A6167E1175EF488F /* Pods_XHWLHouseOwner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F1A45C2D729D7CB2D77F70 /* Pods_XHWLHouseOwner.framework */; };
 		929ECCBFBAC4D891A3F58EEC /* Pods_XHWLHouseOwnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A8871EA719B43C3D7016E6A /* Pods_XHWLHouseOwnerTests.framework */; };
@@ -388,7 +380,6 @@
 		6516B9C11F6AD47500183354 /* CozyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CozyVC.swift; sourceTree = "<group>"; };
 		6516B9C51F6AD7EA00183354 /* PersonalCenterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalCenterVC.swift; sourceTree = "<group>"; };
 		6516B9C71F6ADAE600183354 /* PersonalInfoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalInfoVC.swift; sourceTree = "<group>"; };
-		6516B9C91F6B743600183354 /* PersonalQRCodeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalQRCodeVC.swift; sourceTree = "<group>"; };
 		6516B9CC1F6BCA1A00183354 /* GoodnessScrollVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodnessScrollVC.swift; sourceTree = "<group>"; };
 		6516B9D41F6FC31F00183354 /* XHWLRequestKeyDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XHWLRequestKeyDefine.swift; sourceTree = "<group>"; };
 		6516B9D71F6FC3D900183354 /* XHWLNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XHWLNetwork.swift; sourceTree = "<group>"; };
@@ -402,14 +393,12 @@
 		651D05281F8D8728008D9BB1 /* car_3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = car_3.jpg; sourceTree = "<group>"; };
 		651D052E1F8D89E7008D9BB1 /* car_4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = car_4.jpg; sourceTree = "<group>"; };
 		651D052F1F8D89EC008D9BB1 /* car_5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = car_5.jpg; sourceTree = "<group>"; };
-		651D05341F8DBC9B008D9BB1 /* ServiceCenterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCenterVC.swift; sourceTree = "<group>"; };
 		651E02561F904D6400631AAD /* CGRectEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRectEx.swift; sourceTree = "<group>"; };
 		651E02571F904D6400631AAD /* DKTransitionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKTransitionButton.swift; sourceTree = "<group>"; };
 		651E02581F904D6400631AAD /* DKViewControllerExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKViewControllerExt.swift; sourceTree = "<group>"; };
 		651E02591F904D6400631AAD /* NSTimerEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTimerEx.swift; sourceTree = "<group>"; };
 		651E025A1F904D6400631AAD /* SpinerLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinerLayer.swift; sourceTree = "<group>"; };
 		651E02601F9097C700631AAD /* FadeTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadeTransition.swift; sourceTree = "<group>"; };
-		652069411F99D9B700BAF8E0 /* ServiceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCell.swift; sourceTree = "<group>"; };
 		6527D5441F5E3436009E4B9C /* ChooseDistrictViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseDistrictViewController.swift; sourceTree = "<group>"; };
 		6527D5451F5E3436009E4B9C /* LoginSuccessfullyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginSuccessfullyViewController.swift; sourceTree = "<group>"; };
 		6527D5461F5E3436009E4B9C /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -604,6 +593,9 @@
 		65632CD0205F084E00614E0E /* NSString+Extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extra.m"; sourceTree = "<group>"; };
 		65632CD2205F084E00614E0E /* UIView_extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIView_extra.h; sourceTree = "<group>"; };
 		65632CD3205F084E00614E0E /* UIView_extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIView_extra.m; sourceTree = "<group>"; };
+		65632CD8205F133B00614E0E /* PassRecordTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PassRecordTableVC.swift; path = PersonPath/PassRecordTableVC.swift; sourceTree = "<group>"; };
+		65632CD9205F133B00614E0E /* PersonPassVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersonPassVC.swift; path = PersonPath/PersonPassVC.swift; sourceTree = "<group>"; };
+		65632CDA205F133B00614E0E /* PassRecordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PassRecordVC.swift; path = PersonPath/PassRecordVC.swift; sourceTree = "<group>"; };
 		656713D01F876A5100495F6D /* car3.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = car3.jpeg; sourceTree = "<group>"; };
 		656713D11F876A5100495F6D /* car1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = car1.jpeg; sourceTree = "<group>"; };
 		656713D21F876A5200495F6D /* car2.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = car2.jpeg; sourceTree = "<group>"; };
@@ -717,10 +709,6 @@
 		6598540B1FF0E2890071D607 /* XHWLWilddogVideoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XHWLWilddogVideoManager.swift; sourceTree = "<group>"; };
 		6598540D1FF0E2A90071D607 /* XHWLWiddogVideoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XHWLWiddogVideoVC.swift; sourceTree = "<group>"; };
 		65AFB1D51FA1B5AA005B3D0D /* DoorGuardRoomVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoorGuardRoomVC.swift; sourceTree = "<group>"; };
-		65B5FCB41FC5606F001953DC /* MyAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountVC.swift; sourceTree = "<group>"; };
-		65B5FCB61FC56219001953DC /* MyAccountTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountTableVC.swift; sourceTree = "<group>"; };
-		65B5FCB81FC56266001953DC /* MyAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountCell.swift; sourceTree = "<group>"; };
-		65B5FCBA1FC5AF8B001953DC /* EditAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountVC.swift; sourceTree = "<group>"; };
 		65B646F61F5F65060099A5C5 /* RealPlayVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealPlayVC.swift; sourceTree = "<group>"; };
 		65B646F81F60344D0099A5C5 /* SingleMonitorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleMonitorView.swift; sourceTree = "<group>"; };
 		65B85B9C1FAC5FE90098D1B0 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
@@ -742,11 +730,7 @@
 		65D2C21A2021B98100A7C086 /* DoorCardManageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DoorCardManageVC.swift; path = PersonPath/DoorCardManageVC.swift; sourceTree = "<group>"; };
 		65EACE341F9623610000366F /* CloudTalkingCallVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudTalkingCallVC.swift; sourceTree = "<group>"; };
 		65ED92021F9F1E560090DEAA /* OProgressView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OProgressView2.swift; sourceTree = "<group>"; };
-		65F444B31F6915B7004F1155 /* PassRecordTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PassRecordTableVC.swift; path = PersonPath/PassRecordTableVC.swift; sourceTree = "<group>"; };
-		65F444B41F6915B7004F1155 /* PassRecordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PassRecordVC.swift; path = PersonPath/PassRecordVC.swift; sourceTree = "<group>"; };
-		65F444B51F6915B7004F1155 /* PersonPassVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersonPassVC.swift; path = PersonPath/PersonPassVC.swift; sourceTree = "<group>"; };
 		65F444B61F6915B7004F1155 /* PersonPathViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersonPathViewController.swift; path = PersonPath/PersonPathViewController.swift; sourceTree = "<group>"; };
-		65F444B71F6915B7004F1155 /* ProduceQRCodeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProduceQRCodeVC.swift; path = PersonPath/ProduceQRCodeVC.swift; sourceTree = "<group>"; };
 		65F81F561F7B80AF00A0A83B /* MyDoorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDoorVC.swift; sourceTree = "<group>"; };
 		69935EAADC69B8C31CF1C5B4 /* Pods-XHWLHouseOwnerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XHWLHouseOwnerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XHWLHouseOwnerUITests/Pods-XHWLHouseOwnerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7050D21204B7A2BC04A67A19 /* Pods-XHWLHouseOwnerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XHWLHouseOwnerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XHWLHouseOwnerTests/Pods-XHWLHouseOwnerTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -933,20 +917,13 @@
 			children = (
 				6516B9C51F6AD7EA00183354 /* PersonalCenterVC.swift */,
 				6516B9C71F6ADAE600183354 /* PersonalInfoVC.swift */,
-				6516B9C91F6B743600183354 /* PersonalQRCodeVC.swift */,
 				6575F1FA1F755E3E006163D3 /* MyHouseVC.swift */,
 				6575F1FC1F755E63006163D3 /* MyHouseTableVC.swift */,
 				6575F1FE1F75616D006163D3 /* MyHouseCell.swift */,
 				65F81F561F7B80AF00A0A83B /* MyDoorVC.swift */,
 				65476C031F8C743900FF84D1 /* UnitDoorListTableVC.swift */,
 				65476C051F8C782800FF84D1 /* PublicDoorLIstTableVC.swift */,
-				651D05341F8DBC9B008D9BB1 /* ServiceCenterVC.swift */,
-				652069411F99D9B700BAF8E0 /* ServiceCell.swift */,
 				65126E6F1FBEF1CA00BDF977 /* ReSetPswVC.swift */,
-				65B5FCB41FC5606F001953DC /* MyAccountVC.swift */,
-				65B5FCB61FC56219001953DC /* MyAccountTableVC.swift */,
-				65B5FCB81FC56266001953DC /* MyAccountCell.swift */,
-				65B5FCBA1FC5AF8B001953DC /* EditAccountVC.swift */,
 			);
 			path = PersonalCenter;
 			sourceTree = "<group>";
@@ -1597,10 +1574,9 @@
 			isa = PBXGroup;
 			children = (
 				65F444B61F6915B7004F1155 /* PersonPathViewController.swift */,
-				65F444B31F6915B7004F1155 /* PassRecordTableVC.swift */,
-				65F444B41F6915B7004F1155 /* PassRecordVC.swift */,
-				65F444B51F6915B7004F1155 /* PersonPassVC.swift */,
-				65F444B71F6915B7004F1155 /* ProduceQRCodeVC.swift */,
+				65632CD8205F133B00614E0E /* PassRecordTableVC.swift */,
+				65632CDA205F133B00614E0E /* PassRecordVC.swift */,
+				65632CD9205F133B00614E0E /* PersonPassVC.swift */,
 				65D2C21220215AE900A7C086 /* CallerInviteVC.swift */,
 				65D2C21820216D3C00A7C086 /* InviteRecordWebVC.swift */,
 				65D2C21A2021B98100A7C086 /* DoorCardManageVC.swift */,
@@ -2113,11 +2089,10 @@
 				657B43781F7A25C8003B68DD /* Date+Extension.swift in Sources */,
 				6516B9C21F6AD47500183354 /* CozyVC.swift in Sources */,
 				6527D6391F5E3523009E4B9C /* HintTool.swift in Sources */,
-				65F444BB1F6915B7004F1155 /* PassRecordVC.swift in Sources */,
 				6527D6751F5E935B009E4B9C /* PtzPanelView.m in Sources */,
+				65632CDD205F133C00614E0E /* PassRecordVC.swift in Sources */,
 				6516B9D61F6FC31F00183354 /* XHWLRequestKeyDefine.swift in Sources */,
 				6516B9E51F6FD4D300183354 /* JSONAndDictionary.swift in Sources */,
-				65F444BA1F6915B7004F1155 /* PassRecordTableVC.swift in Sources */,
 				6527D61D1F5E3510009E4B9C /* AccessoryView.swift in Sources */,
 				6527D60F1F5E3510009E4B9C /* NSObject+MJClass.m in Sources */,
 				65B646F71F5F65060099A5C5 /* RealPlayVC.swift in Sources */,
@@ -2137,7 +2112,6 @@
 				6516B9D81F6FC3D900183354 /* XHWLNetwork.swift in Sources */,
 				6527D61B1F5E3510009E4B9C /* SVProgressHUD.m in Sources */,
 				6527D6221F5E3510009E4B9C /* GifTextHeaderFooter.swift in Sources */,
-				6516B9CA1F6B743600183354 /* PersonalQRCodeVC.swift in Sources */,
 				6527D6181F5E3510009E4B9C /* UIViewController+STPopup.m in Sources */,
 				6527D6271F5E3510009E4B9C /* YLGIFImage.swift in Sources */,
 				6575F1FB1F755E3E006163D3 /* MyHouseVC.swift in Sources */,
@@ -2160,8 +2134,6 @@
 				6527D60A1F5E3510009E4B9C /* MJExtensionConst.m in Sources */,
 				655EEFF71F6AD331001D19E3 /* GoodnessVC.swift in Sources */,
 				6527D5521F5E3436009E4B9C /* LoginView.swift in Sources */,
-				65B5FCBB1FC5AF8B001953DC /* EditAccountVC.swift in Sources */,
-				65B5FCB71FC56219001953DC /* MyAccountTableVC.swift in Sources */,
 				654BFC8E1F9DCD4E00D633B8 /* ExamplesDefaults.swift in Sources */,
 				65F81F571F7B80AF00A0A83B /* MyDoorVC.swift in Sources */,
 				6527D6211F5E3510009E4B9C /* GifImagesHeaderFooter.swift in Sources */,
@@ -2171,7 +2143,6 @@
 				652FFE041F7CA4C20029B026 /* CLNewFeatureView.swift in Sources */,
 				6575F1711F73BA75006163D3 /* RemoteOpenDoorVC.swift in Sources */,
 				6575F1741F74FC2E006163D3 /* XHWLUserModel.swift in Sources */,
-				65F444BC1F6915B7004F1155 /* PersonPassVC.swift in Sources */,
 				651E025F1F904D7F00631AAD /* SpinerLayer.swift in Sources */,
 				65632CD5205F084F00614E0E /* UIView+SDAutoLayout.m in Sources */,
 				65D2C21320215AE900A7C086 /* CallerInviteVC.swift in Sources */,
@@ -2210,7 +2181,6 @@
 				6516B9DF1F6FCC0400183354 /* XHWLScanTestVC.swift in Sources */,
 				6527D6261F5E3510009E4B9C /* XMLReader.m in Sources */,
 				6531BDFD1F628E6E00138397 /* RoomViewController.swift in Sources */,
-				651D05351F8DBC9B008D9BB1 /* ServiceCenterVC.swift in Sources */,
 				65C1E9B81F668D8800CE0429 /* SegueFromLeft.swift in Sources */,
 				651E025D1F904D7800631AAD /* DKViewControllerExt.swift in Sources */,
 				6527D6161F5E3510009E4B9C /* STPopupNavigationBar.m in Sources */,
@@ -2231,22 +2201,20 @@
 				65710DED20240CB200AED865 /* VisitorCallVC.swift in Sources */,
 				6516B9C81F6ADAE600183354 /* PersonalInfoVC.swift in Sources */,
 				6527D6141F5E3510009E4B9C /* STPopupController.m in Sources */,
-				652069421F99D9B700BAF8E0 /* ServiceCell.swift in Sources */,
 				6598540C1FF0E2890071D607 /* XHWLWilddogVideoManager.swift in Sources */,
 				651E025B1F904D7200631AAD /* CGRectEx.swift in Sources */,
 				6575F1781F74FD76006163D3 /* XHWLProjectModel.swift in Sources */,
 				65710DF12024459100AED865 /* AudioManager.m in Sources */,
 				6527D6021F5E3510009E4B9C /* MASConstraintMaker.m in Sources */,
-				65B5FCB91FC56266001953DC /* MyAccountCell.swift in Sources */,
 				65D2C21920216D3C00A7C086 /* InviteRecordWebVC.swift in Sources */,
 				6575F1681F70C1DC006163D3 /* SwiftNotice.swift in Sources */,
 				6527D6241F5E3510009E4B9C /* TextHeaderFooter.swift in Sources */,
+				65632CDC205F133C00614E0E /* PersonPassVC.swift in Sources */,
 				6531BE011F628E6E00138397 /* CommonExtensions.swift in Sources */,
 				65C1E9B11F66635A00CE0429 /* XHWLTabBarViewController.swift in Sources */,
 				6575F1FD1F755E63006163D3 /* MyHouseTableVC.swift in Sources */,
 				6531BE091F628E6E00138397 /* VideoSession.swift in Sources */,
 				655B7C391F8BBDDC004F07BF /* XHWLRoomModel.swift in Sources */,
-				65F444BE1F6915B7004F1155 /* ProduceQRCodeVC.swift in Sources */,
 				6531BE0B1F628E6E00138397 /* VideoViewLayouter.swift in Sources */,
 				65D2C21B2021B98100A7C086 /* DoorCardManageVC.swift in Sources */,
 				6527D60B1F5E3510009E4B9C /* MJFoundation.m in Sources */,
@@ -2272,10 +2240,10 @@
 				65C1E9B91F668D8800CE0429 /* SegueFromRight.swift in Sources */,
 				65306F071FFF17B400C1304C /* DoorVideoVC.swift in Sources */,
 				6527D5541F5E3436009E4B9C /* SuccessView.swift in Sources */,
-				65B5FCB51FC5606F001953DC /* MyAccountVC.swift in Sources */,
 				6527D54F1F5E3436009E4B9C /* LoginViewController.swift in Sources */,
 				6527D54E1F5E3436009E4B9C /* LoginSuccessfullyViewController.swift in Sources */,
 				6575F17C1F74FE34006163D3 /* XHWLUnitModel.swift in Sources */,
+				65632CDB205F133C00614E0E /* PassRecordTableVC.swift in Sources */,
 				658349801FBADB2000988F08 /* BindSendMsgVC.swift in Sources */,
 				6527D6791F5E935B009E4B9C /* PtzPresetPositionPopView.m in Sources */,
 				6527D6101F5E3510009E4B9C /* NSObject+MJCoding.m in Sources */,

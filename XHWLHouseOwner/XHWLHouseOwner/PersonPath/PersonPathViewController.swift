@@ -25,6 +25,12 @@ class PersonPathViewController: UIViewController, UIScrollViewDelegate, ModalTra
         })
     }
     
+    @IBAction func inviteBtnClicked(_ sender: UIButton) {
+        let controller = CallerInviteVC()
+        let nav = UINavigationController(rootViewController: controller)
+        nav.modalTransitionStyle = .crossDissolve
+        present(nav, animated: true, completion: nil)
+    }
     
     @IBAction func toScanBtnClicked(_ sender: UIButton) {
         //跳到扫一扫

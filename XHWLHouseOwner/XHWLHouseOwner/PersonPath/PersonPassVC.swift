@@ -16,9 +16,6 @@ class PersonPassVC: UIViewController {
 
     //访客邀请按钮点击事件
     @IBAction func inviteCustomerBtnClicked(_ sender: UIButton) {
-//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "InviteVC")
-//        vc?.modalTransitionStyle = .crossDissolve
-//        self.present(vc!, animated: true, completion: nil)
         
         let controller = CallerInviteVC()
         let nav = UINavigationController(rootViewController: controller)
