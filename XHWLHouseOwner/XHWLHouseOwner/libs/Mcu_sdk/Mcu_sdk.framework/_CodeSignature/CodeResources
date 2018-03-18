@@ -12,6 +12,10 @@
 		<data>
 		RttMYjGXyQ1gCNB9JsR8yZIuOQ8=
 		</data>
+		<key>Headers/LocalPlayBackManager.h</key>
+		<data>
+		9e9AD50y3k9YmRH8g5M1pwyDiHA=
+		</data>
 		<key>Headers/MCUCameraInfo.h</key>
 		<data>
 		f7vlJ2MUeRdqyl+ZezDO/BOqz24=
@@ -30,11 +34,15 @@
 		</data>
 		<key>Headers/PlayBackManager.h</key>
 		<data>
-		KDJAojVxUSOptlt/SqFk1s9df8Y=
+		lAS40GW0OOjbX8/uCAx40tI386E=
 		</data>
 		<key>Headers/RealPlayManager.h</key>
 		<data>
 		spbCSZlnXimK29ncmM+NS+lZaYE=
+		</data>
+		<key>Headers/RealPlayManagerEx.h</key>
+		<data>
+		Ds5u8cqfBhY92BN29cQ6YGgJWTE=
 		</data>
 		<key>Headers/VPCaptureInfo.h</key>
 		<data>
@@ -50,7 +58,7 @@
 		</data>
 		<key>Headers/VideoPlaySDK.h</key>
 		<data>
-		v+gnMXtIUsik1fa3KxngUzD5eVU=
+		t1KvRphlghcrl4g0attirWem4Ak=
 		</data>
 		<key>Headers/VideoPlayUtility.h</key>
 		<data>
@@ -58,7 +66,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		Ez041odhrEYufqyblkQxHVC4H/0=
+		i2gts07cXHv6kOHwfgwZg7Re4vk=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -87,6 +95,17 @@
 			<key>hash2</key>
 			<data>
 			tTOVB7TnY1mzfcc8l1iqad+C7tw0Sn0x0EG60MCn11I=
+			</data>
+		</dict>
+		<key>Headers/LocalPlayBackManager.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			9e9AD50y3k9YmRH8g5M1pwyDiHA=
+			</data>
+			<key>hash2</key>
+			<data>
+			iq5tHutPEKdGmIz1swJvHDBLvJdtMCj6GVaxpTGrOgM=
 			</data>
 		</dict>
 		<key>Headers/MCUCameraInfo.h</key>
@@ -137,11 +156,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			KDJAojVxUSOptlt/SqFk1s9df8Y=
+			lAS40GW0OOjbX8/uCAx40tI386E=
 			</data>
 			<key>hash2</key>
 			<data>
-			OKQAHKSyjAQrTmtkgh9OvNjNWqQDwcLD/YbobfypVQY=
+			SeXIp++tQzSaWixaKxs8HhoNeB5hJCrNV729ekZGj5U=
 			</data>
 		</dict>
 		<key>Headers/RealPlayManager.h</key>
@@ -153,6 +172,17 @@
 			<key>hash2</key>
 			<data>
 			RWAFydkTcxM8r4auyOjJ4raqZ56+S00aUI/hLh9eex8=
+			</data>
+		</dict>
+		<key>Headers/RealPlayManagerEx.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Ds5u8cqfBhY92BN29cQ6YGgJWTE=
+			</data>
+			<key>hash2</key>
+			<data>
+			FdIRmJs710ynU3I7nCskkkGlpS4yJMtK2uhplFqBgaA=
 			</data>
 		</dict>
 		<key>Headers/VPCaptureInfo.h</key>
@@ -192,11 +222,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			v+gnMXtIUsik1fa3KxngUzD5eVU=
+			t1KvRphlghcrl4g0attirWem4Ak=
 			</data>
 			<key>hash2</key>
 			<data>
-			QcO2JZaJWctjrdRP+N/36T7fDIc3Iw2q6Ch+uXdAbCs=
+			GxowqTNFtngvuQFVWhnRghnchA/83/dyjBqfENb/sGI=
 			</data>
 		</dict>
 		<key>Headers/VideoPlayUtility.h</key>

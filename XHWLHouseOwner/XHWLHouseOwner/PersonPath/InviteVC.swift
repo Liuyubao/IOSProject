@@ -114,14 +114,12 @@ class InviteVC: UIViewController {
         self.view.endEditing(true)
         // 文本框的隐藏关闭
         keyboardViewShowOrHidden(true)
-        
     }
     
     // MARK:
     // MARK: 键盘的 出现和隐藏
     /// 键盘的 出现和隐藏 true 显示
     fileprivate func keyboardViewShowOrHidden(_ isShow: Bool) {
-        
         // 为真 显示
         let y = isShow ? UIScreen.main.bounds.height - self.keyboardView.height : UIScreen.main.bounds.height
         

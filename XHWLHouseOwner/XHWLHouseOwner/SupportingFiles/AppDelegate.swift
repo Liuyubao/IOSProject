@@ -19,36 +19,95 @@ import WilddogVideoCall
 @available(iOS 10.0, *)
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate, WXApiDelegate, XHWLNetworkDelegate{
-
+    
     var window: UIWindow?
 //    var isFirstLogin = true
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        launchAnimation()
         IQKeyboardManager.sharedManager().enable = true
+        
         self.configureMCU()
         setupJPush(launchOptions)
         WXApi.registerApp(WX_APPID)
         TencentOAuth(appId: "1106505226", andDelegate: nil)
         self.initWilddogAuth()
+        self.requestAuthor(launchOptions)
+        
+        //设置小红点提示为0
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        
         
         //如果有user，即存在token，直接登录
         if UserDefaults.standard.object(forKey: "user") != nil{
-            let tabBarVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarVC")
-            self.window?.rootViewController = tabBarVC
-            
-            //从沙盒中获得curInfomodel，并且更新curProject
-            var curInfoData = UserDefaults.standard.object(forKey: "curInfo") as! NSData
-            var curInfoModel = XHWLCurrentInfoModel.mj_object(withKeyValues: curInfoData.mj_JSONObject())
             //取出user的信息
             let data = UserDefaults.standard.object(forKey: "user") as? NSData
             let userModel = XHWLUserModel.mj_object(withKeyValues: data?.mj_JSONObject())
-            if #available(iOS 10.0, *) {
-                AppDelegate.shared().getWilddogToken(curInfoModel?.curProject.projectCode as! String, userModel?.telephone as! String)
-            } else {
-                // Fallback on earlier versions
+            let params = ["token":userModel?.sysAccount.token as! String]
+            XHWLNetwork.sharedManager().postInfoByToken(params as NSDictionary, self)
+        }
+        
+        return true
+    }
+    
+    //播放启动画面动画
+    func launchAnimation() {
+        let statusBarOrientation = UIApplication.shared.statusBarOrientation
+        
+        
+        if let img = splashImageForOrientation(orientation: statusBarOrientation,
+                                               size: UIScreen.main.bounds.size) {
+            //获取启动图片
+            let launchImage = UIImage(named: img)
+            let launchview = UIImageView(frame: UIScreen.main.bounds)
+            launchview.image = launchImage
+            //将图片添加到视图上
+            //self.view.addSubview(launchview)
+            let delegate = UIApplication.shared.delegate
+            let mainWindow = delegate?.window
+            mainWindow!!.addSubview(launchview)
+            
+            //播放动画效果，完毕后将其移除
+            UIView.animate(withDuration: 1, delay: 1.5, options: .beginFromCurrentState,
+                           animations: {
+                            launchview.alpha = 0.0
+                            launchview.layer.transform = CATransform3DScale(CATransform3DIdentity, 1.5, 1.5, 1.0)
+            }) { (finished) in
+                launchview.removeFromSuperview()
             }
         }
-        return true
+    }
+    
+    //获取启动图片名（根据设备方向和尺寸）
+    func splashImageForOrientation(orientation: UIInterfaceOrientation, size: CGSize) -> String?{
+        //获取设备尺寸和方向
+        var viewSize = size
+        var viewOrientation = "Portrait"
+        
+        if UIInterfaceOrientationIsLandscape(orientation) {
+            viewSize = CGSize(width:size.height, height:size.width)
+            viewOrientation = "Landscape"
+        }
+        
+        //遍历资源库中的所有启动图片，找出符合条件的
+        if let imagesDict = Bundle.main.infoDictionary  {
+            if let imagesArray = imagesDict["UILaunchImages"] as? [[String: String]] {
+                for dict in imagesArray {
+                    if let sizeString = dict["UILaunchImageSize"],
+                        let imageOrientation = dict["UILaunchImageOrientation"] {
+                        let imageSize = CGSizeFromString(sizeString)
+                        if imageSize.equalTo(viewSize)
+                            && viewOrientation == imageOrientation {
+                            if let imageName = dict["UILaunchImageName"] {
+                                return imageName
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        return nil
     }
     
     func initWilddogAuth(){
@@ -61,37 +120,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate, WX
         }
     }
     
-    // 获取当前控制器
-    func getCurrentVC() -> UIViewController {
-//        if self.window?.rootViewController is LoginViewController {
-//            return self.window?.rootViewController as! LoginViewController
-//        }
-//        else if self.window?.rootViewController is XHWLTabBarViewController {
-//            let tabbar:XHWLTabBarViewController = self.window?.rootViewController as! XHWLTabBarViewController
-//
-//            let selectNav = tabbar.viewControllers![tabbar.selectedIndex]
-//            return selectNav
-//////
-//////            print("\(selectNav)")
-//////
-//////            if selectNav is XHWLNavigationController {
-//////                let nav:XHWLNavigationController = selectNav as! XHWLNavigationController
-//////                let vc:UIViewController = nav.topViewController as! UIViewController
-//////
-//////                print("\(vc)")
-//////
-//////                return vc
-//////            }
-////            return UIViewController()
-//        }
-        
-        return (self.window?.rootViewController)!
-        
-        
-//        let rootVC = self.window?.rootViewController
-//        let vc = rootVC?.storyboard?.instantiateViewController(withIdentifier: "TabBarVC")
-//        return vc!
-    }
+    // MARK: - 后台不断循环
+    var taskId:UIBackgroundTaskIdentifier = 0
+    
+    
+//    // 获取当前控制器
+//    func getCurrentVC() -> UIViewController {
+//        let curVC = UIApplication.shared.keyWindow?.rootViewController
+//        return curVC!
+//    }
     
     func setupJPush(_ launchOptions:[UIApplicationLaunchOptionsKey: Any]?) {
         //notice: 3.0.0及以后版本注册可以这样写，也可以继续用之前的注册方式
@@ -112,7 +149,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate, WX
         JPUSHService.setup(withOption: launchOptions,
                            appKey: jPushAppKey,
                            channel: channel,
-                           apsForProduction: true) // 0 (默认值)表示采用的是开发证书，1 表示采用生产证书发布应用
+                           apsForProduction: false) // 0 (默认值)表示采用的是开发证书，1 表示采用生产证书发布应用
     }
     
     // MARK: - 推送
@@ -158,7 +195,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate, WX
     @available(iOS 10.0, *)
     func jpushNotificationCenter(_ center: UNUserNotificationCenter!, didReceive response: UNNotificationResponse!, withCompletionHandler completionHandler: (() -> Void)!) {
         // Required 应用在后台时收到推送
-        "应用在后台时收到推送".ext_debugPrintAndHint()
         let userInfo:NSDictionary = response.notification.request.content.userInfo as NSDictionary
         print("\(userInfo)")
         
@@ -238,7 +274,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate, WX
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         print("#############",url)
         return WXApi.handleOpen(url, delegate: self) || TencentOAuth.handleOpen(url)
-        return true
+//        return true
     }
     
     func onReq(_ req: BaseReq!) {
@@ -247,7 +283,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate, WX
     
     /**  微信回调  */
     func onResp(_ resp: BaseResp!) {
-        print("*****resp*********",resp)
+        
         if resp.errCode == 0 && resp.type == 0 {//授权成功
             let response = resp as! SendAuthResp
             switch wechatClickedSource{
@@ -271,8 +307,76 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate, WX
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        UserDefaults.standard.set(true, forKey: "isAPPBackground")
+        UserDefaults.standard.synchronize()
+        
+        
+        //开启一个后台任务
+        taskId = application.beginBackgroundTask(expirationHandler: {
+            
+            //            NotificationCenter.default.addObserver(self, selector: #selector(self.handlerWithNote(_:)), name: NSNotification.Name(rawValue: "XHWLTalkNotification"), object: nil)
+            //结束指定的任务
+            application.endBackgroundTask(self.taskId)
+        })
+        
+        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerAction(_:)), userInfo: nil, repeats: true)
+    }
+    
+    var count:Int = 0
+    var isLogout:Bool = false
+    
+    func timerAction(_ timer:Timer) {
+        count = count + 1
+        
+//        JPUSHService.deleteAlias(nil, seq: 0)
+        
+        if (count % 500 == 0) {
+            let application:UIApplication = UIApplication.shared
+            //结束旧的后台任务
+            application.endBackgroundTask(taskId)
+            
+            //开启一个新的后台
+            taskId = application.beginBackgroundTask(expirationHandler: nil)
+            XHWLWilddogVideoManager.shared.config()
+        }
+    }
+    
+    //创建本地通知
+    func requestAuthor(_ launchOptions:[UIApplicationLaunchOptionsKey: Any]?) {
+        if #available(iOS 8.0, *)
+        {
+            // 设置通知的类型可以为弹窗提示,声音提示,应用图标数字提示
+            let setting:UIUserNotificationSettings = UIUserNotificationSettings.init(types:  UIUserNotificationType(rawValue: UIUserNotificationType.alert.rawValue | UIUserNotificationType.badge.rawValue | UIUserNotificationType.sound.rawValue), categories: nil)
+            
+            // 授权通知
+            UIApplication.shared.registerUserNotificationSettings(setting)
+        }
+        
+        if launchOptions != nil {
+            // 处理退出后通知的点击，程序启动后获取通知对象，如果是首次启动还没有发送通知，那第一次通知对象为空，没必要去处理通知（如跳转到指定页面）
+            guard let localNotifi = launchOptions![UIApplicationLaunchOptionsKey.localNotification] else {
+                return
+            }
+        }
+    }
+    
+    // MARK: - 处理后台和前台通知点击
+    func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
+//        print("\(String(describing: notification.alertTitle)) = \(String(describing: notification.userInfo))")
+//        "接收到本地通知，唤醒进入前台".ext_debugPrintAndHint()
+    }
+    
+    
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+        //        NSURL *url = [NSURL URLWithString:@"http://127.0.0.1:3000/update.do"];    //实现数据请求
+        //        NSURLSession *updateSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+        //        [updateSession dataTaskWithHTTPGetRequest:url
+        //            completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        //            NSDictionary *messageInfo = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        //            NSLog(@"messageInfo:%@",messageInfo);
+        //            completionHandler(UIBackgroundFetchResultNewData);
+        //            }];
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -281,6 +385,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate, WX
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        UserDefaults.standard.set(false, forKey: "isAPPBackground")
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -303,12 +408,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate, WX
                     XHWLWilddogVideoManager.shared.config()
                     XHWLWilddogVideoManager.shared.saveUser(user!)
                     
-                    print("************uID: \(user?.uid)")
+//                    print("************uID: \(user?.uid)")
                     //                    let usersReference:WDGSyncReference = WDGSync.sync().reference().child("users")
                     //                    usersReference.child((user?.uid)!).setValue(true)
                     //                    usersReference.child((user?.uid)!).onDisconnectRemoveValue()
                 })
+            }else{
+                print("********erroe********", error)
             }
+            
         })
     }
     
@@ -321,7 +429,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate, WX
             //            let uid = "123-user-18307478839"
 //            let uid = "123-user-13123375305"
             //            let uid = "123-user-13714939868"
-            XHWLNetwork.shared.postWilddogTokenClick(["uid":uid], self)
+            XHWLNetwork.sharedManager().postWilddogTokenClick(["uid":uid], self)
         }
     }
 
@@ -400,6 +508,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate, WX
             UserDefaults.standard.set(token, forKey: "wilddogToken")
             wilddogLogin(token)
             break
+        case XHWLRequestKeyID.XHWL_GETUSERINFOBYTOKEN.rawValue:
+            switch response["errorCode"] as! Int {
+            case 200:
+                let window:UIWindow = UIApplication.shared.keyWindow!
+                let tabBarVC = window.rootViewController?.storyboard?.instantiateViewController(withIdentifier: "TabBarVC")
+                self.window?.rootViewController = tabBarVC
+                
+                //从沙盒中获得curInfomodel，并且更新curProject
+                var curInfoData = UserDefaults.standard.object(forKey: "curInfo") as! NSData
+                var curInfoModel = XHWLCurrentInfoModel.mj_object(withKeyValues: curInfoData.mj_JSONObject())
+                //取出user的信息
+                let data = UserDefaults.standard.object(forKey: "user") as? NSData
+                let userModel = XHWLUserModel.mj_object(withKeyValues: data?.mj_JSONObject())
+                self.getWilddogToken(curInfoModel?.curProject.projectCode as! String, userModel?.telephone as! String)
+                break
+            case 400, 401, 116:
+                (response["message"] as! String).ext_debugPrintAndHint()
+                onLogout()
+                break
+            default:
+                break
+            }
+            break
+            
         default:
             break
         }
@@ -407,6 +539,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate, WX
     
     //network代理的方法
     func requestFail(_ requestKey:NSInteger, _ error:NSError) {
+        print("**********error*********",error)
     }
     
     

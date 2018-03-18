@@ -14,8 +14,6 @@ class CloudEyesVC: UIViewController, UIScrollViewDelegate{
         print("********\(fourMonitorsView.frame)")
         print("********\(fourMonitorsScrollView.frame)")
         print("********parentNode", parentNode)
-        
-        
     }
     
     var parentNode:MCUResourceNode? /**< 父节点*/
@@ -23,7 +21,6 @@ class CloudEyesVC: UIViewController, UIScrollViewDelegate{
     
     @IBOutlet weak var fourMonitorsView: UIView!//存放4个监控画面的View,用于定位4个监控画面的整体大小
     @IBOutlet weak var fourMonitorsScrollView: UIScrollView!//存放4个监控画面的scrollView
-    
     
     @IBOutlet weak var pageControl: UIPageControl!
     
@@ -58,7 +55,7 @@ class CloudEyesVC: UIViewController, UIScrollViewDelegate{
     }
     
     func reloadData(){
-        self.monitorInfos.append(["name":"总部机房", "pic":"Common_play", "cameraSyscode":"92ac4c85a65243d58ef906c1bf75bab2"])
+//        self.monitorInfos.append(["name":"总部机房", "pic":"Common_play", "cameraSyscode":"92ac4c85a65243d58ef906c1bf75bab2"])
         //设置scrollView的内容总尺寸
         fourMonitorsScrollView.contentSize = CGSize(
             width: CGFloat(self.fourMonitorsView.frame.width) * CGFloat(self.monitorInfos.count/4),
@@ -123,7 +120,6 @@ class CloudEyesVC: UIViewController, UIScrollViewDelegate{
     func singleTapAction(tap:UITapGestureRecognizer) {
         let toShowMonitorSysCode = (tap.view as! SingleMonitorView).cameraSyscode
         var toShowSingleMonitorVC = self.storyboard?.instantiateViewController(withIdentifier: "SingleMonitorVC") as! RealPlayVC
-//        toShowSingleMonitorVC.loginButtonClicked()
         toShowSingleMonitorVC.cameraSyscode = toShowMonitorSysCode
         toShowSingleMonitorVC.realPlay(cameraSyscode: toShowMonitorSysCode!)
         
@@ -196,41 +192,40 @@ class CloudEyesVC: UIViewController, UIScrollViewDelegate{
                 self.requestResource()
 //                self.isLogin = true
             } else {
-                print("登陆失败2")
+                "登陆失败2".ext_debugPrintAndHint()
                 //                //返回码为200,代表登录成功.返回码为202,203,204时,分别代表的意思是初始密码登录,密码强度不符合要求,密码过期.这三种情况都需要修改密码.请开发者使用当前账号登录BS端平台,按要求进行密码修改后,再进行APP的开发测试工作.其他返回码,请根据平台返回提示信息进行提示或处理
                 ////                [SVProgressHUD showErrorWithStatus:responseDic[@"description"]];
+                
             }
         }) { (error) in
-            
-            print("登陆失败3")
+            "登陆失败3".ext_debugPrintAndHint()
+            XHMLProgressHUD.shared.hide()
             //            [SVProgressHUD showErrorWithStatus:@"服务器连接失败"];
         }
     }
     
-    /**
-     *  请求根资源点数据
-     */
-    func requestRootResource() {
-        //1 代表视频资源
-        
-        MCUVmsNetSDK.shareInstance().requestRootNode(withSysType: 1, success: { (object) in
-            
-            let obj:NSDictionary = object as! NSDictionary
-            let status:String = obj["status"] as! String
-            if (status.compare("200").rawValue == 0) {
-                self.parentNode = obj["resourceNode"] as? MCUResourceNode
-                
-                self.requestResource()
-                
-            } else {
-//                self.showDescription(object: obj)
-            }
-        }) { (error) in
-            
-        }
-    }
-    
-//    func request
+//    /**
+//     *  请求根资源点数据
+//     */
+//    func requestRootResource() {
+//        //1 代表视频资源
+//
+//        MCUVmsNetSDK.shareInstance().requestRootNode(withSysType: 1, success: { (object) in
+//
+//            let obj:NSDictionary = object as! NSDictionary
+//            let status:String = obj["status"] as! String
+//            if (status.compare("200").rawValue == 0) {
+//                self.parentNode = obj["resourceNode"] as? MCUResourceNode
+//
+//                self.requestResource()
+//
+//            } else {
+////                self.showDescription(object: obj)
+//            }
+//        }) { (error) in
+//
+//        }
+//    }
     
     /**
      *  请求资源点列表数据
@@ -238,11 +233,14 @@ class CloudEyesVC: UIViewController, UIScrollViewDelegate{
     func requestResource() {
 //        self.requestRootResource()
         XHMLProgressHUD.shared.show()
-        //        [SVProgressHUD showWithStatus:@"加载中..."];
+        //获取当前项目的nodeType和currentID
+        //从沙盒中获得curInfomodel
+        var curInfoData = UserDefaults.standard.object(forKey: "curInfo") as! NSData
+        var curInfoModel = XHWLCurrentInfoModel.mj_object(withKeyValues: curInfoData.mj_JSONObject())
+        
         MCUVmsNetSDK.shareInstance().requestResource(withSysType: 1,
-                                                     nodeType: 2,
-                                                     currentID: "1" ,
-//                                                     currentID: "118" ,
+                                                     nodeType: Int((curInfoModel?.curProject.nodeType)!)!,
+                                                     currentID: curInfoModel?.curProject.nodeID,
                                                      numPerPage: 100, curPage: 1,
                                                      success: { (object) in
                                                         //            [self dismiss];
@@ -253,7 +251,7 @@ class CloudEyesVC: UIViewController, UIScrollViewDelegate{
                                                             self.resourceArray = obj["resourceNodes"] as! NSArray
                                                             if self.resourceArray.count > 0 {
                                                                 for (index,node) in self.resourceArray.enumerated(){
-                                                                    if index<11 {
+                                                                    if index<12 {
                                                                         let mcuNode = node as! MCUResourceNode
                                                                         let monitor = ["name":mcuNode.nodeName, "pic":"Common_play", "cameraSyscode":mcuNode.sysCode]
                                                                         self.monitorInfos.append(monitor as! [String : String])
@@ -263,6 +261,9 @@ class CloudEyesVC: UIViewController, UIScrollViewDelegate{
 //                                                                "加入到array".ext_debugPrintAndHint()
                                                                 XHMLProgressHUD.shared.hide()
                                                             } else {
+                                                                "该项目无云瞳列表".ext_debugPrintAndHint()
+                                                                XHMLProgressHUD.shared.hide()
+                                                                self.dismiss(animated: true, completion: nil)
                                                                 //                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                                                                 //                        [SVProgressHUD showErrorWithStatus:@"暂无资源"];
                                                                 //                        [self performSelector:@selector(dismiss) withObject:nil afterDelay:delayTime];
@@ -270,8 +271,6 @@ class CloudEyesVC: UIViewController, UIScrollViewDelegate{
                                                             }
                                                         }
         }) { (error) in
-            //            [self dismiss];
-            //            NSLog(@"requestResource failed");
         }
     }
 

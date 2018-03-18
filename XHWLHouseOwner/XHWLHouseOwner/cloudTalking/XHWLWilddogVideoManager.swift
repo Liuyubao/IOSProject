@@ -8,7 +8,6 @@
 
 import UIKit
 import AVFoundation
-
 import WilddogVideoCall
 import WilddogCore
 import WilddogAuth
@@ -20,8 +19,7 @@ protocol XHWLWilddogVideoManagerDelegate:NSObjectProtocol {
     func managerWithOtherResponse(_ state:Int)
 }
 
-class XHWLWilddogVideoManager:NSObject  {
-
+class XHWLWilddogVideoManager:NSObject, XHWLNetworkDelegate  {
     fileprivate var remoteStream:WDGRemoteStream?    // 远程流
     fileprivate var conversation:WDGConversation?   // 通话对象
     fileprivate var usersReference:WDGSyncReference!
@@ -83,8 +81,6 @@ class XHWLWilddogVideoManager:NSObject  {
     
     // 预览本地视频
     func previewLocalStream(_ localVideoView:WDGVideoView) -> Bool {
-        
-        
         if (self.localStream != nil) {
             if self.isVideo == false {
                 self.localStream?.videoEnabled = false
@@ -153,8 +149,8 @@ class XHWLWilddogVideoManager:NSObject  {
     
     // 开关听筒
     func toggleSpeaker(_ isMute:Bool) {
-    
         if isMute {
+            
             do {
                 try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
             } catch {
@@ -191,6 +187,30 @@ class XHWLWilddogVideoManager:NSObject  {
         usersReference.child(user.uid).onDisconnectRemoveValue()
     }
     
+    // 同意访客邀请，添加
+    func agreeReq() {
+        //从沙盒中获得curInfomodel
+        var curInfoData = UserDefaults.standard.object(forKey: "curInfo") as! NSData
+        var curInfoModel = XHWLCurrentInfoModel.mj_object(withKeyValues: curInfoData.mj_JSONObject())
+        
+        usersReference = WDGSync.sync().reference().child("\(curInfoModel?.curProject.projectCode as! String)/visitOperator")
+        usersReference.child((self.conversation?.remoteUid)!).setValue("y")
+        usersReference.child((self.conversation?.remoteUid)!).onDisconnectRemoveValue()
+    }
+    
+    // 拒绝访客邀请，添加
+    func rejectReq() {
+        //从沙盒中获得curInfomodel
+        var curInfoData = UserDefaults.standard.object(forKey: "curInfo") as! NSData
+        var curInfoModel = XHWLCurrentInfoModel.mj_object(withKeyValues: curInfoData.mj_JSONObject())
+        
+        usersReference = WDGSync.sync().reference().child("\(curInfoModel?.curProject.projectCode as! String)/visitOperator")
+        usersReference.child((self.conversation?.remoteUid)!).setValue("n")
+        usersReference.child((self.conversation?.remoteUid)!).onDisconnectRemoveValue()
+    }
+    
+    
+    
     // 显示远程视频
     func previewRemoteView() {
         self.remoteStream?.attach(self.remoteVideoView);
@@ -208,11 +228,18 @@ class XHWLWilddogVideoManager:NSObject  {
     }
     
     func openDoor(projectCode: String){
-        
         self.usersReference = WDGSync.sync().reference().child("\(projectCode)/openDoor")
-        self.usersReference?.child((self.conversation?.remoteUid)!).setValue(true)
-        self.usersReference.child((self.conversation?.remoteUid)!).onDisconnectRemoveValue()
-        var ref = WDGSync.sync().reference(withPath: "\(projectCode)/openDoor/\(self.conversation?.remoteUid)")
+        let remoteUid = self.conversation?.remoteUid
+        self.usersReference?.child((remoteUid)!).setValue(true)
+        self.usersReference?.child((remoteUid)!).onDisconnectRemoveValue()
+        //【调用远程开门接口】取出user的信息
+        let data = UserDefaults.standard.object(forKey: "user") as? NSData
+        let userModel = XHWLUserModel.mj_object(withKeyValues: data?.mj_JSONObject())
+        var doorStrIndex = remoteUid?.substring(from: "123-door-".endIndex)
+        let params = ["id":doorStrIndex,"token":userModel?.sysAccount.token as! String]
+        XHWLNetwork.sharedManager().postOpenDoorByCall(params as NSDictionary, self)
+        
+        var ref = WDGSync.sync().reference(withPath: "\(projectCode)/openDoor/\(remoteUid)")
         ref.observe(.value, with: { (snapshot) in
             if snapshot.value == nil {
                 "已为您开门".ext_debugPrintAndHint()
@@ -220,17 +247,23 @@ class XHWLWilddogVideoManager:NSObject  {
             }
         }) { (error) in
         }
-        
     }
     
-//    NotificationCenter.default.addOb
-//    
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForegroundNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
-//    
-//    func appWillEnterForegroundNotification(_ notification:NSNotification) {
-//    [[self.usersReference child:self.user.uid] setValue:@YES];
-//    [[self.usersReference child:self.user.uid] onDisconnectRemoveValue];
-//    }
+    // MARK: -network代理的方法
+    func requestSuccess(_ requestKey:NSInteger, _ response:[String : AnyObject]) {
+        switch requestKey {
+        case XHWLRequestKeyID.XHWL_OPENDOORBYCALL.rawValue:
+//            (response["message"] as! String).ext_debugPrintAndHint()
+            break
+        default:
+            break
+        }
+    }
+    
+    //network代理的方法
+    func requestFail(_ requestKey:NSInteger, _ error:NSError) {
+    }
+    
 }
 
 extension XHWLWilddogVideoManager:WDGConversationStatsDelegate {
@@ -287,10 +320,6 @@ extension XHWLWilddogVideoManager:WDGConversationDelegate {
             break
         case .busy:
             print("正忙")
-            
-//            if (self.delegate != nil) {
-//                self.delegate?.managerWithOtherResponse(2)
-//            }
             break
         case .timeout:
             print("超时")
@@ -330,33 +359,30 @@ extension XHWLWilddogVideoManager:WDGConversationDelegate {
      * @param conversation 调用该方法的 `WDGConversation` 实例。
      */
     func conversationDidClosed(_ conversation: WDGConversation) {
+        XHWLSoundPlayer.stop()
         print("通话已结束")
-        // 释放不使用的资源
+//        释放不使用的资源
 //        self.conversation = nil
         
 //        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            print("test-removedelegate---\(conversation)--")
-//            conversation.delegate = nil
-            conversation.close()
-//            self.conversation = nil
+        print("test-removedelegate---\(conversation)--")
+        
+        conversation.close()
         if localStream != nil {
-                localStream?.close()
-//                localStream = nil
-            }
-            
-//            });
-        if #available(iOS 10.0, *) {
-            let vc:UIViewController = AppDelegate.shared().getCurrentVC()
-            vc.dismiss(animated: true, completion: nil)
-        } else {
-            // Fallback on earlier versions
+            localStream?.close()
         }
         
+        let curVC = UIViewController.currentViewController()
+        curVC?.dismiss(animated: true, completion: nil)
+        conversation.delegate = nil
     }
-
 }
 
 extension XHWLWilddogVideoManager: WDGVideoCallDelegate {
+//    "type":2 , // 1:通讯对讲 2:访客对讲
+//    "isVideo":true, //  true视频对讲， false 语音对讲
+//    "role":userModel.wyAccount.wyRole.name, // 角色：安管主任、门岗、项目经理、工程、业主
+//    "name":userModel.wyAccount.name // 名字
 
     /**
      * `WDGVideoCall` 通过调用该方法通知当前用户收到新的视频通话邀请。
@@ -365,42 +391,51 @@ extension XHWLWilddogVideoManager: WDGVideoCallDelegate {
      * @param data 随通话邀请传递的 `NSString` 类型的数据。
      */
     func wilddogVideoCall(_ videoCall: WDGVideoCall, didReceiveCallWith conversation: WDGConversation, data: String?) {
-        
         print("**************************\(data)")
+        XHWLSoundPlayer.playSound(.caller)
+//        XHWLSoundPlayer.viberate()
         self.conversation = conversation
         self.conversation?.delegate = self  // WDGConversationDelegate
         
-        if #available(iOS 10.0, *) {
-            let vc:UIViewController = AppDelegate.shared().getCurrentVC()
-            let doorVC = DoorVideoVC()
-            doorVC.wilddogVideoEnum = .called
-            doorVC.name = data!
-            vc.present(doorVC, animated: true, completion: nil)
-        } else {
-            // Fallback on earlier versions
+        let dataDic = data?.dictionaryFromJSONString()
+        //从沙盒中获取在前台还是后台，如果是后台就发推送
+        let appBackgound = UserDefaults.standard.object(forKey: "isAPPBackground") as! Bool
+        if appBackgound{
+            // 1.创建通知
+            let localNotification:UILocalNotification = UILocalNotification()
+            // 2.设置通知的必选参数
+            // 设置通知显示的内容
+            localNotification.alertBody = "来自" + (dataDic!["name"] as! String) + "的通话"
+            // 设置通知的发送时间,单位秒
+            localNotification.fireDate = Date.init(timeIntervalSinceNow: 10)
+            //解锁滑动时的事件
+            localNotification.alertAction = "来自" + (dataDic!["name"] as! String) + "的通话"
+            //收到通知时App icon的角标
+            //                    localNotification.applicationIconBadgeNumber = 1
+            //推送是带的声音提醒，设置默认的字段为UILocalNotificationDefaultSoundName
+            //                    localNotification.soundName = UILocalNotificationDefaultSoundName
+            // 3.发送通知( : 根据项目需要使用)
+            // 方式一: 根据通知的发送时间(fireDate)发送通知
+            //                    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+            
+            // 方式二: 立即发送通知
+            UIApplication.shared.presentLocalNotificationNow(localNotification)
         }
         
+        if dataDic!["type"] as! Int == 3{
+            let curVC = UIViewController.currentViewController()
+            let doorVC = DoorVideoVC()
+            doorVC.wilddogVideoEnum = .called
+            doorVC.name = dataDic!["name"] as! String
+            curVC?.present(doorVC, animated: true, completion: nil)
+        }else if dataDic!["type"] as! Int == 1{
+            let curVC = UIViewController.currentViewController()
+            let visitorCallVC = VisitorCallVC()
+            visitorCallVC.wilddogVideoEnum = .called
+            visitorCallVC.name = dataDic!["name"] as! String
+            curVC?.present(visitorCallVC, animated: true, completion: nil)
+        }
         
-//        let vc:UIViewController = AppDelegate.shared().getCurrentVC()
-//
-//        let alertController = UIAlertController(title:"来了电话", message: nil, preferredStyle: .alert)
-//
-//        let action1:UIAlertAction = UIAlertAction(title: "拒绝", style: UIAlertActionStyle.cancel) { (action) in
-//            self.receiveVideo(false) // 收到通话请求
-//            alertController.presentedViewController?.dismiss(animated: false, completion: nil)
-////            vc.presentedViewController?.dismiss(animated: false, completion: nil)
-//        }
-//        alertController.addAction(action1)
-//
-//        let action2:UIAlertAction = UIAlertAction(title: "接收", style: UIAlertActionStyle.default) { (action) in
-//
-//            self.receiveVideo(true) // 收到通话请求
-//            alertController.presentedViewController?.dismiss(animated: false, completion: nil)
-//        }
-//        alertController.addAction(action2)
-//
-//        //显示提示框
-//        vc.present(alertController, animated: true, completion: nil)
     }
     
     /**

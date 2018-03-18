@@ -15,7 +15,6 @@ enum XHWLRequestKeyID : NSInteger {
     case XHWL_NONE = 0
     case XHWL_LOGIN         // 登录
     
-    
     case XHWL_SAVEENTRYLOG          //保存开门记录
     case XHWL_GETENTRYLOG           //获取开门记录
     case XHWL_SCAN                  //根据二维码返回信息
@@ -47,7 +46,17 @@ enum XHWLRequestKeyID : NSInteger {
     case XHWL_WILDDOGTOKEN          //获取野狗云token
     case XHWL_GETALLDOORS           //获取用户授权门禁列表
     case XHWL_REMOTEOPENDOOR      //远程开门
+    case XHWL_UPDATEINFO            //更新个人信息
+    case XHWL_NEWLESTVERSION        //得到最新版本号
+    case XHWL_OPENDOORBYCALL        //通话时远程开门
     
+    case XHWL_GETVERIFICATCODEBYTYPE    //获取短信验证码（新）
+    case XHWL_VERICODELOGIN             //短信验证码登录
+    case XHWL_GETCLOUDTALKHISTORY                //获取云对讲记录
+    case XHWL_UPLOADCLOUDTALKHISTORY             //上传云对讲记录
+    case XHWL_DELETECLOUDTALKHISTORY             //删除云对讲记录
+    
+    case XHWL_GETUSERINFOBYTOKEN                //通过token获取个人信息
 }
 
 
@@ -72,8 +81,6 @@ class XHWLRequestKeyDefine: NSObject {
         self.trandIdDict = [
             XHWLRequestKeyID.XHWL_NONE: "",
             XHWLRequestKeyID.XHWL_LOGIN:"v1/appBase/login",                     // 登录
-            
-            
             XHWLRequestKeyID.XHWL_SAVEENTRYLOG:"v1/appBusiness/iot/entryLog",    //保存开门记录
             XHWLRequestKeyID.XHWL_GETENTRYLOG:"v1/appBusiness/iot/entryLog",  //获取开门记录
             XHWLRequestKeyID.XHWL_SCAN:"v1/appBusiness/qrcode/scan",           //根据二维码返回信息
@@ -99,10 +106,18 @@ class XHWLRequestKeyDefine: NSObject {
             XHWLRequestKeyID.XHWL_ADDACCOUNT:"/v1/appBusiness/ownerRenter/add",                    //添加附属账号
             XHWLRequestKeyID.XHWL_DELETEACCOUNT:"/v1/appBusiness/ownerRenter/delete",              //注销附属账号
             XHWLRequestKeyID.XHWL_SETACCOUNTSTATE:"/v1/appBusiness/ownerRenter/updateStat",         //设置附属账号状态
-            
-            XHWLRequestKeyID.XHWL_WILDDOGTOKEN:"/wilddog/getToken",                          // 获取野狗云token
-            XHWLRequestKeyID.XHWL_GETALLDOORS:"/openDoor/getDoorByPhone",                          // 获取野狗云token
-            XHWLRequestKeyID.XHWL_REMOTEOPENDOOR:"/openDoor/openDoor"    //远程开门
+            XHWLRequestKeyID.XHWL_WILDDOGTOKEN:"/wilddog/getToken",                                 // 获取野狗云token
+            XHWLRequestKeyID.XHWL_GETALLDOORS:"/openDoor/getDoorByPhone",                           // 获取野狗云token
+            XHWLRequestKeyID.XHWL_REMOTEOPENDOOR:"/openDoor/openDoor",                              // 远程开门
+            XHWLRequestKeyID.XHWL_UPDATEINFO:"/v1/appBase/updateUserInfo",                          // 更新个人信息
+            XHWLRequestKeyID.XHWL_NEWLESTVERSION:"/version/getNewestVersion",                        // 得到最新版本号
+            XHWLRequestKeyID.XHWL_OPENDOORBYCALL:"/doorMachine/openDoorByCall",                       //通话时远程开门
+            XHWLRequestKeyID.XHWL_GETVERIFICATCODEBYTYPE:"/v1/appBase/getVerificatCodeByType",         //获取验证码(新)
+            XHWLRequestKeyID.XHWL_VERICODELOGIN:"/v1/appBase/verifyCodeLogin",                          //短信验证码登录
+            XHWLRequestKeyID.XHWL_GETCLOUDTALKHISTORY:"/v1/wyBusiness/talkingBack/history/get",        //获取云对讲记录
+            XHWLRequestKeyID.XHWL_UPLOADCLOUDTALKHISTORY:"/v1/wyBusiness/talkingBack/history/add",      //上传云对讲记录
+            XHWLRequestKeyID.XHWL_DELETECLOUDTALKHISTORY:"/v1/wyBusiness/talkingBack/history/delete",      //删除云对讲记录
+            XHWLRequestKeyID.XHWL_GETUSERINFOBYTOKEN:"/v1/appBase/getUserInfoByToken"                      //通过token获取个人信息
         ]
     }
 }

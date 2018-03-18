@@ -52,9 +52,10 @@ class ForgetPhoneVeriVC: UIViewController, XHWLNetworkDelegate {
         let params = ["telephone":self.registerPhoneNumberTF.text!]
         if Validation.phoneNum(self.registerPhoneNumberTF.text!).isRight{
             self.sendVeriBtn.isEnabled = false
-            XHWLNetwork.shared.postVeriCode(params as NSDictionary, self)
+            XHWLNetwork.sharedManager().postVeriCode(params as NSDictionary, self)
         }else{
             "您输入的手机号格式不正确".ext_debugPrintAndHint()
+            self.view.endEditing(true)
         }
     }
     
@@ -65,9 +66,10 @@ class ForgetPhoneVeriVC: UIViewController, XHWLNetworkDelegate {
         
         //判断验证码是否为6位
         if registerVeriTF.text!.characters.count == 6{
-            XHWLNetwork.shared.postTestPhoneVeriCode(params as NSDictionary, self)
+            XHWLNetwork.sharedManager().postTestPhoneVeriCode(params as NSDictionary, self)
         }else{
             "请输入6位数字验证码".ext_debugPrintAndHint()
+            self.view.endEditing(true)
         }
     }
     

@@ -47,24 +47,24 @@ class BindSendMsgVC: UIViewController, XHWLNetworkDelegate, UITextFieldDelegate{
         remainingSeconds -= 1
     }
     
-    //发送短信验证码
+    // MARK: - 发送短信验证码
     @IBAction func sendVeriBtnClicked(_ sender: UIButton) {
         let params = ["telephone":self.registerPhoneNumberTF.text!]
         if Validation.phoneNum(self.registerPhoneNumberTF.text!).isRight{
-            XHWLNetwork.shared.postWechatVeriCode(params as NSDictionary, self)
+            XHWLNetwork.sharedManager().postWechatVeriCode(params as NSDictionary, self)
         }else{
             "您输入的手机号格式不正确".ext_debugPrintAndHint()
         }
     }
     
-    //还原手机号TF、验证码TF、remainTime、isCounting参数
+    //  还原手机号TF、验证码TF、remainTime、isCounting参数
     func restoreParams(){
         self.registerPhoneNumberTF.text = ""
         self.registerVeriTF.text = ""
         self.remainingSeconds = 0
     }
     
-    //验证验证码
+    // MARK: - 验证验证码
     @IBAction func nextStepBtnClicked(_ sender: UIButton) {
         //传给testVerificatCode接口的参数
         let openId = UserDefaults.standard.object(forKey: "openId") as! String
@@ -72,11 +72,13 @@ class BindSendMsgVC: UIViewController, XHWLNetworkDelegate, UITextFieldDelegate{
         
         //判断验证码是否为6位
         if registerVeriTF.text!.characters.count == 6{
-            XHWLNetwork.shared.postTestWechatVeriCode(params as NSDictionary, self)
+            XHWLNetwork.sharedManager().postTestWechatVeriCode(params as NSDictionary, self)
         }else{
             "请输入6位数字验证码".ext_debugPrintAndHint()
+            self.view.endEditing(true)
         }
     }
+    
     
     @IBAction func returnBtnClicked(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
@@ -94,7 +96,7 @@ class BindSendMsgVC: UIViewController, XHWLNetworkDelegate, UITextFieldDelegate{
         
     }
     
-    //network代理的方法
+    //  Network代理的方法
     func requestSuccess(_ requestKey:NSInteger, _ response:[String : AnyObject]) {
         switch requestKey {
         case XHWLRequestKeyID.XHWL_WECHATGETVERICODE.rawValue:
@@ -108,7 +110,7 @@ class BindSendMsgVC: UIViewController, XHWLNetworkDelegate, UITextFieldDelegate{
         }
     }
     
-    //登录返回参数处理
+    //  登录返回参数处理
     func onLoginBtnCLicked(_ response:[String : AnyObject]){
         if response["state"] as! Bool == true{
             let result = response["result"] as! NSDictionary
@@ -117,7 +119,8 @@ class BindSendMsgVC: UIViewController, XHWLNetworkDelegate, UITextFieldDelegate{
             
             //未认证用户
             if yzUser?.count == 0{
-                "您的账号未认证，无法登陆！".ext_debugPrintAndHint()
+                "请联系物业人员授权登陆权限。".ext_debugPrintAndHint()
+                self.view.endEditing(true)
                 return
             }
             
@@ -154,7 +157,8 @@ class BindSendMsgVC: UIViewController, XHWLNetworkDelegate, UITextFieldDelegate{
             if projectListArray?.count != 0{
                 curInfoModel.curProject = projectListArray![0] as! XHWLProjectModel
             }else{
-                "您的账号未认证，无法登陆！".ext_debugPrintAndHint()
+                "请联系物业人员授权登陆权限。".ext_debugPrintAndHint()
+                self.view.endEditing(true)
                 return
             }
             
@@ -164,7 +168,7 @@ class BindSendMsgVC: UIViewController, XHWLNetworkDelegate, UITextFieldDelegate{
             
             //            self.loginBtn.startL()
             let successfullyVC:UIViewController = (self.storyboard?.instantiateViewController(withIdentifier: "SpaceVC"))!
-            //                successfullyVC.transitioningDelegate = self
+            //            successfullyVC.transitioningDelegate = self
             successfullyVC.modalTransitionStyle = .crossDissolve
             self.present(successfullyVC, animated: true, completion: nil)
             self.view.window?.rootViewController = successfullyVC
@@ -174,18 +178,19 @@ class BindSendMsgVC: UIViewController, XHWLNetworkDelegate, UITextFieldDelegate{
             switch(response["errorCode"] as! Int){
             case 114:
                 //用户名不存在
-                AlertMessage.showAlertMessage(vc: self, alertMessage: "用户名不存在！", duration: 1)
+                "用户名不存在！".ext_debugPrintAndHint()
+                self.view.endEditing(true)
                 break
             case 113:
                 //用户名密码不正确，请重新输入
-                AlertMessage.showAlertMessage(vc: self, alertMessage: "用户名密码不正确，请重新输入！", duration: 1)
+                "用户名密码不正确，请重新输入！".ext_debugPrintAndHint()
+                self.view.endEditing(true)
                 break
             default:
                 break
             }
         }
     }
-
     
     //network代理的方法
     func requestFail(_ requestKey:NSInteger, _ error:NSError) {
@@ -199,15 +204,11 @@ class BindSendMsgVC: UIViewController, XHWLNetworkDelegate, UITextFieldDelegate{
             self.isCounting = true
             self.nextStepBtn.isEnabled = true
             (response["message"] as! String).ext_debugPrintAndHint()
+            self.view.resignFirstResponder()
             break
         case 111,-4,112:
             (response["message"] as! String).ext_debugPrintAndHint()
-            break
-        case 100:
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "BindSetPswVC") as! BindSetPswVC
-            vc.modalTransitionStyle = .crossDissolve
-            self.present(vc, animated: true, completion: nil)
-            self.restoreParams()
+            self.view.resignFirstResponder()
             break
         default:
             break
@@ -223,9 +224,13 @@ class BindSendMsgVC: UIViewController, XHWLNetworkDelegate, UITextFieldDelegate{
             break
         case 100:   //无账号跳转到设置密码注册用户
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "BindSetPswVC") as! BindSetPswVC
+            vc.modalTransitionStyle = .crossDissolve
+            self.present(vc, animated: true, completion: nil)
+            self.restoreParams()
             break
-        case 110,111:
+        case 111:
             (response["message"] as! String).ext_debugPrintAndHint()
+            self.view.resignFirstResponder()
             break
         default:
             break

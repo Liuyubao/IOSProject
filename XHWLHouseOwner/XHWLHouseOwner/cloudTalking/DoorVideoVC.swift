@@ -29,7 +29,7 @@ class DoorVideoVC: UIViewController {
         return headIconIV
     }()
     
-    // 远程开门
+    // MARK: - 远程开门
     fileprivate lazy var openDoorBtn:UIButton = {
         let openDoorBtn = UIButton.init(type: .custom)
         openDoorBtn.setImage(UIImage(named:"NewCloudTalking_openDoor"), for: .normal)
@@ -50,6 +50,7 @@ class DoorVideoVC: UIViewController {
         self.view.addSubview(silenceBtn)
         
         return silenceBtn
+        
     }()
     
     
@@ -284,6 +285,13 @@ class DoorVideoVC: UIViewController {
         //        manager.toggleAudio()
         let isMute:Bool = btn.isSelected
         manager.toggleSpeaker(isMute)
+        //修改静音按钮图标
+        if isMute{
+            silenceBtn.setImage(UIImage(named:"NewCloudTalking_silence"), for: .normal)
+        }else{
+            silenceBtn.setImage(UIImage(named:"NewCloudTalking_silenced"), for: .normal)
+        }
+        
         btn.isSelected = !btn.isSelected
     }
     
@@ -359,13 +367,9 @@ class DoorVideoVC: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-
 }
 
 extension DoorVideoVC:XHWLWilddogVideoManagerDelegate {
-    
     func managerWithOtherResponse(_ state:Int) {
         if state == 0 {
             self.wilddogVideoEnum = .callVideo

@@ -61,6 +61,12 @@ class RemoteOpenDoorVC: UIViewController, UIPickerViewDelegate, UIPickerViewData
         //从沙盒中加载数据
         let doorListData = UserDefaults.standard.object(forKey: "allDoorList") as? NSData
         let doorListArray = XHWLDoorInfoModel.mj_objectArray(withKeyValuesArray: doorListData?.mj_JSONObject()) as? NSArray
+        if doorListArray == nil || doorListArray?.count == 0{
+            self.dismiss(animated: true, completion: nil)
+            self.conformBtn.isEnabled = false
+            "无授权门禁".ext_debugPrintAndHint()
+            return
+        }
         
         let personId = UserDefaults.standard.object(forKey: "personId") as! String//参数1
         let date = Date()
@@ -77,7 +83,8 @@ class RemoteOpenDoorVC: UIViewController, UIPickerViewDelegate, UIPickerViewData
         
 //        //添加公区门到门禁列表中
 //        let publicParams = ["projectId": curInfoModel?.curProject.id]
-//        XHWLNetwork.shared.postPublicDoorList(publicParams as NSDictionary, self)
+//        XHWLNetwork.sharedManager().postPublicDoorList(publicParams as NSDictionary, self)
+        
     }
     
     //初始化锦阳公馆的门禁列表
@@ -161,7 +168,8 @@ class RemoteOpenDoorVC: UIViewController, UIPickerViewDelegate, UIPickerViewData
             let userModel = XHWLUserModel.mj_object(withKeyValues: data?.mj_JSONObject())
             
             let params = ["token": userModel?.sysAccount.token, "doorID": self.jyDoors[selectedRow]["doorID"], "serverGuid": jyDoors[selectedRow]["serverGuid"]]
-            XHWLNetwork.shared.postOpenJYDoor(params as NSDictionary, self)
+            XHWLNetwork.sharedManager().postOpenJYDoor(params as NSDictionary, self)
+            
         }else{
             //远程开门
             let doorName = doors[selectedRow]["doorName"]
@@ -170,19 +178,20 @@ class RemoteOpenDoorVC: UIViewController, UIPickerViewDelegate, UIPickerViewData
             let doorId = doors[selectedRow]["doorId"]
             let personId = doors[selectedRow]["personId"]
             let params2 = ["doorName":doorName,"projectCode": projectCode, "token": token, "doorId":doorId, "type": "6", "personId":personId]
-            XHWLNetwork.shared.postRemoteOpenDoorBtnClicked(params2 as NSDictionary, self)
-//            //取出user的信息
-//            let data = UserDefaults.standard.object(forKey: "user") as? NSData
-//            let userModel = XHWLUserModel.mj_object(withKeyValues: data?.mj_JSONObject())
-//
-//            let curDate = Date()
-//            let timeFormatter = DateFormatter()
-//            timeFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-//            let timeStr = timeFormatter.string(from: curDate as Date) as String
-//
-//            //上传远程开门记录
-//            let params2 = ["yzId": userModel?.sysAccount.id,"reqId": "test", "upid": doors[selectedRow]["upid"], "doorId": doors[selectedRow]["doorId"], "openTime": timeStr, "type": "业主"]
-//            XHWLNetwork.shared.postSaveEntryLogBtnClicked(params2 as NSDictionary, self)
+            XHWLNetwork.sharedManager().postRemoteOpenDoorBtnClicked(params2 as NSDictionary, self)
+            
+            //取出user的信息
+            let data = UserDefaults.standard.object(forKey: "user") as? NSData
+            let userModel = XHWLUserModel.mj_object(withKeyValues: data?.mj_JSONObject())
+
+            let curDate = Date()
+            let timeFormatter = DateFormatter()
+            timeFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            let timeStr = timeFormatter.string(from: curDate as Date) as String
+
+            //上传远程开门记录
+            let params3 = ["yzId": userModel?.sysAccount.id,"reqId": "test", "upid": doors[selectedRow]["upid"], "doorId": doors[selectedRow]["doorId"], "openTime": timeStr, "type": "业主"]
+            XHWLNetwork.sharedManager().postSaveEntryLogBtnClicked(params3 as NSDictionary, self)
         }
     }
     

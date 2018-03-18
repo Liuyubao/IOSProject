@@ -19,5 +19,7 @@ class XHWLAccountModel: NSObject {
     var createTime: String = ""
     var weChatNickName:String = ""
     var imageUrl:String = ""
+    var sex:Bool = true
+    var nickName:String = ""
     
 }

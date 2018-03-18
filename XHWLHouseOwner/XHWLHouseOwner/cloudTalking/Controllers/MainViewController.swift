@@ -63,7 +63,7 @@ class MainViewController: UIViewController, XHWLNetworkDelegate{
         //推送给400客服
         let params = ["alias": "test","title":"test", "msg": "test", "pushToWebMsg": "{\"videoRoom\":\"400\",\"from\":\"xx\",\"to\":\"xx\",\"type\": \"video\"}"]
         print("@@@@@params", params["pushToWebMsg"] as! String)
-        XHWLNetwork.shared.postJPushMsg(params as NSDictionary, self)
+        XHWLNetwork.sharedManager().postJPushMsg(params as NSDictionary, self)
         enter(roomName: "400")
     }
     
@@ -75,7 +75,7 @@ class MainViewController: UIViewController, XHWLNetworkDelegate{
         
         //推送给手机号
         let params = ["alias": self.roomNameTextField.text as! String,"title":"\(userModel?.name as! String)向您发起了云对讲！", "msg": self.roomNameTextField.text as! String]
-        XHWLNetwork.shared.postJPushMsg(params as NSDictionary, self)
+        XHWLNetwork.sharedManager().postJPushMsg(params as NSDictionary, self)
         enter(roomName: roomNameTextField.text)
     }
     

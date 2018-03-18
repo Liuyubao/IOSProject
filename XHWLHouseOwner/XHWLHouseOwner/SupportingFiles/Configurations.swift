@@ -9,7 +9,18 @@
 import Foundation
 import UIKit
 
-var wechatClickedSource = 1 //1:app登录界面微信按钮 2:app内部绑定微信按钮
+//二维码访客邀请接口：
+let inviteQRCodeUrl = "http://202.105.96.131:3002/sendCard/#/callerInvite/"
+
+//二维码访客邀请记录接口：
+let inviteQRCodeHistoryUrl = "http://202.105.96.131:3002/sendCard/#/callerNodepad/"
+
+//H5自发卡门卡管理接口：
+let devideCardUrl = "http://202.105.96.131:3002/sendCard/#/management/"
+
+
+//1:app登录界面微信按钮 2:app内部绑定微信按钮
+var wechatClickedSource = 1
 
 //微信第三方参数
 let WX_APPID:String = "wxc5e20b28cf976b5c"

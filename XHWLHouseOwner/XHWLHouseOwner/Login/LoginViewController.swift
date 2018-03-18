@@ -5,6 +5,8 @@
 //  Created by 柳玉豹 on 2017/8/10.
 //  Copyright © 2017年 xinghaiwulian. All rights reserved.
 
+
+
 import UIKit
 import Alamofire
 import ElasticTransition
@@ -33,11 +35,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate, XHWLNetworkDel
     @IBOutlet weak var conformRePswTF: UITextField!
     @IBOutlet weak var logoImg: UIImageView!
     @IBOutlet weak var testBottonConstraint: NSLayoutConstraint!
+    @IBOutlet weak var wechatBtn: UIButton!
     
     var saveParameter = [String:String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if WXApi.isWXAppInstalled(){
+            self.wechatBtn.alpha = 1
+        }else{
+            self.wechatBtn.alpha = 0
+        }
+        
         loginPhoneNumberTF.delegate = self
         loginPswTF.delegate = self
         registerPhoneNumberTF.delegate = self
@@ -52,26 +61,25 @@ class LoginViewController: UIViewController, UITextFieldDelegate, XHWLNetworkDel
         
         NotificationCenter.default.addObserver(self,selector: #selector(WXLoginSuccess(notification:)),name:   NSNotification.Name(rawValue: "WXLoginVCNotification"),object: nil)
         
-//        YLGIFImage.setPrefetchNum(5)
-//        let path = Bundle.main.url(forResource: "up2", withExtension: "gif")?.absoluteString as String!
-//        logoImg.image = YLGIFImage(contentsOfFile: path!)
-//        logoImg.startAnimating()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let currentVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
-        
         if UserDefaults.standard.object(forKey: "versionCode") == nil {
             setupLaunch()
-        }
-        else {
+        }else {
             let saveVersion:String = UserDefaults.standard.object(forKey: "versionCode") as! String
             print("\(saveVersion)")
             if saveVersion != currentVersion {
                 setupLaunch()
             }
         }
+        //请求后台获得最新的版本号
+        XHWLNetwork.sharedManager().getNewestVersion(["yzIOS"], self)
+        
+        
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -81,24 +89,25 @@ class LoginViewController: UIViewController, UITextFieldDelegate, XHWLNetworkDel
     
     func setupLaunch(){
 //        if UserDefaults.standard.bool(forKey: "notFirstLoad") == false {
-            var imageNameArr = Array<Any>()
-            for i in 1..<4 {
-                imageNameArr.append("Introduction_\(i)")
-            }
-            
-            let currentVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
-            self.view!.addSubview(CLNewFeatureView(imageNameArr: imageNameArr))
-            UserDefaults.standard.set(currentVersion, forKey:"versionCode")
-            UserDefaults.standard.synchronize()
+        var imageNameArr = Array<Any>()
+        for i in 1..<4 {
+            imageNameArr.append("Introduction_\(i)")
+        }
+        let currentVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
+        self.view!.addSubview(CLNewFeatureView(imageNameArr: imageNameArr))
+        UserDefaults.standard.set(currentVersion, forKey:"versionCode")
+        UserDefaults.standard.synchronize()
     }
     
+    
+    // MARK: - 忘记密码
     @IBAction func forgetPswBtnClicked(_ sender: UIButton) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ForgetPhoneVeriVC") as! ForgetPhoneVeriVC
         vc.modalTransitionStyle = .crossDissolve
         self.present(vc, animated: true, completion: nil)
     }
     
-    
+    // MARK: - 登陆按钮点击事件
     @IBAction func loginBtnClicked(_ sender: UIButton) {
         let myStoryBoard = self.storyboard
         self.view.endEditing(true)
@@ -109,7 +118,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, XHWLNetworkDel
         
         //判断手机号格式是否正确
         if Validation.phoneNum(loginPhoneNumberTF.text!).isRight{
-            XHWLNetwork.shared.postLogin(params as NSDictionary, self)
+            XHWLNetwork.sharedManager().postLogin(params as NSDictionary, self)
         }else{
             "您输入的手机号格式有误！".ext_debugPrintAndHint()
         }
@@ -117,13 +126,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate, XHWLNetworkDel
     
     //当开始输入时，上升
     func textFieldDidBeginEditing(_ textField: UITextField) {
-            animateViewMoving(up: true, moveValue: 100)
+        if self.view.frame.midY < self.view.frame.height/2{
+            return
+        }
+        animateViewMoving(up: true, moveValue: 100)
     }
     
     //当完成输入后，下降
     func textFieldDidEndEditing(_ textField: UITextField) {
-            animateViewMoving(up: false, moveValue: 100)
+        animateViewMoving(up: false, moveValue: 100)
+        
     }
+    
     
     //上升 下降的函数
     func animateViewMoving (up:Bool, moveValue :CGFloat){
@@ -133,11 +147,20 @@ class LoginViewController: UIViewController, UITextFieldDelegate, XHWLNetworkDel
         UIView.beginAnimations(nil, context: nil)
         UIView.setAnimationBeginsFromCurrentState(true)
         UIView.setAnimationDuration(movementDuration)
-        
+//        self.registerView.frame = self.registerView.frame.offsetBy(dx: 0, dy: movement)
+//        self.conformPswView.frame = self.conformPswView.frame.offsetBy(dx: 0, dy: movement)
+//        self.loginView.frame = self.loginView.frame.offsetBy(dx: 0, dy: movement)
         self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
+        
         UIView.commitAnimations()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.view.endEditing(true)
+    }
+    
+    // MARK: - 微信登陆按钮点击事件
     @IBAction func wechatLoginBtnClicked(_ sender: UIButton) {
         wechatClickedSource = 1     //将点击源设为LoginVC  
         let req = SendAuthReq()
@@ -162,6 +185,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, XHWLNetworkDel
     /**  微信通知  */
     func WXLoginSuccess(notification:Notification) {
         let code = notification.object as! String
+        UserDefaults.standard.set(code, forKey: "code")
         let requestUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=\(WX_APPID)&secret=\(WX_APPSecret)&code=\(code)&grant_type=authorization_code"
         DispatchQueue.global().async {
             let requestURL: URL = URL.init(string: requestUrl)!
@@ -190,10 +214,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate, XHWLNetworkDel
             DispatchQueue.main.async {
                 let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String,Any>
                 //保存nickname到沙盒
-                UserDefaults.standard.set(jsonResult["nickname"] as! String, forKey: "nickName")
+                UserDefaults.standard.set(jsonResult["nickname"] as! String, forKey: "wechatNickName")
                 UserDefaults.standard.synchronize()
                 let params = ["openId":jsonResult["openid"] as! String]
-                XHWLNetwork.shared.postWechatLogin(params as NSDictionary, self)
+                XHWLNetwork.sharedManager().postWechatLogin(params as NSDictionary, self)
                 print(jsonResult)
             }
         }
@@ -211,6 +235,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, XHWLNetworkDel
         self.view.endEditing(true)
     }
     
+    
+    // MARK: - 确认密码view中的上一步点击事件
     //conformView中的上一步事件
     @IBAction func returnToRegisterViewBtnClicked(_ sender: UIButton) {
         UIView.beginAnimations(nil, context: nil)
@@ -218,7 +244,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, XHWLNetworkDel
         UIView.setAnimationDuration(0.5)
         UIView.setAnimationBeginsFromCurrentState(true)
         
-        UIView.setAnimationTransition(.curlDown, for: registerView!, cache: true)//conformPswView翻转
+        UIView.setAnimationTransition(.none, for: registerView!, cache: true)//conformPswView翻转
         self.view.bringSubview(toFront: registerView)
         conformPswView.alpha = 0
         let t = true
@@ -230,13 +256,53 @@ class LoginViewController: UIViewController, UITextFieldDelegate, XHWLNetworkDel
         conformPswView.transform = registerView.transform
     }
     
-    //conformView中的下一步事件
+    // MARK: - 判断设置密码是否符合格式要求
+    func checkPsw(str: String) -> Bool{
+        //长度6-16
+        if str.characters.count < 6 || str.characters.count > 16{
+            "密码长度须为6-16位".ext_debugPrintAndHint()
+            self.view.endEditing(true)
+            return false
+        }
+        
+        //不是只包含数字
+        let predNumRule = "^([0-9]{6,16})$"
+        let p1 = NSPredicate(format: "SELF MATCHES %@" ,predNumRule)
+        if p1.evaluate(with: str){
+            "密码不能只包含数字".ext_debugPrintAndHint()
+            self.view.endEditing(true)
+            return false
+        }
+        //不是只包含字母
+        let predAlphabetRule = "^([A-Za-z]{6,16})$"
+        let p2 = NSPredicate(format: "SELF MATCHES %@" ,predAlphabetRule)
+        if p2.evaluate(with: str){
+            "密码不能只包含字母".ext_debugPrintAndHint()
+            self.view.endEditing(true)
+            return false
+        }
+        //总验证
+        let predOverallRule = "^(?=.*[a-zA-Z0-9].*)(?=.*[a-zA-Z\\W].*)(?=.*[0-9\\W].*).{6,20}$"
+        let p3 = NSPredicate(format: "SELF MATCHES %@" ,predOverallRule)
+        if !p3.evaluate(with: str){
+            "密码须包含数字字母".ext_debugPrintAndHint()
+            self.view.endEditing(true)
+            return false
+        }
+        return true
+    }
+    
+    // MARK: - conformView中的下一步事件
     @IBAction func conformNextStopBtnClicked(_ sender: UIButton) {
         //判断输入框是否为空
         if self.conformPswTF.text?.characters.count == 0 || self.conformRePswTF.text?.characters.count == 0{
             "密码不能为空".ext_debugPrintAndHint()
+            self.view.endEditing(true)
+        }else if !self.checkPsw(str: self.conformPswTF.text!){
+            self.view.endEditing(true)
         }else if self.conformPswTF.text != self.conformRePswTF.text{
-            "您输入的密码不匹配".ext_debugPrintAndHint()
+            "您输入的两次密码不匹配".ext_debugPrintAndHint()
+            self.view.endEditing(true)
         }else{
             //传给register接口的参数
             var params = [String: String]()
@@ -249,13 +315,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate, XHWLNetworkDel
                 switch result["errorCode"] as! Int{
                 case -5,-6:
                     (result["message"] as! String).ext_debugPrintAndHint()
+                    self.view.endEditing(true)
                     break
                 case 200:
                     //注册成功，跳到主页面
                     //传给login接口的参数
                     var params2 = ["telephone":self.registerTelephone,"password":params["password"]]
                     
-                    XHWLNetwork.shared.postLogin(params2 as NSDictionary, self)
+                    XHWLNetwork.sharedManager().postLogin(params2 as NSDictionary, self)
                     break
                 default:
                     break
@@ -264,60 +331,30 @@ class LoginViewController: UIViewController, UITextFieldDelegate, XHWLNetworkDel
         }
     }
     
-    //registerView中的下一步事件
+    // MARK: - registerView中的下一步事件
     @IBAction func nextStepBtnClicked(_ sender: UIButton) {
         //传给testVerificatCode接口的参数
         var params = [String: String]()
         params["telephone"] = registerPhoneNumberTF.text!
-        params["verificatCode"] = registerVeriTF.text!
+        params["verifyCode"] = registerVeriTF.text!
+        //保存手机号和验证码到saveParamerters
+        self.saveParameter["telephone"] = params["telephone"]
+        self.saveParameter["verificatCode"] = params["verifyCode"]
+        
         self.registerTelephone = registerPhoneNumberTF.text!
         //判断验证码是否为6位
         if registerVeriTF.text!.characters.count == 6{
-            Alamofire.request("\(LoginViewController.baseUrl)/v1/appBase/register/testVerificatCode", method: .post ,parameters: params).responseJSON{ response in
-                if let result = response.result.value as? NSDictionary{
-                    if result["state"] as! Bool{
-                        //验证码正确,保存手机号和验证码到saveParamerters
-                        self.saveParameter["telephone"] = params["telephone"]
-                        self.saveParameter["verificatCode"] = params["verificatCode"]
-                        
-                        //清空输入框，还原计时器和下一步属性
-                        self.registerPhoneNumberTF.text = ""
-                        self.registerVeriTF.text = ""
-                        self.remainingSeconds = 0
-                        self.nextStepBtn.isEnabled = false
-                        
-                        self.remainingSeconds = 0
-                        self.conformPswView.transform = self.registerView.transform
-                        
-                        
-                        UIView.beginAnimations(nil, context: nil)
-                        UIView.setAnimationCurve(.easeOut)
-                        UIView.setAnimationDuration(0.5)
-                        UIView.setAnimationBeginsFromCurrentState(true)
-                        
-                        UIView.setAnimationTransition(.curlUp, for: self.registerView!, cache: true)//registerView翻转
-                        self.conformPswView.alpha = 1
-                        
-                        self.view.bringSubview(toFront: self.conformPswView)
-                        
-                        UIView.setAnimationDelegate(self)
-                        UIView.commitAnimations()
-                    }else{
-                        "验证码不正确".ext_debugPrintAndHint()
-                        self.isCounting = false
-                        self.remainingSeconds = 0
-                        self.nextStepBtn.isEnabled = false
-                    }
-                }
-            }
+            XHWLNetwork.sharedManager().postVeriCodeLogin(params as NSDictionary, self)
+
         }else{
             "请输入6位数字验证码".ext_debugPrintAndHint()
+            self.view.endEditing(true)
         }
     }
     
     var registerTelephone: String = ""  //保存注册填写时候的手机账号
     
-    //发送短信验证码
+    // MARK: - 发送短信验证码
     @IBAction func sendVeriBtnClicked(_ sender: UIButton) {
         self.sendVeriBtn.isEnabled = false
         //传给发送验证码接口的参数
@@ -332,8 +369,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate, XHWLNetworkDel
                         "验证码发送成功".ext_debugPrintAndHint
                         self.isCounting = true
                         self.nextStepBtn.isEnabled = true
+                        self.registerVeriTF.becomeFirstResponder()
                     }else{
                         "验证码发送失败".ext_debugPrintAndHint()
+                        self.view.endEditing(true)
                     }
                 }
             }
@@ -375,7 +414,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, XHWLNetworkDel
         remainingSeconds -= 1
     }
     
-    //转到registerView
+    // MARK: - 转到registerView
     @IBAction func registerBtnClicked(_ sender: UIButton) {
         UIView.beginAnimations(nil, context: nil)
         UIView.setAnimationCurve(.easeOut)
@@ -404,14 +443,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate, XHWLNetworkDel
         registerView.bringSubview(toFront: nextStepBtn)
         
         //设置为下一步按钮，并将其isEnabled设为false
-        nextStepBtn.setTitle("下一步", for: UIControlState.normal)
         nextStepBtn.isEnabled = false
         
         //设置toLoginViewBtn 为可点击
         toLoginViewBtn.isEnabled = true
     }
     
-    //取消注册，返回到loginView
+    // MARK: - 取消注册，返回到loginView
     @IBAction func cancelRegisterBtnClicked(_ sender: UIButton) {
         //还原输入框
         self.registerPhoneNumberTF.text = ""
@@ -445,7 +483,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, XHWLNetworkDel
         registerView.bringSubview(toFront: toRegisterViewBtn)
         
         //设置为注册按钮，并将其isEnabled设为true
-        nextStepBtn.setTitle("注册", for: UIControlState.normal)
         nextStepBtn.isEnabled = true
         
         //设置toLoginViewBtn 为不可点击
@@ -463,18 +500,24 @@ class LoginViewController: UIViewController, UITextFieldDelegate, XHWLNetworkDel
         cancelRegisterBtnClicked(sender)
     }
     
-    //network代理的方法
+    
+    // MARK: - network代理的方法
     func requestSuccess(_ requestKey:NSInteger, _ response:[String : AnyObject]) {
         switch requestKey {
         case XHWLRequestKeyID.XHWL_LOGIN.rawValue:
             onLoginBtnCLicked(response)
             break
         case XHWLRequestKeyID.XHWL_WECHATLOGIN.rawValue:
-            print("%%%%%%%%%%Wechat", response)
             onWechatBtnClicked(response)
             break
         case XHWLRequestKeyID.XHWL_GETALLDOORS.rawValue:
             onSaveDoorValues(response)
+            break
+        case XHWLRequestKeyID.XHWL_NEWLESTVERSION.rawValue:
+            onGetNewestVersion(response)
+            break
+        case XHWLRequestKeyID.XHWL_VERICODELOGIN.rawValue:
+            onVeriCodeLogin(response)
             break
         default:
             break
@@ -484,6 +527,87 @@ class LoginViewController: UIViewController, UITextFieldDelegate, XHWLNetworkDel
     //network代理的方法
     func requestFail(_ requestKey:NSInteger, _ error:NSError) {
         print("&&&&wechatLogin&&&&", error)
+    }
+    
+    //短信验证码登录
+    func onVeriCodeLogin(_ response:[String : AnyObject]){
+        switch response["errorCode"] as! Int {
+        case -1, -2, 111:   //验证码不争取//验证码过期//数据有误
+            (response["message"] as! String).ext_debugPrintAndHint()
+            self.view.resignFirstResponder()
+            break
+        case 100:       //设置密码
+            //清空输入框，还原计时器和下一步属性
+            self.registerPhoneNumberTF.text = ""
+            self.registerVeriTF.text = ""
+            self.remainingSeconds = 0
+            self.nextStepBtn.isEnabled = false
+            
+            self.remainingSeconds = 0
+            self.conformPswView.transform = self.registerView.transform
+            
+            
+            UIView.beginAnimations(nil, context: nil)
+            UIView.setAnimationCurve(.easeOut)
+            UIView.setAnimationDuration(0.5)
+            UIView.setAnimationBeginsFromCurrentState(true)
+            
+            UIView.setAnimationTransition(.none, for: self.registerView!, cache: true)//registerView翻转
+            self.conformPswView.alpha = 1
+            
+            self.view.bringSubview(toFront: self.conformPswView)
+            
+            UIView.setAnimationDelegate(self)
+            UIView.commitAnimations()
+            
+            break
+        case 200:   //直接登陆
+            onLoginBtnCLicked(response)
+            break
+        default:
+            break
+        }
+    }
+    
+    func onGetNewestVersion(_ response:[String : AnyObject]){
+        switch response["errorCode"] as! Int {
+        case 200:
+            let currentVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
+            let result = response["result"] as! NSDictionary
+            let newestVersion = result["versionNo"] as! String
+            if currentVersion != newestVersion{
+                UserDefaults.standard.set(currentVersion, forKey:"versionCode")
+                UserDefaults.standard.synchronize()
+                // 跳转到对应的appStore  https://itunes.apple.com/cn/app/小七专家/id1283925515?l=en&mt=8
+                print("跳转到AppStore")
+                // update_type:更新类型// 1:强制更新 2:非强制更新
+                //做你想做的事情
+                let alertController = UIAlertController.init(title: "温馨提示", message: "最新版本\(result["versionNo"]! as! String)已上线，请立即更新！", preferredStyle: UIAlertControllerStyle.alert)
+                let confirmAction = UIAlertAction.init(title: "更新", style: UIAlertActionStyle.default, handler: { (alertAction) in
+                    //跳转到AppStore，该App下载界面
+//                    let urlStr:String = "https://itunes.apple.com/cn/app/小七专家/id1283925515?l=en&mt=8"
+                    let urlStr:String = "https://itunes.apple.com/cn/app/小七当家/id1275826340?l=en&mt=8"
+                    let string:String = urlStr.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+                    guard let url:URL = URL.init(string: string) else {
+                        print("失败")
+                        return
+                    }
+                    if UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.openURL(url)
+                    }
+                })
+                let nextTimeAction = UIAlertAction.init(title: "取消", style: UIAlertActionStyle.cancel, handler: nil)
+                
+                alertController.addAction(confirmAction)
+                alertController.addAction(nextTimeAction)
+                let vc = UIViewController.currentViewController()
+                vc?.present(alertController, animated: true, completion: nil)
+            }
+           
+            break
+        default:
+            break
+        }
     }
     
     //保存门禁列表到沙盒中
@@ -510,7 +634,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, XHWLNetworkDel
     
     //通过微信授权登录
     func onWechatBtnClicked(_ response:[String : AnyObject]){
-        
         switch response["errorCode"] as! Int {
         case 200:
             onLoginBtnCLicked(response)
@@ -534,7 +657,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, XHWLNetworkDel
             //获取user
             let yzUser = result["sysUser"] as? NSDictionary
             if yzUser == nil{
-                "您的账号未通过审核".ext_debugPrintAndHint()
+                "请联系物业人员授权登陆权限。".ext_debugPrintAndHint()
                 return
             }
             
@@ -544,15 +667,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate, XHWLNetworkDel
             
             //更新微信用户名
             let userModel = XHWLUserModel.mj_object(withKeyValues: yzUserData.mj_JSONObject())
-            if userModel?.sysAccount.imageUrl == nil{
+            if userModel?.sysAccount.imageUrl == nil || userModel?.sysAccount.imageUrl == ""{
                 UserDefaults.standard.removeObject(forKey: "imageUrl")
             }else{
                 UserDefaults.standard.set(userModel?.sysAccount.imageUrl as! String, forKey: "imageUrl")
             }
-            if userModel?.sysAccount.weChatNickName == nil{
-                UserDefaults.standard.removeObject(forKey: "nickName")
+            if userModel?.sysAccount.weChatNickName == nil || userModel?.sysAccount.weChatNickName == ""{
+                UserDefaults.standard.removeObject(forKey: "wechatNickName")
             }else{
-                UserDefaults.standard.set(userModel?.sysAccount.weChatNickName, forKey: "nickName")
+                UserDefaults.standard.set(userModel?.sysAccount.weChatNickName, forKey: "wechatNickName")
             }
             
             //将别名上传
@@ -591,7 +714,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, XHWLNetworkDel
                     // Fallback on earlier versions
                 }
             }else{
-                "您的账号未认证，无法登陆！".ext_debugPrintAndHint()
+                "请联系物业人员授权登陆权限。".ext_debugPrintAndHint()
                 return
             }
             
@@ -603,7 +726,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, XHWLNetworkDel
             let strNowTime = timeFormatter.string(from: date)
             let dateToken = (strNowTime+"adminXH").md5
             let params = ["projectCode":curInfoModel.curProject.projectCode,"token":dateToken,"userName":yzUser!["name"] as! String,"phone":yzUser!["telephone"] as! String]
-            XHWLNetwork.shared.postGetAllDoors(params as NSDictionary, self)
+            XHWLNetwork.sharedManager().postGetAllDoors(params as NSDictionary, self)
             
             let curInfoData = curInfoModel.mj_JSONData() as? NSData
             UserDefaults.standard.set(curInfoData, forKey: "curInfo")

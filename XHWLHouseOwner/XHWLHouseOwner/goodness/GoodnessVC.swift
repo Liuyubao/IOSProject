@@ -17,11 +17,11 @@ class GoodnessVC: UIViewController, UIScrollViewDelegate, ModalTransitionDelegat
     @IBOutlet weak var scrollView: UIScrollView!
     @IBAction func shopBtnClicked(_ sender: UIButton) {
         let controller = WebViewController(url: URL(string: "http://56028283.m.weimob.com/vshop/56028283/Index?PageId=640148&IsPre=1&channel=menu")!)
+        controller.displaysWebViewTitle = true
         let nav = UINavigationController(rootViewController: controller)
+        nav.modalTransitionStyle = .crossDissolve
         present(nav, animated: true, completion: nil)
     }
-    
-    
     
     
     @IBAction func toSpaceBtnClicked(_ sender: UIButton) {

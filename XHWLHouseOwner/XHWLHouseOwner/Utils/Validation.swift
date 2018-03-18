@@ -33,7 +33,7 @@ enum Validation {
             predicateStr = "^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$"
             currObject = str
         case let .phoneNum(str):
-            predicateStr = "^[1][358]\\d{9}"
+            predicateStr = "^[1][35789]\\d{9}$"
             currObject = str
         case let .carNum(str):
             predicateStr = "^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$"
@@ -42,7 +42,8 @@ enum Validation {
             predicateStr = "^[A-Za-z0-9]{6,20}+$"
             currObject = str
         case let .password(str):
-            predicateStr = "^[a-zA-Z0-9]{6,20}+$"
+            //支持数字、字母、符号6-20位,必须包含其中至少两种
+            predicateStr = "^(?=.*[a-zA-Z0-9].*)(?=.*[a-zA-Z\\W].*)(?=.*[0-9\\W].*).{6,16}$"
             currObject = str
         case let .nickname(str):
             predicateStr = "^[\\u4e00-\\u9fa5]{4,8}$"
@@ -66,3 +67,5 @@ enum Validation {
         return predicate.evaluate(with:currObject)
     }
 }
+
+

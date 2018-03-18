@@ -24,26 +24,31 @@ class ReSetPswVC: UIViewController, XHWLNetworkDelegate {
         //registerVeriTF是否为空
         if self.registerVeriTF.text == ""{
             "验证码不能为空".ext_debugPrintAndHint()
+            self.view.endEditing(true)
             return
         }
         //registerVeriTF是否为6位数
         if self.registerVeriTF.text?.characters.count != 6{
             "验证码必须为6位".ext_debugPrintAndHint()
+            self.view.endEditing(true)
             return
         }
         //conformPswTF是否为空
         if self.conformPswTF.text == ""{
             "密码不能为空".ext_debugPrintAndHint()
+            self.view.endEditing(true)
             return
         }
         //conformRePswTF是否为空
         if self.conformRePswTF.text == ""{
             "确认密码不能为空".ext_debugPrintAndHint()
+            self.view.endEditing(true)
             return
         }
         //conformPswTF和conformRePswTF值是否相同
         if self.conformPswTF.text != self.conformRePswTF.text{
             "两次输入密码不同".ext_debugPrintAndHint()
+            self.view.endEditing(true)
             return
         }
         
@@ -51,7 +56,7 @@ class ReSetPswVC: UIViewController, XHWLNetworkDelegate {
         let data = UserDefaults.standard.object(forKey: "user") as! NSData
         let userModel = XHWLUserModel.mj_object(withKeyValues: data.mj_JSONObject())
         let params = ["telephone":userModel?.telephone as! String, "newPsw":self.conformPswTF.text as! String, "verificatCode":self.registerVeriTF.text as! String]
-        XHWLNetwork.shared.postChangePsw(params as NSDictionary, self)
+        XHWLNetwork.sharedManager().postChangePsw(params as NSDictionary, self)
         
     }
     

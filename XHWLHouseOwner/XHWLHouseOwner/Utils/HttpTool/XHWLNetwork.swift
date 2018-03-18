@@ -24,12 +24,15 @@ class XHWLNetwork: NSObject, XHWLHttpToolDelegate {
     weak var delegate:XHWLNetworkDelegate?
     
     // 单例
-    class var shared: XHWLNetwork {
-        struct Static {
-            static let instance = XHWLNetwork()
-        }
-        return Static.instance
+    static func sharedManager() -> XHWLNetwork {
+        return XHWLNetwork()
     }
+//    class var shared: XHWLNetwork {
+//        struct Static {
+//            static let instance = XHWLNetwork()
+//        }
+//        return Static.instance
+//    }
     
     func superWithLoadData(_ parameters:Any, _ requestKey:XHWLRequestKeyID, _ method:HTTPMethod) {
         changeStatus({ (isReach) in
@@ -120,7 +123,6 @@ class XHWLNetwork: NSObject, XHWLHttpToolDelegate {
     // 获取蓝牙绑卡设备记录get
     func getBluetoothRecord(_ parameters:NSArray, _ delegate:XHWLNetworkDelegate) {
         //        token     string     是     用户唯一凭证
-        
         self.delegate = delegate
         superWithLoadData(parameters, .XHWL_GETBLUETOOTH, .get)
     }
@@ -327,6 +329,55 @@ class XHWLNetwork: NSObject, XHWLHttpToolDelegate {
         //        personId         string     是                 人员编号
         self.delegate = delegate
         superWithLoadData(parameters, .XHWL_REMOTEOPENDOOR, .post)
+    }
+    
+    //更新个人信息post
+    func postUpdateInfo(_ parameters:NSDictionary, _ delegate:XHWLNetworkDelegate){
+        //        id           string     是                  sysAccount的id
+        //        sex           string     否                  性别
+        //        imageUrl      string     否                  头像url
+        //        name         string     否                   用户名
+        //        token         string     是                 用户唯一凭证
+        self.delegate = delegate
+        superWithLoadData(parameters, .XHWL_UPDATEINFO, .post)
+    }
+    
+    // 获取最新版本信息get
+    func getNewestVersion(_ parameters:NSArray, _ delegate:XHWLNetworkDelegate) {
+        //        type     string     是     类别（yzIOS，yzAndroid）
+        self.delegate = delegate
+        superWithLoadData(parameters, .XHWL_NEWLESTVERSION, .get)
+    }
+    
+    //更新个人信息post
+    func postOpenDoorByCall(_ parameters:NSDictionary, _ delegate:XHWLNetworkDelegate){
+        //        id           string     是                  门id
+        //        token         string     是                 用户唯一凭证
+        self.delegate = delegate
+        superWithLoadData(parameters, .XHWL_OPENDOORBYCALL, .post)
+    }
+    
+    //新的获取验证码（新）post
+    func postVeriCodeByType(_ parameters:NSDictionary, _ delegate:XHWLNetworkDelegate){
+        //        telephone           string     是                手机号码
+        //        type                string     是                获取类别； 0通用（无判断条件） 1注册 2找回密码 3测试
+        self.delegate = delegate
+        superWithLoadData(parameters, .XHWL_GETVERIFICATCODEBYTYPE, .post)
+    }
+    
+    //短信验证码登录post
+    func postVeriCodeLogin(_ parameters:NSDictionary, _ delegate:XHWLNetworkDelegate){
+        //        telephone           string     是                手机号码
+        //        verifyCode          string     是                验证码
+        self.delegate = delegate
+        superWithLoadData(parameters, .XHWL_VERICODELOGIN, .post)
+    }
+    
+    //通过token获取个人信息post
+    func postInfoByToken(_ parameters:NSDictionary, _ delegate:XHWLNetworkDelegate){
+        //        token             string     是                用户验证标识
+        self.delegate = delegate
+        superWithLoadData(parameters, .XHWL_GETUSERINFOBYTOKEN, .post)
     }
     
     // MARK: - XHWLHttpToolDelegate

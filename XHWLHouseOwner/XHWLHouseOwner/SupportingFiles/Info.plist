@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>App需要经过您的同意，才能访问相册</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -19,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.9</string>
+	<string>1.1.20180227</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -44,7 +42,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.0.9</string>
+	<string>1.1.20180227</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>weixin</string>
@@ -71,33 +69,35 @@
 		<true/>
 	</dict>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>App需要访问您的蓝牙设备</string>
+	<string>App需要使用蓝牙开门是否允许访问您的蓝牙设备？</string>
 	<key>NSCameraUsageDescription</key>
-	<string>App需要访问您的相机</string>
+	<string>App需要扫描二维码获得设备信息和进行云对讲是否允许打开相机？</string>
 	<key>NSHealthShareUsageDescription</key>
-	<string>App需要您的同意,才能访问健康分享</string>
+	<string>App需要获得用户运动数据是否允许访问健康分享？</string>
 	<key>NSHealthUpdateUsageDescription</key>
-	<string>App需要您的同意,才能访问健康更新 </string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>App需要您的同意,才能始终访问位置</string>
+	<string>App需要获得用户运动数据是否允许访问健康更新 ？</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>总是使用用户位置</string>
+	<string>App需要获得当地天气信息是否允许总是使用用户位置？</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>App需要获得当地天气信息是否允许始终访问位置？</string>
 	<key>NSLocationUsageDescription</key>
-	<string>App需要您的同意,才能访问位置</string>
+	<string>App需要获得当地天气信息是否允许访问位置？</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>App需要您的同意,才能在使用期间访问位置</string>
+	<string>App需要获得当地天气信息是否允许在使用期间访问位置？</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>App需要访问您的麦克风</string>
+	<string>App需要进行云对讲是否允许访问您的麦克风？</string>
 	<key>NSMotionUsageDescription</key>
-	<string>App需要您的同意,才能访问运动与健身</string>
+	<string>App需要获得当地天气信息是否允许访问运动与健身？</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>App需要从相册读取二维码是否允许访问相册？</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>App需要访问您的相册</string>
+	<string>App需要从相册读取二维码是否允许访问相册？</string>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>location</string>
+		<string>audio</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
+	<string>Launch Screen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>

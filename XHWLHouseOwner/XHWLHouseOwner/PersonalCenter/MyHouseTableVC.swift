@@ -61,6 +61,8 @@ class MyHouseTableVC: UITableViewController {
         cell.projectName.text = (self.roomListArray?[indexPath.row] as? XHWLRoomModel)?.projectName
         cell.buildingName.text = (self.roomListArray?[indexPath.row] as? XHWLRoomModel)?.buildingName
         cell.unitName.text = "\((self.roomListArray?[indexPath.row] as? XHWLRoomModel)?.unitName as! String) \((self.roomListArray?[indexPath.row] as? XHWLRoomModel)?.name as! String)"
+        cell.unitName.numberOfLines = 0
+        cell.unitName.lineBreakMode = .byTruncatingMiddle
 
         return cell
     }

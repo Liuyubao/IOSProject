@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ShareView" customModule="XHWLHouseOwner" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="323.5" height="88.5"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PersonPath_shareView" translatesAutoresizingMaskIntoConstraints="NO" id="2iz-PQ-3Ww">
+                    <rect key="frame" x="0.0" y="0.0" width="323" height="88.5"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RQV-NT-xd7">
+                    <rect key="frame" x="31" y="18" width="40" height="54"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="7rB-CM-4ni"/>
+                        <constraint firstAttribute="height" constant="54" id="un7-jJ-MRt"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="PersonPath_wechat"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hkg-Wb-CDN">
+                    <rect key="frame" x="251" y="18" width="40" height="54"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="54" id="3pQ-4w-afL"/>
+                        <constraint firstAttribute="width" constant="40" id="kCs-3G-o7F"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="PersonPath_msg"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FEm-uM-7vo">
+                    <rect key="frame" x="141" y="17.5" width="40" height="54"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="54" id="fWN-l4-1xM"/>
+                        <constraint firstAttribute="width" constant="40" id="nks-d4-ig6"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="PersonPath_qq"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Hkg-Wb-CDN" firstAttribute="leading" secondItem="FEm-uM-7vo" secondAttribute="trailing" constant="70" id="4Fp-pp-VZ9"/>
+                <constraint firstItem="2iz-PQ-3Ww" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Tek-Hd-aVx"/>
+                <constraint firstItem="2iz-PQ-3Ww" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="XJh-c7-X6D"/>
+                <constraint firstItem="Hkg-Wb-CDN" firstAttribute="centerY" secondItem="FEm-uM-7vo" secondAttribute="centerY" id="cjq-Rn-Jzz"/>
+                <constraint firstItem="FEm-uM-7vo" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="jDu-VH-fLC"/>
+                <constraint firstItem="FEm-uM-7vo" firstAttribute="leading" secondItem="RQV-NT-xd7" secondAttribute="trailing" constant="70" id="jzP-Cn-u94"/>
+                <constraint firstItem="RQV-NT-xd7" firstAttribute="centerY" secondItem="FEm-uM-7vo" secondAttribute="centerY" id="lkM-cv-JSo"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="2iz-PQ-3Ww" secondAttribute="trailing" id="pJQ-6g-xsT"/>
+                <constraint firstItem="FEm-uM-7vo" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="zFO-HF-Pdk"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="2iz-PQ-3Ww" secondAttribute="bottom" id="zxN-DQ-dfO"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="msgShareBtn" destination="Hkg-Wb-CDN" id="QJH-03-9tp"/>
+                <outlet property="qqShareBtn" destination="FEm-uM-7vo" id="sFq-o3-gQ6"/>
+                <outlet property="wechatShareBtn" destination="RQV-NT-xd7" id="dV9-vf-uTa"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="PersonPath_msg" width="40" height="53"/>
+        <image name="PersonPath_qq" width="40" height="53"/>
+        <image name="PersonPath_shareView" width="323" height="88"/>
+        <image name="PersonPath_wechat" width="40" height="53"/>
+    </resources>
+</document>

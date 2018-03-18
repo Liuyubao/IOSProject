@@ -162,13 +162,13 @@ class DoorGuardRoomVC: UIViewController,XHWLNetworkDelegate {
     
     @IBAction func refuseBtnClicked(_ sender: UIButton) {
         let params = ["wyAlias":self.wyAlias,"yzOperator":"n","msg":"拒绝访客"]
-        XHWLNetwork.shared.postVisitorReply(params as NSDictionary, self)
+        XHWLNetwork.sharedManager().postVisitorReply(params as NSDictionary, self)
         leaveChannel()
     }
     
     @IBAction func agreeBtnClicked(_ sender: UIButton) {
         let params = ["wyAlias":self.wyAlias,"yzOperator":"y","msg":"同意访客"]
-        XHWLNetwork.shared.postVisitorReply(params as NSDictionary, self)
+        XHWLNetwork.sharedManager().postVisitorReply(params as NSDictionary, self)
         leaveChannel()
     }
     

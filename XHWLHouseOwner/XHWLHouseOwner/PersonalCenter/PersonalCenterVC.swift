@@ -25,6 +25,7 @@ class PersonalCenterVC: UIViewController {
 //        alert.addAction(conformAction)
 //        self.present(alert, animated: true, completion: nil)
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ServiceCenterVC")
+        vc?.modalTransitionStyle = .crossDissolve
         self.present(vc!, animated: true)
     }
     
@@ -44,6 +45,8 @@ class PersonalCenterVC: UIViewController {
         case 568.0://5s
             scrollView.contentSize = CGSize(width:self.scrollView.width, height: self.scrollView.height*1.3)
         case 667.0://6s
+            scrollView.contentSize = CGSize(width:self.scrollView.width, height: self.scrollView.height*1.3)
+        case 812.0://X
             scrollView.contentSize = CGSize(width:self.scrollView.width, height: self.scrollView.height*1.3)
         default:
             break

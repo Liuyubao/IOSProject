@@ -10,7 +10,6 @@ import UIKit
 import SwiftCharts
 
 struct ExamplesDefaults {
-    
     static var chartSettings: ChartSettings {
         if Env.iPad {
             return iPadChartSettings

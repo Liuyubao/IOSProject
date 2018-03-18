@@ -96,6 +96,12 @@ class XHWLScanVC: LBXScanViewController {
                 topTitle?.font = font_14
             }
             
+            //iphone X
+            if UIScreen.main.bounds.size.height == 812.0 {
+                topTitle?.center = CGPoint(x:self.view.frame.size.width/2, y:80);
+                topTitle?.font = font_14
+            }
+            
             topTitle?.textAlignment = NSTextAlignment.center
             topTitle?.numberOfLines = 0
             topTitle?.text = "将取景框对准二维码即可自动扫描"

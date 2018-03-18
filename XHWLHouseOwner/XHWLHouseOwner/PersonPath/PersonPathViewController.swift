@@ -10,65 +10,21 @@ import UIKit
 import CoreBluetooth
 import TransitionTreasury
 import TransitionAnimation
+import JSQWebViewController
 
-class PersonPathViewController: UIViewController, CBCentralManagerDelegate, UIScrollViewDelegate, ModalTransitionDelegate {
+class PersonPathViewController: UIViewController, UIScrollViewDelegate, ModalTransitionDelegate {
     var tr_presentTransition: TRViewControllerTransitionDelegate?
-    
-//    var tr_pushTransition: TRNavgationTransitionDelegate?
     
     @IBOutlet weak var scrollView: UIScrollView!
     
     @IBAction func toSpaceBtnClicked(_ sender: UIButton) {
-//        self.dismiss(animated: true, completion: nil)
-//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SpaceVC")
-//        self.present(vc!, animated: true)
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SpaceVC") as! SpaceViewController
         vc.modalDelegate = self
         tr_presentViewController(vc, method: TRPresentTransitionMethod.scanbot(present: nil, dismiss: vc.dismissGestureRecognizer), completion: {
             print("Present finished")
         })
-        
     }
     
-    var central:CBCentralManager!
-    //跳到蓝牙绑卡
-    @IBAction func toBluetoothBtnClicked(_ sender: UIButton) {
-        //初始化本地中心设备对象
-        central = CBCentralManager.init(delegate: self, queue: nil)
-    }
-    
-    //MARK: -2.检查设备自身（中心设备）支持的蓝牙状态
-    // CBCentralManagerDelegate的代理方法
-    
-    /// 本地设备状态
-    ///
-    /// - Parameter central: 中心者对象
-    func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        switch central.state {
-        case .unknown:
-            print("CBCentralManager state:", "unknown")
-            break
-        case .resetting:
-            print("CBCentralManager state:", "resetting")
-            break
-        case .unsupported:
-            print("CBCentralManager state:", "unsupported")
-            break
-        case .unauthorized:
-            print("CBCentralManager state:", "unauthorized")
-            break
-        case .poweredOff:
-            print("CBCentralManager state:", "power off")
-            //            AlertMessage.showAlertMessage(vc: self, alertMessage: "请打开蓝牙！", duration: 1)
-            break
-        case .poweredOn:
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "bluetoothVC")
-            vc?.modalTransitionStyle = .crossDissolve
-            self.present(vc!, animated: true)
-            break
-        }
-    }
-
     
     @IBAction func toScanBtnClicked(_ sender: UIButton) {
         //跳到扫一扫
@@ -82,6 +38,13 @@ class PersonPathViewController: UIViewController, CBCentralManagerDelegate, UISc
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "PersonalCenterVC")
         vc?.modalTransitionStyle = .crossDissolve
         self.present(vc!, animated: true)
+    }
+    
+    //门口管理
+    @IBAction func doorManageBtn(_ sender: UIButton) {
+        let vc = DoorCardManageVC()
+        let nav = UINavigationController(rootViewController: vc)
+        present(nav, animated: true, completion: nil)
     }
     
     override func viewDidLayoutSubviews() {
@@ -100,8 +63,6 @@ class PersonPathViewController: UIViewController, CBCentralManagerDelegate, UISc
         default:
             break
         }
-        
-       
     }
     
     override func viewDidLoad() {
@@ -146,6 +107,15 @@ class PersonPathViewController: UIViewController, CBCentralManagerDelegate, UISc
         UserDefaults.standard.synchronize()
     }
     
+    //报事投诉
+    @IBAction func reportBtnClicked(_ sender: UIButton) {
+        let controller = WebViewController(url: URL(string: "http://202.105.96.131:3002/xa")!)
+        controller.displaysWebViewTitle = true
+        let nav = UINavigationController(rootViewController: controller)
+        nav.modalTransitionStyle = .crossDissolve
+        present(nav, animated: true, completion: nil)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // 下拉弹出space
@@ -158,6 +128,7 @@ class PersonPathViewController: UIViewController, CBCentralManagerDelegate, UISc
         })
         
         if UserDefaults.standard.bool(forKey: "notFirstGuideThree") == false{
+            
             //添加第三张图片
             returnToSpaceImg = UIImageView(image: UIImage(named: "returnToSpace"))
             self.view.addSubview(returnToSpaceImg!)
@@ -167,7 +138,9 @@ class PersonPathViewController: UIViewController, CBCentralManagerDelegate, UISc
             let tap3 = UITapGestureRecognizer(target: self, action: #selector(tapReturnToSpaceGesture(sender:)))
             returnToSpaceImg?.isUserInteractionEnabled = true
             returnToSpaceImg?.addGestureRecognizer(tap3)
-            
+            let pan = UIPanGestureRecognizer(target: self, action: #selector(tapReturnToSpaceGesture(sender:)))
+            pan.delegate = self
+            returnToSpaceImg?.addGestureRecognizer(pan)
         }
     }
     

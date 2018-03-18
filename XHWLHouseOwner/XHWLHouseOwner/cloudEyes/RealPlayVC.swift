@@ -176,7 +176,6 @@ class RealPlayVC: UIViewController,RealPlayManagerDelegate, PlayViewDelegate {
         }
         
         g_playManager.stopRealPlay()
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -184,8 +183,6 @@ class RealPlayVC: UIViewController,RealPlayManagerDelegate, PlayViewDelegate {
         playView?.frame = self.containPlayView.bounds
         g_activity.center = (g_activity.superview?.center)!
     }
-    
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

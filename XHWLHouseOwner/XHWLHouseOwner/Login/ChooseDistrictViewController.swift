@@ -5,9 +5,8 @@
 //  Copyright © 2017年 xinghaiwulian. All rights reserved.
 
 import UIKit
-import ElasticTransition
 
-class ChooseDistrictViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, ElasticMenuTransitionDelegate, XHWLNetworkDelegate {
+class ChooseDistrictViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, XHWLNetworkDelegate {
     
     @IBOutlet weak var districtPickerView: UIPickerView!
 
@@ -21,24 +20,6 @@ class ChooseDistrictViewController: UIViewController, UIPickerViewDelegate, UIPi
     override var preferredStatusBarStyle: UIStatusBarStyle { return UIStatusBarStyle.lightContent }
     
     @IBAction func returnBtnClicked(_ sender: UIButton) {
-        //从沙盒中获得curInfomodel，并且更新curProject
-        var curInfoData = UserDefaults.standard.object(forKey: "curInfo") as! NSData
-        var curInfoModel = XHWLCurrentInfoModel.mj_object(withKeyValues: curInfoData.mj_JSONObject())
-        //取出user的信息
-        let data = UserDefaults.standard.object(forKey: "user") as? NSData
-        let userModel = XHWLUserModel.mj_object(withKeyValues: data?.mj_JSONObject())
-        if #available(iOS 10.0, *) {
-            AppDelegate.shared().getWilddogToken(curInfoModel?.curProject.projectCode as! String, userModel?.telephone as! String)
-        } else {
-            
-        }
-        
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SpaceVC") as! SpaceViewController
-        if (curInfoModel?.isFirstToSpace)! {
-            self.view.window?.rootViewController = vc
-            curInfoModel?.setValue(false, forKey: "isFirstToSpace")
-        }
-        UserDefaults.standard.synchronize()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -48,11 +29,18 @@ class ChooseDistrictViewController: UIViewController, UIPickerViewDelegate, UIPi
         var curInfoData = UserDefaults.standard.object(forKey: "curInfo") as! NSData
         var curInfoModel = XHWLCurrentInfoModel.mj_object(withKeyValues: curInfoData.mj_JSONObject())
         curInfoModel?.setValue(self.projectListArray![districtPickerView.selectedRow(inComponent: 0)] as! XHWLProjectModel, forKey: "curProject")
+        curInfoData = curInfoModel?.mj_JSONData() as! NSData
+        UserDefaults.standard.set(curInfoData, forKey: "curInfo")
         UserDefaults.standard.synchronize()
         //重新请求更新沙盒授权门禁列表
         //取出user的信息
         let data = UserDefaults.standard.object(forKey: "user") as? NSData
         let userModel = XHWLUserModel.mj_object(withKeyValues: data?.mj_JSONObject())
+        
+        if #available(iOS 10.0, *) {
+            AppDelegate.shared().getWilddogToken(curInfoModel?.curProject.projectCode as! String, userModel?.telephone as! String)
+        } else {
+        }
         
         let date = Date()
         let timeFormatter = DateFormatter()
@@ -60,12 +48,11 @@ class ChooseDistrictViewController: UIViewController, UIPickerViewDelegate, UIPi
         let strNowTime = timeFormatter.string(from: date)
         let dateToken = (strNowTime+"adminXH").md5
         let params = ["projectCode":curInfoModel?.curProject.projectCode,"token":dateToken,"userName":userModel?.name,"phone":userModel?.telephone]
-        XHWLNetwork.shared.postGetAllDoors(params as NSDictionary, self)
+        XHWLNetwork.sharedManager().postGetAllDoors(params as NSDictionary, self)
         
         self.dismiss(animated: true, completion: nil)
         //重新保存到沙盒
         self.noticeSuccess("您选择了 \((self.projectListArray![districtPickerView.selectedRow(inComponent: 0)] as! XHWLProjectModel).name)",autoClearTime:1)
-        
     }
     
     override func viewDidLoad() {
@@ -81,7 +68,6 @@ class ChooseDistrictViewController: UIViewController, UIPickerViewDelegate, UIPi
         //从沙盒中加载数据
         projectListData = UserDefaults.standard.object(forKey: "projectList") as? NSData
         projectListArray = XHWLProjectModel.mj_objectArray(withKeyValuesArray: projectListData?.mj_JSONObject()) as? NSArray
-        
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -115,6 +101,7 @@ class ChooseDistrictViewController: UIViewController, UIPickerViewDelegate, UIPi
         switch requestKey {
         case XHWLRequestKeyID.XHWL_GETALLDOORS.rawValue:
             onSaveDoorValues(response)
+            
             break
         default:
             break
@@ -141,6 +128,9 @@ class ChooseDistrictViewController: UIViewController, UIPickerViewDelegate, UIPi
             break
         case 111,-1,2:
             (response["message"] as! String).ext_debugPrintAndHint()
+//            UserDefaults.standard.removeObject(forKey: "personId")
+//            UserDefaults.standard.removeObject(forKey: "openData")
+            UserDefaults.standard.removeObject(forKey: "allDoorList")
             break
         default:
             break

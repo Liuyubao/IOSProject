@@ -53,17 +53,12 @@ class XHWLScanTestVC: UIViewController , XHWLScanVCDelegate, XHWLNetworkDelegate
         setupView()
     }
     
-//    func onBack(){
-////        self.navigationController?.popViewController(animated: true)
-//        self.dismiss(animated: true, completion: nil)
-//    }
     
     func onSelectPicture() {
         vc.openPhotoAlbum()
     }
     
     func setupView() {
-        
         //设置扫码区域参数设置
         var style : LBXScanViewStyle = LBXScanViewStyle()
         style.centerUpOffset = 44 // 矩形区域中心上移，默认中心点为屏幕中心点
@@ -82,6 +77,10 @@ class XHWLScanTestVC: UIViewController , XHWLScanVCDelegate, XHWLNetworkDelegate
         vc.scanStyle = style
         vc.scanDelegate = self
         vc.view.frame = CGRect(x:0, y:80, width:Screen_width, height:Screen_height-80)
+        //iphone X
+        if UIScreen.main.bounds.size.height == 812.0 {
+            vc.view.frame = CGRect(x:0, y:100, width:Screen_width, height:Screen_height-100)
+        }
         self.view.addSubview(vc.view)
         self.addChildViewController(vc)
 //        self.navigationController?.pushViewController(vc, animated: true)
@@ -122,7 +121,7 @@ class XHWLScanTestVC: UIViewController , XHWLScanVCDelegate, XHWLNetworkDelegate
             }else{
                 self.isDevice = false
             }
-            XHWLNetwork.shared.postScanResult(params as NSDictionary, self)
+            XHWLNetwork.sharedManager().postScanResult(params as NSDictionary, self)
             
             
         } else {

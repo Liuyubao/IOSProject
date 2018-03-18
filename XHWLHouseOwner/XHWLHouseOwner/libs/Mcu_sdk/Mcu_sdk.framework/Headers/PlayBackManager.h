@@ -121,10 +121,24 @@
  */
 - (BOOL)turnoffAudio;
 
-#pragma mark ************************************定制需求-文城科技OEM合作项目*************************************
+/**
+ 快进
+ 
+ @param speedTimes 倍速 每调用一次倍速*2
+ @return YES 成功  NO 失败
+ */
+- (BOOL)playBackFast:(int)speedTimes;
 
 /**
- 获取录像信息
+ 慢进
+ 
+ @param speedTimes 倍速 每调用一次倍速/2
+ @return YES 成功  NO 失败
+ */
+- (BOOL)playBackSlow:(int)speedTimes;
+
+/**
+ 获取录像片段信息
 
  @param cameraSyscode 监控点syscode
  @param date 日期
@@ -141,12 +155,13 @@
  @param cameraSyscode 监控点syscode
  @param playView 播放画面
  @param pos 存储介质
- @param recordSegment 录像信息模型
+ @param beginTime 开始时间（可从recordsegment模型中取得）
+ @param endTime 结束时间 可从recordsegment模型中取得）
  @param recordInfo 所有录像信息模型
  @param complete finish:YES 回放成功 NO 回放失败
                  message：返回信息
  */
-- (void)startPlayBackEx:(NSString *)cameraSyscode playView:(UIView *)playView recordPos:(NSString *)pos date:(CRecordSegment *)recordSegment recordInfo:(CRecordInfo *)recordInfo complete:(void(^)(BOOL finish, NSString *message))complete;
+- (void)startPlayBackEx:(NSString *)cameraSyscode playView:(UIView *)playView recordPos:(NSString *)pos beginTime:(TIME_STRUCT)beginTime endTime:(TIME_STRUCT)endTime recordInfo:(CRecordInfo *)recordInfo complete:(void(^)(BOOL finish, NSString *message))complete;
 
 @end
 

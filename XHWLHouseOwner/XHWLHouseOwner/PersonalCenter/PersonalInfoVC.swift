@@ -7,12 +7,12 @@
 //
 
 import UIKit
+import DropDown
 
 class PersonalInfoVC: UIViewController,UITextFieldDelegate ,UIScrollViewDelegate, XHWLNetworkDelegate{
     @IBAction func returnBtnClicked(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
-    
     
     @IBOutlet weak var personalInfoView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -23,14 +23,11 @@ class PersonalInfoVC: UIViewController,UITextFieldDelegate ,UIScrollViewDelegate
     @IBOutlet weak var editBtn: UIButton!
     
     //性别的行控件
-    @IBOutlet weak var sexTF: UITextField!
-    @IBOutlet weak var conformSexBtn: UIButton!
-    @IBOutlet weak var editSexBtn: UIButton!
+    @IBOutlet weak var sexBtn: UIButton!
+    let sexDD = DropDown()  // 性别下拉框
     
     //手机号行控件
     @IBOutlet weak var phoneTF: UITextField!
-    @IBOutlet weak var conformPhoneBtn: UIButton!
-    @IBOutlet weak var editPhoneBtn: UIButton!
     
     //修改绑定微信
     @IBOutlet weak var changeWechatBtn: UIButton!
@@ -41,6 +38,33 @@ class PersonalInfoVC: UIViewController,UITextFieldDelegate ,UIScrollViewDelegate
     @IBOutlet weak var pswStateLabel: UILabel!
     @IBOutlet weak var headIconIV: UIImageView!
     
+    //暂存微信名称和微信头像
+    var wechatNickName = ""
+    var wechatHeadIconUrl = ""
+    
+    //配置sex下拉框
+    func setupSexDropDown() {
+        sexDD.anchorView = sexBtn
+        
+        sexDD.bottomOffset = CGPoint(x: 0, y: sexBtn.bounds.height)
+        
+        // You can also use localizationKeysDataSource instead. Check the docs.
+        sexDD.dataSource = [
+            "男",
+            "女"
+        ]
+        
+        // Action triggered on selection
+        sexDD.selectionAction = { [unowned self] (index, item) in
+            self.sexBtn.setTitle(item, for: .normal)
+        }
+        
+    }
+    @IBAction func sexBtnClicked(_ sender: UIButton) {
+        sexDD.show()
+        self.isInfoChanged = true
+    }
+    
     //修改密码事件
     @IBAction func changePswBtnClicked(_ sender: UIButton) {
         //取出user的信息
@@ -48,7 +72,7 @@ class PersonalInfoVC: UIViewController,UITextFieldDelegate ,UIScrollViewDelegate
         let userModel = XHWLUserModel.mj_object(withKeyValues: data.mj_JSONObject())
         
         let params = ["telephone": userModel?.telephone as! String]
-        XHWLNetwork.shared.postVeriCode(params as NSDictionary, self)
+        XHWLNetwork.sharedManager().postVeriCode(params as NSDictionary, self)
     }
     
     @IBAction func changeWechatBtnClicked(_ sender: UIButton) {
@@ -78,7 +102,7 @@ class PersonalInfoVC: UIViewController,UITextFieldDelegate ,UIScrollViewDelegate
                 let data = UserDefaults.standard.object(forKey:"user") as! NSData
                 let userModel = XHWLUserModel.mj_object(withKeyValues:data.mj_JSONObject())
                 let params = ["id": userModel?.sysAccount.id]
-                XHWLNetwork.shared.postBindWechat(params as NSDictionary, self)
+                XHWLNetwork.sharedManager().postBindWechat(params as NSDictionary, self)
             }
         }
     }
@@ -116,17 +140,13 @@ class PersonalInfoVC: UIViewController,UITextFieldDelegate ,UIScrollViewDelegate
             DispatchQueue.main.async {
                 let jsonResult = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String,Any>
                 //保存nickname到沙盒
-                print(jsonResult)
-                if self.wechatNameLabel.text == "未绑定"{
-                    UserDefaults.standard.set(jsonResult["nickname"] as! String, forKey: "nickName")
-                    UserDefaults.standard.set(jsonResult["headimgurl"] as! String, forKey: "imageUrl")
-                    UserDefaults.standard.synchronize()
-                }
+                self.wechatNickName = jsonResult["nickname"] as! String
+                self.wechatHeadIconUrl = jsonResult["headimgurl"] as! String
                 //绑定微信
                 let data = UserDefaults.standard.object(forKey:"user") as! NSData
                 let userModel = XHWLUserModel.mj_object(withKeyValues:data.mj_JSONObject())
                 let params = ["id": userModel?.sysAccount.id, "openId":openid, "nickName":jsonResult["nickname"] as! String, "imageUrl":jsonResult["headimgurl"] as! String]
-                XHWLNetwork.shared.postBindWechat(params as NSDictionary, self)
+                XHWLNetwork.sharedManager().postBindWechat(params as NSDictionary, self)
             }
         }
     }
@@ -141,7 +161,8 @@ class PersonalInfoVC: UIViewController,UITextFieldDelegate ,UIScrollViewDelegate
         let data:NSData = UserDefaults.standard.object(forKey: "user") as! NSData
         let userModel:XHWLUserModel = XHWLUserModel.mj_object(withKeyValues: data.mj_JSONObject())
         let params = ["token": userModel.sysAccount.token]
-        XHWLNetwork.shared.postLogout(params as NSDictionary, self)
+        self.isInfoChanged = false
+        XHWLNetwork.sharedManager().postLogout(params as NSDictionary, self)
     }
     
     func requestSuccess(_ requestKey:NSInteger, _ response:[String : AnyObject]) {
@@ -150,8 +171,10 @@ class PersonalInfoVC: UIViewController,UITextFieldDelegate ,UIScrollViewDelegate
             UserDefaults.standard.removeObject(forKey: "user")
             UserDefaults.standard.removeObject(forKey: "projectList")
             UserDefaults.standard.removeObject(forKey: "roomList")
-            UserDefaults.standard.removeObject(forKey: "nickName")
+            UserDefaults.standard.removeObject(forKey: "wechatNickName")
             UserDefaults.standard.removeObject(forKey: "imageUrl")
+            UserDefaults.standard.removeObject(forKey: "sex")
+            
             UserDefaults.standard.synchronize()
             
             JPUSHService.deleteAlias(nil, seq: 0)
@@ -169,9 +192,21 @@ class PersonalInfoVC: UIViewController,UITextFieldDelegate ,UIScrollViewDelegate
             case 200:
                 if wechatNameLabel.text == "未绑定"{
                     "绑定成功".ext_debugPrintAndHint()
+                    
+                    UserDefaults.standard.set(self.wechatNickName, forKey: "wechatNickName")
+                    UserDefaults.standard.set(self.wechatHeadIconUrl, forKey: "imageUrl")
+                    //更新沙河中user的wechatNickName 和 imageUrl
+                    userModel?.sysAccount.setValue(self.wechatNickName, forKey: "weChatNickName")
+                    userModel?.sysAccount.setValue(self.wechatHeadIconUrl, forKey: "imageUrl")
+                    //将用户信息存入沙盒
+                    data = userModel?.mj_JSONData() as! NSData
+                    UserDefaults.standard.set(data, forKey: "user")
+                    UserDefaults.standard.synchronize()
+                    
+                    UserDefaults.standard.synchronize()
                     self.viewDidLoad()
                 }else{
-                    UserDefaults.standard.removeObject(forKey: "nickName")
+                    UserDefaults.standard.removeObject(forKey: "wechatNickName")
                     UserDefaults.standard.removeObject(forKey: "openId")
                     UserDefaults.standard.removeObject(forKey: "access_token")
                     UserDefaults.standard.removeObject(forKey: "code")
@@ -200,6 +235,10 @@ class PersonalInfoVC: UIViewController,UITextFieldDelegate ,UIScrollViewDelegate
                 break
             }
             break
+        case XHWLRequestKeyID.XHWL_UPDATEINFO.rawValue:
+            self.isInfoChanged = false
+            "更新个人信息成功".ext_debugPrintAndHint()
+            break
         default:
             break
         }
@@ -207,28 +246,6 @@ class PersonalInfoVC: UIViewController,UITextFieldDelegate ,UIScrollViewDelegate
     
     func requestFail(_ requestKey:NSInteger, _ error:NSError) {
         
-    }
-    
-    
-    //设置手机号可编辑
-    func editPhoneBtnClicked(){
-        phoneTF.isEnabled = true
-        phoneTF.backgroundColor = UIColor.darkGray
-        editPhoneBtn.isHidden = true
-        conformPhoneBtn.isHidden = false
-        phoneTF.becomeFirstResponder()
-    }
-    
-    //确认手机号赋值
-    func conformPhoneEditBtnClicked(){
-        userModel?.setValue(phoneTF.text, forKey: "telephone")
-        data = userModel?.mj_JSONData()! as! NSData
-        UserDefaults.standard.set(data, forKey: "user")
-        
-        phoneTF.isEnabled = false
-        phoneTF.backgroundColor = UIColor.clear
-        conformPhoneBtn.isHidden = true
-        editPhoneBtn.isHidden = false
     }
     
     //设置可编辑
@@ -240,12 +257,14 @@ class PersonalInfoVC: UIViewController,UITextFieldDelegate ,UIScrollViewDelegate
         nameTF.becomeFirstResponder()
     }
     
+    var isInfoChanged: Bool = false //name和sex是否改变，改变则调用修改个人信息接口
+    
     //确认则赋值
     func conformEditBtnClicked(){
-        userModel?.setValue(nameTF.text, forKey: "name")
+        userModel?.sysAccount.setValue(nameTF.text, forKey: "nickName")
         data = userModel?.mj_JSONData()! as! NSData
         UserDefaults.standard.set(data, forKey: "user")
-        
+        self.isInfoChanged = true
         nameTF.isEnabled = false
         nameTF.backgroundColor = UIColor.clear
         conformEditBtn.isHidden = true
@@ -253,34 +272,14 @@ class PersonalInfoVC: UIViewController,UITextFieldDelegate ,UIScrollViewDelegate
     }
     
     
-    //设置性别可编辑
-    func editSexBtnClicked(){
-        
-        
-        sexTF.isEnabled = true
-        sexTF.backgroundColor = UIColor.darkGray
-        editSexBtn.isHidden = true
-        conformSexBtn.isHidden = false
-        sexTF.becomeFirstResponder()
-    }
     
-    //确认性别则赋值
-    func conformSexEditBtnClicked(){
-        userModel?.setValue(sexTF.text, forKey: "sex")
-        data = userModel?.mj_JSONData()! as! NSData
-        UserDefaults.standard.set(data, forKey: "user")
-        
-        sexTF.isEnabled = false
-        sexTF.backgroundColor = UIColor.clear
-        conformSexBtn.isHidden = true
-        editSexBtn.isHidden = false
-    }
     
     var data: NSData?
     var userModel: XHWLUserModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupSexDropDown()
         
         scrollView.contentSize = CGSize(width: personalInfoView.frame.width, height: personalInfoView.frame.height)
         data = UserDefaults.standard.object(forKey: "user") as? NSData
@@ -293,16 +292,21 @@ class PersonalInfoVC: UIViewController,UITextFieldDelegate ,UIScrollViewDelegate
         
         // MARK: - 初始化界面变量
         //初始化个人信息
-        nameTF.text = userModel?.name
-        if userModel?.sex == "M"{
-            sexTF.text = "男"
+        
+        nameTF.text = userModel?.sysAccount.nickName
+        if userModel?.sysAccount.nickName == ""{
+            nameTF.text = "未设置"
+        }
+        
+        if (userModel?.sysAccount.sex)!{
+            sexBtn.setTitle("男", for: .normal)
         }else{
-            sexTF.text = "女"
+            sexBtn.setTitle("女", for: .normal)
         }
         phoneTF.text = userModel?.telephone
         
         //绑定状态、密码状态更改
-        if let wechatNickName = UserDefaults.standard.object(forKey: "nickName") as? String{
+        if let wechatNickName = UserDefaults.standard.object(forKey: "wechatNickName") as? String{
             self.wechatNameLabel.text = wechatNickName
         }else{
             self.wechatNameLabel.text = "未绑定"
@@ -336,26 +340,18 @@ class PersonalInfoVC: UIViewController,UITextFieldDelegate ,UIScrollViewDelegate
         nameTF.isEnabled = false
         nameTF.textColor = UIColor.white
         
-        //性别编辑
-        editSexBtn.addTarget(self, action: #selector(editSexBtnClicked), for: .touchUpInside)
-        conformSexBtn.addTarget(self, action: #selector(conformSexEditBtnClicked), for: .touchUpInside)
-        conformSexBtn.isHidden = true
-        sexTF.isEnabled = false
-        sexTF.textColor = UIColor.white
         
         //手机号编辑
-        editPhoneBtn.addTarget(self, action: #selector(editPhoneBtnClicked), for: .touchUpInside)
-        conformPhoneBtn.addTarget(self, action: #selector(conformPhoneEditBtnClicked), for: .touchUpInside)
-        conformPhoneBtn.isHidden = true
         phoneTF.isEnabled = false
         phoneTF.textColor = UIColor.white
         
-        
+        isInfoChanged = false
+        if WXApi.isWXAppInstalled(){
+            self.changeWechatBtn.isEnabled = true
+        }else{
+            self.changeWechatBtn.isEnabled = false
+        }
     }
-    
-    
-
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -367,6 +363,35 @@ class PersonalInfoVC: UIViewController,UITextFieldDelegate ,UIScrollViewDelegate
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "WXPersonalInfoVCNotification"), object: nil)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if self.isInfoChanged{
+            
+            //取出user的信息
+            var data = UserDefaults.standard.object(forKey: "user") as? NSData
+            var userModel = XHWLUserModel.mj_object(withKeyValues: data?.mj_JSONObject())
+            let token = userModel?.sysAccount.token
+            let name = self.nameTF.text
+            let sex = self.sexBtn.currentTitle
+            var upSex = true
+            if sex == "男"{
+                upSex = true
+            }else{
+                upSex = false
+            }
+            let params = ["id":userModel?.sysAccount.id as! String,"sex":upSex,"nickName":name!,"token":token!] as [String : Any]
+            XHWLNetwork.sharedManager().postUpdateInfo(params as NSDictionary, self)
+            //更新沙河中sex变量
+            if sexBtn.currentTitle == "男"{
+                userModel?.sysAccount.setValue(true, forKey: "sex")
+            }else{
+                userModel?.sysAccount.setValue(false, forKey: "sex")
+            }
+            data = userModel?.mj_JSONData()! as! NSData
+            UserDefaults.standard.set(data, forKey: "user")
+            UserDefaults.standard.synchronize()
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -375,8 +400,6 @@ class PersonalInfoVC: UIViewController,UITextFieldDelegate ,UIScrollViewDelegate
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        
     }
     
 

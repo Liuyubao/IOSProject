@@ -20,7 +20,7 @@ class PublicDoorLIstTableVC: UITableViewController, XHWLNetworkDelegate {
         
         //添加公区门到门禁列表中
         let publicParams = ["projectId": curInfoModel?.curProject.id]
-        XHWLNetwork.shared.postPublicDoorList(publicParams as NSDictionary, self)
+        XHWLNetwork.sharedManager().postPublicDoorList(publicParams as NSDictionary, self)
 
     }
     

@@ -177,6 +177,14 @@ typedef void (CALLBACK *fStatusCallBack)(PLAY_STATE playState, VP_HANDLE hLogin,
 VIDEOPLAYSDKAPI bool VP_InitSDK(void);
 
 /**
+ 打印取流日志
+     
+ @param iflag  0-关闭日志，1-打印日志
+ @return YES 成功 NO 失败
+ */
+VIDEOPLAYSDKAPI bool VP_SetPrint(BOOL iflag);
+    
+/**
  *	@brief	反初始化sdk
  *
  *	@return	true 成功 false 失败

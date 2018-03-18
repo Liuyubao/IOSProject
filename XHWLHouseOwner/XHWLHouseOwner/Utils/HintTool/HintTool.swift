@@ -82,7 +82,7 @@ class HintTool {
         self.hintView = hintView
         
         // 消失
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
             [weak self] in
             if !hintTask.isDismissed {
                 self?.dismissHint(interrupted: false ,hintTask)

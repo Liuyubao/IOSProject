@@ -30,7 +30,8 @@
 #import <AgoraRtcCryptoLoader/AgoraRtcCryptoLoader.h>
 #import "AGVideoPreProcessing.h"
 
-////Wilddog sdk
+//Wilddog sdk
+#import "AudioManager.h"
 //#import <WilddogSync/WilddogSync.h>
 //#import <WilddogAuth/WilddogAuth.h>
 //#import <WilddogVideoBase/WilddogVideoBase.h>

@@ -60,7 +60,7 @@ class EditAccountVC: UIViewController, XHWLNetworkDelegate {
         
         let params = ["token":userModel?.sysAccount.token,"name":self.userNameTF.text as! String,"type":self.typeBtn.currentTitle as! String,"telephone":self.telephoneTF.text as! String,"identity":self.nationalIdTF.text as! String,"rights":giveRights]
         
-        XHWLNetwork.shared.postAddAccount(params as NSDictionary, self)
+        XHWLNetwork.sharedManager().postAddAccount(params as NSDictionary, self)
         
     }
     

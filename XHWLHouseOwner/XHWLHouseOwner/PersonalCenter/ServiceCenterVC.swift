@@ -58,7 +58,7 @@ class ServiceCenterVC: UIViewController,XHWLNetworkDelegate, UITableViewDelegate
         //推送给400客服
         let params = ["alias": "test","title":"test", "msg": "test", "pushToWebMsg": "{\"videoRoom\":\"400\",\"from\":\"xx\",\"to\":\"xx\",\"type\": \"video\"}"]
         print("@@@@@params", params["pushToWebMsg"] as! String)
-        XHWLNetwork.shared.postJPushMsg(params as NSDictionary, self)
+        XHWLNetwork.sharedManager().postJPushMsg(params as NSDictionary, self)
         let mainVC = self.storyboard?.instantiateViewController(withIdentifier: "CloudTalkingLoginVC") as! MainViewController
         mainVC.modalTransitionStyle = .crossDissolve
         self.present(mainVC, animated: true, completion: nil)
@@ -125,7 +125,7 @@ class ServiceCenterVC: UIViewController,XHWLNetworkDelegate, UITableViewDelegate
         let curInfoModel = XHWLCurrentInfoModel.mj_object(withKeyValues: curInfoData.mj_JSONObject())
         
         let params = ["projectId": curInfoModel?.curProject.id, "token": userModel.sysAccount.token]
-        XHWLNetwork.shared.postServiceList(params as NSDictionary, self)
+        XHWLNetwork.sharedManager().postServiceList(params as NSDictionary, self)
     }
 
     override func didReceiveMemoryWarning() {

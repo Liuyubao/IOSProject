@@ -41,7 +41,7 @@ class BindSetPswVC: UIViewController, XHWLNetworkDelegate {
         let openId = UserDefaults.standard.object(forKey: "openId") as! String
         //取出user的信息
         let params = ["telephone":self.telephone, "password":self.conformPswTF.text as! String, "openId":openId]
-        XHWLNetwork.shared.postChangePsw(params as NSDictionary, self)
+        XHWLNetwork.sharedManager().postChangePsw(params as NSDictionary, self)
         
     }
     
@@ -162,7 +162,7 @@ class BindSetPswVC: UIViewController, XHWLNetworkDelegate {
                 //传给testVerificatCode接口的参数
                 let openId = UserDefaults.standard.object(forKey: "openId") as! String
                 let params = ["openId":openId]
-                XHWLNetwork.shared.postWechatLogin(params as NSDictionary, self)
+                XHWLNetwork.sharedManager().postWechatLogin(params as NSDictionary, self)
                 break
             default:
                 break

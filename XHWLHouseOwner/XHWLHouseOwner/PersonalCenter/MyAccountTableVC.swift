@@ -24,7 +24,7 @@ class MyAccountTableVC: UITableViewController, XHWLNetworkDelegate {
         let data = UserDefaults.standard.object(forKey: "user") as! NSData
         let userModel = XHWLUserModel.mj_object(withKeyValues: data.mj_JSONObject())
         let params = ["token":userModel?.sysAccount.token,"ownerId":userModel?.sysAccount.id]
-        XHWLNetwork.shared.postAccountList(params as NSDictionary, self)
+        XHWLNetwork.sharedManager().postAccountList(params as NSDictionary, self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,7 +55,7 @@ class MyAccountTableVC: UITableViewController, XHWLNetworkDelegate {
             let data = UserDefaults.standard.object(forKey: "user") as! NSData
             let userModel = XHWLUserModel.mj_object(withKeyValues: data.mj_JSONObject())
             let params = ["attachedTelephone":self.accountArray[indexPath.row]["telephone"] as! String,"token":userModel?.sysAccount.token]
-            XHWLNetwork.shared.postDeleteAccount(params as NSDictionary, self)
+            XHWLNetwork.sharedManager().postDeleteAccount(params as NSDictionary, self)
         }
         if self.accountArray[indexPath.row]["state"] == "N"{
             cell.stopBtn.setTitle("停用", for: .normal)
@@ -65,7 +65,7 @@ class MyAccountTableVC: UITableViewController, XHWLNetworkDelegate {
                 let data = UserDefaults.standard.object(forKey: "user") as! NSData
                 let userModel = XHWLUserModel.mj_object(withKeyValues: data.mj_JSONObject())
                 let params = ["stat":"D","attachedTelephone":self.accountArray[indexPath.row]["telephone"] as! String,"token":userModel?.sysAccount.token]
-                XHWLNetwork.shared.postSetAccountState(params as NSDictionary, self)//设置成功之后，tableview会在viewdidload中自己更新indicatorColor
+                XHWLNetwork.sharedManager().postSetAccountState(params as NSDictionary, self)//设置成功之后，tableview会在viewdidload中自己更新indicatorColor
             }
         }else{
             cell.stopBtn.setTitle("启用", for: .normal)
@@ -75,7 +75,7 @@ class MyAccountTableVC: UITableViewController, XHWLNetworkDelegate {
                 let data = UserDefaults.standard.object(forKey: "user") as! NSData
                 let userModel = XHWLUserModel.mj_object(withKeyValues: data.mj_JSONObject())
                 let params = ["stat":"N","attachedTelephone":self.accountArray[indexPath.row]["telephone"] as! String,"token":userModel?.sysAccount.token]
-                XHWLNetwork.shared.postSetAccountState(params as NSDictionary, self)//设置成功之后，tableview会在viewdidload中自己更新indicatorColor
+                XHWLNetwork.sharedManager().postSetAccountState(params as NSDictionary, self)//设置成功之后，tableview会在viewdidload中自己更新indicatorColor
             }
         }
         

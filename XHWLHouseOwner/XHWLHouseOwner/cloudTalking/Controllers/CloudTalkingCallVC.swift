@@ -17,7 +17,7 @@ class CloudTalkingCallVC: UIViewController,XHWLNetworkDelegate {
     @IBAction func rejectBtnClicked(_ sender: UIButton) {
         if callType == 2{
             let params = ["wyAlias":self.wyAlias,"yzOperator":"refuse","msg":"挂断"]
-            XHWLNetwork.shared.postVisitorReply(params as NSDictionary, self)
+            XHWLNetwork.sharedManager().postVisitorReply(params as NSDictionary, self)
         }
         self.dismiss(animated: true, completion: nil)
     }

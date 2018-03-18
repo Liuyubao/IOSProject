@@ -8,9 +8,9 @@ import UIKit
 import Foundation
 import Alamofire
 
-//let XHWLHttpURL :String = "http://112.74.19.135:1111/ssh/v1"
-//let XHWLHttpURL :String = "http://192.168.2.101:9002"
-//let XHWLHttpURL :String = "http://192.168.1.154:8080"
+//let XHWLHttpURL:String = "http://112.74.19.135:1111/ssh/v1"
+//let XHWLHttpURL:String = "http://192.168.2.101:9002"
+//let XHWLHttpURL:String = "http://192.168.1.154:8080"
 //let XHWLHttpURL:String = "http://120.77.83.190:8080/ssh/v1"
 //let XHWLHttpURL:String = "http://10.51.37.54:8080/ssh/v1"
 let XHWLHttpURL:String = "http://202.105.104.105:8006/ssh"
@@ -28,28 +28,17 @@ class XHWLHttpTool: NSObject {
      *  超时时间
      */
     var validTime:NSInteger? = 30 // 默认超时时间为10妙
-    weak var delegate:XHWLHttpToolDelegate?
+    var delegate:XHWLHttpToolDelegate?
     var requestKey:XHWLRequestKeyID?
     var _isCancelled:Bool = false
     
-    
-    // 单例
-//    class var sharedInstance: XHWLHttpTool {
-//        struct Static {
-//            static let instance = XHWLHttpTool()
-//        }
-//        return Static.instance
-//    }
-    
     func initWithKey(_ requestKey:XHWLRequestKeyID, _ delegate:XHWLHttpToolDelegate) {
-        
         self.requestKey = requestKey
         self.delegate = delegate
     }
     
     // 获取请求URL
     func requestWithKey() -> String {
-        
         print("\(self.requestKey)")
         let transId = XHWLRequestKeyDefine.shared.trandIdDict.object(forKey: self.requestKey ?? 0) as! String
         
@@ -62,19 +51,14 @@ class XHWLHttpTool: NSObject {
     
     // GET 请求方式
     func getHttpTool(_ parameters: NSArray) {
-
         let paramStr:String = parameters.componentsJoined(by: "/") as String
         var requestUrl:String = requestWithKey()
         if !paramStr.isEmpty {
            requestUrl = "\(requestUrl)/\(paramStr)"
         }
         print("requestUrl = \(requestUrl) \n")
-        
-        
         Alamofire.request(requestUrl, method: .get, parameters: [:], encoding: URLEncoding.default)
             .responseJSON { response in
-//                ®
-                
                 switch response.result {
                 case .success(let value):
                     print("success:\(value)")
@@ -89,10 +73,8 @@ class XHWLHttpTool: NSObject {
                     default:
                         break
                     }
-                    
                 case .failure(let error):
                     print("error:\(error)")
-                    
                     "请求失败！".ext_debugPrintAndHint()
                     self.delegate?.requestFail(self.requestKey!.rawValue, error as NSError)
                 }
@@ -108,8 +90,6 @@ class XHWLHttpTool: NSObject {
         Alamofire.request(requestUrl, method: .post, parameters: parameters, encoding: URLEncoding.default)
             .responseJSON { response in
 //                XHMLProgressHUD.shared.hide()
-                
-                
                 //当请求后response是我们自定义的，这个变量用于接受服务器响应的信息
                 //使用switch判断请求是否成功，也就是response的result
                 switch response.result {

@@ -6,6 +6,21 @@
 //  Copyright © 2016年 com.maramara. All rights reserved.
 
 import UIKit
+extension String{
+    /**
+     * json格式字符串 -> 字典
+     */
+    func dictionaryFromJSONString() ->NSDictionary{
+        
+        let jsonData:Data = (self as! String).data(using: .utf8)!
+        
+        let dict = try? JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers)
+        if dict != nil {
+            return dict as! NSDictionary
+        }
+        return NSDictionary()
+    }
+}
 
 extension String {
     var md5 : String{

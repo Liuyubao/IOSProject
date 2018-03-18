@@ -26,8 +26,7 @@ class PassRecordTableVC: UITableViewController, XHWLNetworkDelegate {
         let userModel = XHWLUserModel.mj_object(withKeyValues: data?.mj_JSONObject())
         
         //从userModel中获得token
-        XHWLNetwork.shared.getGetEntryLogBtnClicked([userModel?.sysAccount.token], self)
-
+        XHWLNetwork.sharedManager().getGetEntryLogBtnClicked([userModel?.sysAccount.token], self)
     }
     
     //network代理的方法
